@@ -4,10 +4,10 @@ import './css/bootstrap.css'
 import './css/style.css'
 import './css/ion.rangeSlider.min.css'
 import './css/responsive.css'
-import Header from './component/header'
-import Home from './component/home'
-import Footer from './component/footer'
-// import Products from './component/products'
+// import Header from './component/header'
+// import Home from './component/home'
+// import Footer from './component/footer'
+import Products from './component/products'
 // import About from './component/about'
 
 // Composant racine de l'application
@@ -29,10 +29,11 @@ function App () {
 
     return (
         <div>
-            <Header />
-
-            <Home />
-            <Footer />
+            {/* <Header />
+            <Home /> */}
+            <Products />
+            {/* <About />
+            <Footer /> */}
         </div>
     )
 }

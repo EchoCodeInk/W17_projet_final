@@ -27,7 +27,7 @@ const Home = () => {
                                         </div>
                                         <div className='col-md-6'>
                                             <div className='img-box'>
-                                                <img src='../images/slider-img.png' alt='' />
+                                                <img src='/public/images/slider-img.png' alt='Slider' />
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@ const Home = () => {
                                         </div>
                                         <div className='col-md-6'>
                                             <div className='img-box'>
-                                                <img src='../images/slider-img.png' alt='' />
+                                                <img src='/public/images/slider-img.png' alt='' />
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@ const Home = () => {
                                         </div>
                                         <div className='col-md-6'>
                                             <div className='img-box'>
-                                                <img src='../images/slider-img.png' alt='' />
+                                                <img src='/public/images/slider-img.png' alt='' />
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +112,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p1.png' alt='' />
+                                    <img src='/public/images/p1.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -141,7 +141,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p2.png' alt='' />
+                                    <img src='/public/images/p2.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -170,7 +170,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p3.png' alt='' />
+                                    <img src='/public/images/p3.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -199,7 +199,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p4.png' alt='' />
+                                    <img src='/public/images/p4.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -228,7 +228,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p5.png' alt='' />
+                                    <img src='/public/images/p5.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -257,7 +257,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p6.png' alt='' />
+                                    <img src='/public/images/p6.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -286,7 +286,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p7.png' alt='' />
+                                    <img src='/public/images/p7.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -315,7 +315,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p8.png' alt='' />
+                                    <img src='/public/images/p8.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -344,7 +344,7 @@ const Home = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className='box'>
                                 <div className='img-box'>
-                                    <img src='../images/p9.png' alt='' />
+                                    <img src='/public/images/p9.png' alt='' />
                                     <a href='' className='add_cart_btn'>
                                         <span>
                                             Add To Cart
@@ -408,7 +408,7 @@ const Home = () => {
                         </div>
                         <div className='col-md-6 px-0'>
                             <div className='img-box'>
-                                <img src='../images/about-img.jpg' alt='' />
+                                <img src='/public/images/about-img.jpg' alt='' />
                             </div>
                         </div>
                     </div>
@@ -430,7 +430,7 @@ const Home = () => {
                         <div className='col-md-4'>
                             <div className='box '>
                                 <div className='img-box'>
-                                    <img src='../images/w1.png' alt='' />
+                                    <img src='/public/images/w1.png' alt='' />
                                 </div>
                                 <div className='detail-box'>
                                     <h5>
@@ -445,7 +445,7 @@ const Home = () => {
                         <div className='col-md-4'>
                             <div className='box '>
                                 <div className='img-box'>
-                                    <img src='../images/w2.png' alt='' />
+                                    <img src='/public/images/w2.png' alt='' />
                                 </div>
                                 <div className='detail-box'>
                                     <h5>
@@ -460,7 +460,7 @@ const Home = () => {
                         <div className='col-md-4'>
                             <div className='box '>
                                 <div className='img-box'>
-                                    <img src='../images/w3.png' alt='' />
+                                    <img src='/public/images/w3.png' alt='' />
                                 </div>
                                 <div className='detail-box'>
                                     <h5>
@@ -509,7 +509,7 @@ const Home = () => {
                                         </div>
                                         <div className='client-id'>
                                             <div className='img-box'>
-                                                <img src='../images/client.jpg' alt='' />
+                                                <img src='/public/images/client.jpg' alt='' />
                                             </div>
                                             <div className='name'>
                                                 <h5>
@@ -541,7 +541,7 @@ const Home = () => {
                                         </div>
                                         <div className='client-id'>
                                             <div className='img-box'>
-                                                <img src='../images/client.jpg' alt='' />
+                                                <img src='/public/images/client.jpg' alt='' />
                                             </div>
                                             <div className='name'>
                                                 <h5>
@@ -573,7 +573,7 @@ const Home = () => {
                                         </div>
                                         <div className='client-id'>
                                             <div className='img-box'>
-                                                <img src='../images/client.jpg' alt='' />
+                                                <img src='/public/images/client.jpg' alt='' />
                                             </div>
                                             <div className='name'>
                                                 <h5>
