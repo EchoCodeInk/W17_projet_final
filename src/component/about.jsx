@@ -6,12 +6,12 @@ const About = () => {
 
             {/* <!-- about section --> */}
 
-            <section class='about_section'>
-                <div class='container-fluid  '>
-                    <div class='row'>
-                        <div class='col-md-5 ml-auto'>
-                            <div class='detail-box pr-md-3'>
-                                <div class='heading_container'>
+            <section className='about_section'>
+                <div className='container-fluid  '>
+                    <div className='row'>
+                        <div className='col-md-5 ml-auto'>
+                            <div className='detail-box pr-md-3'>
+                                <div className='heading_container'>
                                     <h2>
                                         We Provide Best For You
                                     </h2>
@@ -25,8 +25,8 @@ const About = () => {
                                 </a>
                             </div>
                         </div>
-                        <div class='col-md-6 px-0'>
-                            <div class='img-box'>
+                        <div className='col-md-6 px-0'>
+                            <div className='img-box'>
                                 <img src='/public/images/about-img.jpg' alt='' />
                             </div>
                         </div>

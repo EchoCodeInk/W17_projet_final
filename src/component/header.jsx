@@ -1,8 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header = ({ handleSectionChange, selectedSection }) => {
+    // const handleClick = (section) => {
+    //     handleSectionChange(section)
+    // }
     return (
         <div>
+
             {/* <!-- header section strats --> */}
             <header className='header_section'>
                 <div className='header_top'>
@@ -22,12 +27,12 @@ const Header = () => {
                                     </span>
                                 </a>
                             </div>
-                            <from className='search_form'>
-                                <input type='text' className='form-control' placeholder='Search here...' />
+                            <form className='search_form'>
+                                <input type='search' className='form-control' placeholder='Search here...' />
                                 <button className='' type='submit'>
                                     <i className='fa fa-search' aria-hidden='true' />
                                 </button>
-                            </from>
+                            </form>
                             <div className='user_option_box'>
                                 <a href='' className='account-link'>
                                     <i className='fa fa-user' aria-hidden='true' />
@@ -64,20 +69,20 @@ const Header = () => {
 
                             <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                                 <ul className='navbar-nav '>
-                                    <li className='nav-item active'>
-                                        <a className='nav-link' href='index.html'>Home <span className='sr-only'>(current)</span></a>
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/home'>Home</Link>
                                     </li>
                                     <li className='nav-item'>
-                                        <a className='nav-link' href='about.html'> About</a>
+                                        <Link className='nav-link' to='/about'>About</Link>
                                     </li>
                                     <li className='nav-item'>
-                                        <a className='nav-link' href='product.html'>Products</a>
+                                        <Link className='nav-link' to='/products'>Products</Link>
                                     </li>
                                     <li className='nav-item'>
-                                        <a className='nav-link' href='why.html'>Why Us</a>
+                                        <Link className='nav-link' to='/whyus'>Why Us</Link>
                                     </li>
                                     <li className='nav-item'>
-                                        <a className='nav-link' href='testimonial.html'>Testimonial</a>
+                                        <Link className='nav-link' to='/testimony'>Testimonial</Link>
                                     </li>
                                 </ul>
                             </div>
