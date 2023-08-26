@@ -2,9 +2,26 @@ import React from 'react'
 
 const Cart = ({ cartItems }) => {
     const calculateTotal = () => {
-        return cartItems.reduce((total, item) => total + item.price.toFixed(2) * item.quantity, 0)
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
     }
 
+    const calculateTotalFinal = () => {
+        const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+        const tps = calculateTPS()
+        const tvq = calculateTVQ()
+        return subtotal + tps + tvq
+    }
+    const calculateTPS = () => {
+        // Calcul de la TPS (ex: 5%)
+        const tpsRate = 0.05
+        return calculateTotal() * tpsRate
+    }
+
+    const calculateTVQ = () => {
+        // Calcul de la TVQ (ex: 9.975%)
+        const tvqRate = 0.09975
+        return calculateTotal() * tvqRate
+    }
     return (
         <div className='layout_padding'>
             {cartItems.length === 0
@@ -35,11 +52,21 @@ const Cart = ({ cartItems }) => {
                                 ))}
                             </tbody>
 
-                            <tfoot>
+                            <tfoot className='tfoot'>
+                                <tr>
+                                    <td className='empty-cell' colSpan='3' />
+                                    <td className='total-cell'>TPS:</td>
+                                    <td className='total-value'>${calculateTPS().toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td className='empty-cell' colSpan='3' />
+                                    <td className='total-cell'>TVQ:</td>
+                                    <td className='total-value'>${calculateTVQ().toFixed(2)}</td>
+                                </tr>
                                 <tr>
                                     <td className='empty-cell' colSpan='3' />
                                     <td className='total-cell'>Total:</td>
-                                    <td className='total-value'>${calculateTotal().toFixed(2)}</td>
+                                    <td className='total-value'>${calculateTotalFinal().toFixed(2)}</td>
                                 </tr>
                             </tfoot>
 
