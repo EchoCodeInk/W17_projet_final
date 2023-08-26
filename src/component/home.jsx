@@ -21,7 +21,7 @@ const Home = () => {
                                                 quo quidem ad optio.
                                             </p>
                                             <a href=''>
-                                                Read More
+                                                Shop now
                                             </a>
                                         </div>
                                     </div>

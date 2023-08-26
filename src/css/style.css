@@ -780,18 +780,28 @@ a:focus {
   color: inherit;
 }
 
-.nav-item>button {
-  background-color: none;
-}
-
-.nav-item.active {
-  /* Par exemple, changez la couleur de fond */
-  background-color: red;
+.profilimg {
+  border-radius: 50%;
+  height: 35px;
 
 }
 
 .evan {
   height: 200px;
+}
+
+.nav-link>h1 {
+  font-size: 100%;
+}
+
+.copyright, .copyright>a {
+  border-top: 1px solid white;
+  color: white;
+}
+
+.copyright>a {
+  border-top: none;
+  padding: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */

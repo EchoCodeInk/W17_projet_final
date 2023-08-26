@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = ({ handleSectionChange, selectedSection }) => {
-    // const handleClick = (section) => {
-    //     handleSectionChange(section)
-    // }
+const Header = () => {
     return (
         <div>
 
@@ -13,19 +10,11 @@ const Header = ({ handleSectionChange, selectedSection }) => {
                 <div className='header_top'>
                     <div className='container-fluid'>
                         <div className='top_nav_container'>
-                            <div className='contact_nav'>
-                                <a href=''>
-                                    <i className='fa fa-phone' aria-hidden='true' />
-                                    <span>
-                                        Call : +01 123455678990
-                                    </span>
-                                </a>
-                                <a href=''>
-                                    <i className='fa fa-envelope' aria-hidden='true' />
-                                    <span>
-                                        Email : demo@gmail.com
-                                    </span>
-                                </a>
+                            <div className='contact_nav profilimg'>
+                                <Link className='nav-link' to='/home'>
+                                    <h1>Sac Team Boutique</h1>
+                                </Link>
+
                             </div>
                             <form className='search_form'>
                                 <input type='search' className='form-control' placeholder='Search here...' />
@@ -34,18 +23,15 @@ const Header = ({ handleSectionChange, selectedSection }) => {
                                 </button>
                             </form>
                             <div className='user_option_box'>
-                                <a href='' className='account-link'>
+                                <Link className='nav-link' to='/account'>
                                     <i className='fa fa-user' aria-hidden='true' />
-                                    <span>
-                                        My Account
-                                    </span>
-                                </a>
-                                <a href='' className='cart-link'>
-                                    <i className='fa fa-shopping-cart' aria-hidden='true' />
-                                    <span>
-                                        Cart
-                                    </span>
-                                </a>
+                                    <img className='profilimg' src='/public/images/evan.jpg' alt='' />
+                                    <span> My Account</span>
+                                </Link>
+                                <Link className='nav-link' to='/cart'>
+                                    <i className='fa fa-cart' aria-hidden='true' />
+                                    <span> Cart</span>
+                                </Link>
                             </div>
                         </div>
 
@@ -54,11 +40,11 @@ const Header = ({ handleSectionChange, selectedSection }) => {
                 <div className='header_bottom'>
                     <div className='container-fluid'>
                         <nav className='navbar navbar-expand-lg custom_nav-container '>
-                            <a className='navbar-brand' href='index.html'>
+                            {/* <a className='navbar-brand' href='index.html'>
                                 <span>
                                     Minics
                                 </span>
-                            </a>
+                            </a> */}
 
                             <button
                                 className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent'

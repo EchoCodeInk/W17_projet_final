@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
     return (
@@ -7,7 +8,7 @@ const Footer = () => {
             <section className='info_section '>
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-md-3'>
+                        {/* <div className='col-md-3'>
                             <div className='info_contact'>
                                 <h5>
                                     <a href='' className='navbar-brand'>
@@ -29,7 +30,7 @@ const Footer = () => {
                                     demo@gmail.com
                                 </p>
                             </div>
-                        </div>
+                        </div> */}
                         <div className='col-md-3'>
                             <div className='info_info'>
                                 <h5>
@@ -47,30 +48,20 @@ const Footer = () => {
                                     Useful Link
                                 </h5>
                                 <ul>
-                                    <li>
-                                        <a href='index.html'>
-                                            Home
-                                        </a>
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/home'>Home</Link>
                                     </li>
-                                    <li>
-                                        <a href='about.html'>
-                                            About
-                                        </a>
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/products'>Products</Link>
                                     </li>
-                                    <li>
-                                        <a href='product.html'>
-                                            Products
-                                        </a>
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/about'>About</Link>
                                     </li>
-                                    <li>
-                                        <a href='why.html'>
-                                            Why Us
-                                        </a>
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/whyus'>Why Us</Link>
                                     </li>
-                                    <li>
-                                        <a href='testimonial.html'>
-                                            Testimonial
-                                        </a>
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/testimony'>Testimonial</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -111,10 +102,16 @@ const Footer = () => {
             {/* <!-- footer section --> */}
             <footer className='footer_section'>
                 <div className='container'>
-                    <p>
-                        &copy; <span id='displayYear' /> All Rights Reserved By
-                        <a href='https://html.design/'>Free Html Templates</a>
-                    </p>
+                    <div className='copyright'>
+                        <span id='displayYear'>  &copy; All Rights Reserved By</span>
+                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Evan Cholette |</a>
+                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Taoufik Boussemousse |</a>
+                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Sara Salek |</a>
+                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Antoine Ouelette |</a>
+                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Charles-Maximilien Gros |</a>
+                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Công Tai Hô</a>
+
+                    </div>
                 </div>
             </footer>
             {/* <!-- footer section --> */}

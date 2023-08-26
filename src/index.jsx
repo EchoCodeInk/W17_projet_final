@@ -1,5 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import './css/bootstrap.css'
 import './css/style.css'
 import './css/ion.rangeSlider.min.css'
@@ -11,7 +12,8 @@ import Products from './component/products'
 import About from './component/about'
 import Whyus from './component/whyus'
 import Testimony from './component/testimony'
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import Cart from './component/cart'
+import Account from './component/account'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -21,11 +23,6 @@ const root = createRoot(container)
 
 // Composant racine de l'application
 function App () {
-    // const [selectedSection, setSelectedSection] = useState('home') // Par défaut, Home est sélectionné
-
-    // const handleSectionChange = (section) => {
-    //     setSelectedSection(section)
-    // }
     return (
         <div>
             <Header />
@@ -36,6 +33,8 @@ function App () {
                 <Route path='/about' element={<About />} />
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
+                <Route path='/cart' element={<Cart />} />
+                <Route path='/account' element={<Account />} />
             </Routes>
             <Footer />
         </div>
