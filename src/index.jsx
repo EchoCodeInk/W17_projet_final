@@ -25,10 +25,10 @@ const root = createRoot(container)
 function App () {
     const [cartItems, setCartItems] = useState([
         // Exemple de produit
-        { id: 1, name: 'Product 1', price: 20, quantity: 2 },
-        { id: 2, name: 'Product 2', price: 30, quantity: 1 },
-        { id: 3, name: 'Product 3', price: 45.35, quantity: 3 },
-        { id: 4, name: 'Product 4', price: 55.55, quantity: 6 }
+        { id: 1, name: 'Product 1', price: 20, quantity: 2, description: 'description item 1' },
+        { id: 2, name: 'Product 2', price: 30, quantity: 1, description: 'description item 2' },
+        { id: 3, name: 'Product 3', price: 45.35, quantity: 3, description: 'description item 3' },
+        { id: 4, name: 'Product 4', price: 55.55, quantity: 6, description: 'description item 4' }
         // Add more items as needed
     ])
 

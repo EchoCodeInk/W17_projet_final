@@ -22,56 +22,70 @@ const Cart = ({ cartItems }) => {
         const tvqRate = 0.09975
         return calculateTotal() * tvqRate
     }
+
+    const handleIncreaseQuantity = (item) => {
+        // Mettre à jour la quantité de l'item en augmentant de 1
+        // Vous devrez implémenter cette logique en fonction de votre structure de données
+    }
+
+    const handleDecreaseQuantity = (item) => {
+        // Mettre à jour la quantité de l'item en diminuant de 1
+        // Vous devrez implémenter cette logique en fonction de votre structure de données
+    }
+
+    const handleDeleteItem = (item) => {
+        // Supprimer l'item du panier
+        // Vous devrez implémenter cette logique en fonction de votre structure de données
+    }
     return (
-        <div className='layout_padding'>
+        <div>
+            <h1>My Cart</h1>
             {cartItems.length === 0
-                ? (<div>Your cart is empty.</div>)
+                ? (
+                    <div>Your cart is empty.</div>
+                )
                 : (
-                    <div className='table-responsive'>
-                        <table className='table'>
-                            <thead>
-                                <tr className='theader'>
-                                    <th>Image</th>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {cartItems.map(item => (
-                                    <tr key={item.id}>
-                                        <td>
-                                            <img src='/public/images/evan.jpg' alt={item.name} width='100' />
-                                        </td>
-                                        <td>{item.name}</td>
-                                        <td>{item.quantity}</td>
-                                        <td>${item.price.toFixed(2)}</td>
-                                        <td>${(item.price * item.quantity).toFixed(2)}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
+                    <div className='cart-items'>
+                        {cartItems.map((item) => (
+                            <div key={item.id} className='cart-item'>
+                                <img className='product-image' src='/public/images/evan.jpg' alt={item.name} />
+                                <div className='product-details'>
+                                    <h2 className='product-name'>{item.name}</h2>
+                                    <span className='product-quantity'>
+                                        <button className='quantity-button' onClick={() => handleDecreaseQuantity(item)}>
+                                            -
+                                        </button>
+                                        {item.quantity}
+                                        <button className='quantity-button' onClick={() => handleIncreaseQuantity(item)}>
+                                            +
+                                        </button>
+                                    </span>
+                                    <span className='product-price'>${item.price.toFixed(2)}</span>
 
-                            <tfoot className='tfoot'>
-                                <tr>
-                                    <td className='empty-cell' colSpan='3' />
-                                    <td className='total-cell'>TPS:</td>
-                                    <td className='total-value'>${calculateTPS().toFixed(2)}</td>
-                                </tr>
-                                <tr>
-                                    <td className='empty-cell' colSpan='3' />
-                                    <td className='total-cell'>TVQ:</td>
-                                    <td className='total-value'>${calculateTVQ().toFixed(2)}</td>
-                                </tr>
-                                <tr>
-                                    <td className='empty-cell' colSpan='3' />
-                                    <td className='total-cell'>Total:</td>
-                                    <td className='total-value'>${calculateTotalFinal().toFixed(2)}</td>
-                                </tr>
-                            </tfoot>
-
-                        </table>
-
+                                </div>
+                                <h3 className='product-description'>{item.description}</h3>
+                                <div className='product-total'>
+                                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                                    <button className='delete-button' onClick={() => handleDeleteItem(item)}>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                        <div className='cart-summary'>
+                            <div className='summary-row'>
+                                <span className='summary-label'>TPS:</span>
+                                <span className='summary-value'>${calculateTPS().toFixed(2)}</span>
+                            </div>
+                            <div className='summary-row'>
+                                <span className='summary-label'>TVQ:</span>
+                                <span className='summary-value'>${calculateTVQ().toFixed(2)}</span>
+                            </div>
+                            <div className='summary-row'>
+                                <span className='summary-label'>Total:</span>
+                                <span className='summary-value'>${calculateTotalFinal().toFixed(2)}</span>
+                            </div>
+                        </div>
                     </div>
                 )}
         </div>
