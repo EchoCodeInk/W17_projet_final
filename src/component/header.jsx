@@ -12,7 +12,7 @@ const Header = () => {
                         <div className='top_nav_container'>
                             <div className='contact_nav profilimg'>
                                 <Link className='nav-link' to='/home'>
-                                    <h1>Sac Team Boutique</h1>
+                                    <h1>The Sac Team Boutique</h1>
                                 </Link>
 
                             </div>
@@ -25,7 +25,7 @@ const Header = () => {
                             <div className='user_option_box'>
                                 <Link className='nav-link' to='/account'>
                                     <i className='fa fa-user' aria-hidden='true' />
-                                    <img className='profilimg' src='/public/images/evan.jpg' alt='' />
+                                    <img className='profilimg' src='/public/images/evan.jpg' alt='' width='35' />
                                     <span> My Account</span>
                                 </Link>
                                 <Link className='nav-link' to='/cart'>

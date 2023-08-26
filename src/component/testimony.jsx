@@ -35,7 +35,7 @@ const Testimony = () => {
                                         </div>
                                         <div className='client-id'>
                                             <div className='img-box'>
-                                                <img className='evan' src='/public/images/evan.jpg' alt='' />
+                                                <img src='/public/images/evan.jpg' alt='' height='200' />
                                             </div>
                                             <div className='name'>
                                                 <h5>

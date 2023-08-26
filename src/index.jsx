@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import './css/bootstrap.css'
@@ -23,17 +23,41 @@ const root = createRoot(container)
 
 // Composant racine de l'application
 function App () {
+    const [cartItems, setCartItems] = useState([
+        // Exemple de produit
+        { id: 1, name: 'Product 1', price: 20, quantity: 2 },
+        { id: 2, name: 'Product 2', price: 30, quantity: 1 },
+        { id: 3, name: 'Product 3', price: 45.35, quantity: 3 },
+        { id: 4, name: 'Product 4', price: 55.55, quantity: 6 }
+        // Add more items as needed
+    ])
+
+    const addToCart = (product) => {
+        const existingProduct = cartItems.find(item => item.id === product.id)
+
+        if (existingProduct) {
+            const updatedCart = cartItems.map(item =>
+                item.id === product.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            )
+            setCartItems(updatedCart)
+        } else {
+            setCartItems([...cartItems, { ...product, quantity: 1 }])
+        }
+    }
+
     return (
         <div>
             <Header />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
-                <Route path='/products' element={<Products />} />
+                <Route path='/products' element={<Products addToCart={addToCart} />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
-                <Route path='/cart' element={<Cart />} />
+                <Route path='/cart' element={<Cart cartItems={cartItems} />} />
                 <Route path='/account' element={<Account />} />
             </Routes>
             <Footer />

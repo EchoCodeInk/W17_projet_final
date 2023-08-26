@@ -782,16 +782,10 @@ a:focus {
 
 .profilimg {
   border-radius: 50%;
-  height: 35px;
-
-}
-
-.evan {
-  height: 200px;
 }
 
 .nav-link>h1 {
-  font-size: 100%;
+  font-size: 150%;
 }
 
 .copyright, .copyright>a {
@@ -803,5 +797,16 @@ a:focus {
   border-top: none;
   padding: 5px;
 }
+
+.theader {
+  color: #f3c93e;
+  background-color: #3a4468;
+}
+
+.total-cell {
+  text-align: right;
+}
+
+
 
 /*# sourceMappingURL=style.css.map */
