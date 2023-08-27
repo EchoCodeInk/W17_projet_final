@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     return (
@@ -20,9 +21,7 @@ const Home = () => {
                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt
                                                 quo quidem ad optio.
                                             </p>
-                                            <a href=''>
-                                                Shop now
-                                            </a>
+                                            <Link className='nav-link' to='/products'> Shop now</Link>
                                         </div>
                                     </div>
                                     <div className='col-md-6'>
@@ -45,14 +44,12 @@ const Home = () => {
                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt
                                                 quo quidem ad optio.
                                             </p>
-                                            <a href=''>
-                                                Read More
-                                            </a>
+                                            <Link className='nav-link' to='/products'> Shop now</Link>
                                         </div>
                                     </div>
                                     <div className='col-md-6'>
                                         <div className='img-box'>
-                                            <img src='/public/images/slider-img.png' alt='' />
+                                            <img src='/public/images/p3 .png' alt='' />
                                         </div>
                                     </div>
                                 </div>
@@ -70,14 +67,13 @@ const Home = () => {
                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt
                                                 quo quidem ad optio.
                                             </p>
-                                            <a href=''>
-                                                Read More
-                                            </a>
+                                            <Link className='nav-link' to='/products'> Shop now</Link>
+
                                         </div>
                                     </div>
                                     <div className='col-md-6'>
                                         <div className='img-box'>
-                                            <img src='/public/images/slider-img.png' alt='' />
+                                            <img src='/public/images/p2.png' alt='' />
                                         </div>
                                     </div>
                                 </div>

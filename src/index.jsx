@@ -13,7 +13,8 @@ import About from './component/about'
 import Whyus from './component/whyus'
 import Testimony from './component/testimony'
 import Cart from './component/cart'
-import Account from './component/account'
+import AccountContainer from './component/account'
+import Register from './component/register'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -58,7 +59,8 @@ function App () {
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
                 <Route path='/cart' element={<Cart cartItems={cartItems} />} />
-                <Route path='/account' element={<Account />} />
+                <Route path='/account' element={<AccountContainer />} />
+                <Route path='/register' element={<Register />} />
             </Routes>
             <Footer />
         </div>

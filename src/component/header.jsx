@@ -10,7 +10,7 @@ const Header = () => {
                 <div className='header_top'>
                     <div className='container-fluid'>
                         <div className='top_nav_container'>
-                            <div className='contact_nav profilimg'>
+                            <div className='contact_nav '>
                                 <Link className='nav-link' to='/home'>
                                     <h1>The Sac Team Boutique</h1>
                                 </Link>
@@ -18,18 +18,17 @@ const Header = () => {
                             </div>
                             <form className='search_form'>
                                 <input type='search' className='form-control' placeholder='Search here...' />
-                                <button className='' type='submit'>
+                                <button className='search-button' type='submit'>
                                     <i className='fa fa-search' aria-hidden='true' />
                                 </button>
                             </form>
                             <div className='user_option_box'>
                                 <Link className='nav-link' to='/account'>
-                                    <i className='fa fa-user' aria-hidden='true' />
-                                    <img className='profilimg' src='/public/images/evan.jpg' alt='' width='35' />
+                                    <img className='icon' src='/public/images/icon_account.png' alt='' />
                                     <span> My Account</span>
                                 </Link>
                                 <Link className='nav-link' to='/cart'>
-                                    <i className='fa fa-cart' aria-hidden='true' />
+                                    <img className='icon' src='/public/images/icon_cart.png' alt='' />
                                     <span> Cart</span>
                                 </Link>
                             </div>

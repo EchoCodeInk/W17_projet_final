@@ -74,22 +74,14 @@ const Footer = () => {
                                 <form action=''>
                                     <input type='email' placeholder='Enter your email' />
                                     <button>
-                                        Subscribe
+                                        <Link className='nav-link' to='/account'> Subscribe</Link>
                                     </button>
                                 </form>
                                 <div className='social_box'>
-                                    <a href=''>
-                                        <i className='fa fa-facebook' aria-hidden='true' />
-                                    </a>
-                                    <a href=''>
-                                        <i className='fa fa-twitter' aria-hidden='true' />
-                                    </a>
-                                    <a href=''>
-                                        <i className='fa fa-instagram' aria-hidden='true' />
-                                    </a>
-                                    <a href=''>
-                                        <i className='fa fa-youtube' aria-hidden='true' />
-                                    </a>
+                                    <a href='https://facebook.com/' />
+                                    <a href='https://twitter.com/' />
+                                    <a href='https://www.instagram.com/' />
+                                    <a href='https://www.youtube.com/'>                                    </a>
                                 </div>
                             </div>
                         </div>
