@@ -249,9 +249,9 @@ const Product = () => {
                             <div className='box'>
                                 <div className='img-box'>
                                     <img src='/public/images/p9.png' alt='' />
-                                    <a href='' className='add_cart_btn'>
+                                    <a href='/details/' className='add_cart_btn'>
                                         <span>
-                                            Add To Cart
+                                            Detail
                                         </span>
                                     </a>
                                 </div>
