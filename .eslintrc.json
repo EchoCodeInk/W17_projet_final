@@ -21,8 +21,8 @@
     "overrides": [
         {
             "files": [
-                "**/*.js",
-                "**/*.jsx"
+                "frontend/src/**/*.js",
+                "frontend/src/**/*.jsx"
             ]
         }
     ],

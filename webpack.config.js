@@ -4,7 +4,7 @@ const path = require('path')
 
 module.exports = {
     entry: {
-        app: path.join(__dirname, 'src', 'index.jsx')
+        app: path.join(__dirname, 'frontend/src', 'index.jsx')
     },
     resolve: {
         extensions: ['.jsx', '.js', '.json'],
@@ -53,7 +53,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: 'src/index.html',
+            template: 'frontend/src/index.html',
             filename: './index.html'
         }),
         new NodePolyfillPlugin()
