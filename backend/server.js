@@ -5,10 +5,13 @@ const sqlite3 = require('sqlite3').verbose()
 const app = express()
 const port = 5000
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:8080', // Remplacez par l'URL de votre frontend
+    optionsSuccessStatus: 200
+}))
 app.use(express.json())
 
-const db = new sqlite3.Database('database_projet_finale.sqbpro', (err) => {
+const db = new sqlite3.Database('data/database', (err) => {
     if (err) {
         console.error('Could not connect to database', err)
     } else {
