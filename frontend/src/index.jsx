@@ -67,7 +67,7 @@ function App () {
                 <h1>Data from SQLite Database</h1>
                 <ul>
                     {data.map(item => (
-                        <li key={item.id}>{item.column_name}</li>
+                        <li key={item.id}>{item.name}</li>
                     ))}
                 </ul>
             </div>
