@@ -11,7 +11,7 @@ app.use(cors({
 }))
 app.use(express.json())
 
-const db = new sqlite3.Database('data/database', (err) => {
+const db = new sqlite3.Database('data/database.db', (err) => {
     if (err) {
         console.error('Could not connect to database', err)
     } else {
@@ -19,7 +19,7 @@ const db = new sqlite3.Database('data/database', (err) => {
     }
 })
 
-app.get('/data', (req, res) => {
+app.get('/products', (req, res) => {
     db.all('SELECT * FROM products', (err, rows) => {
         if (err) {
             console.error(err)
