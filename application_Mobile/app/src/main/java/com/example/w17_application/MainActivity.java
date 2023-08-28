@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,5 +30,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView profile = customActionBar.findViewById(R.id.ProfilePic);
         Drawable profileDrawable = ContextCompat.getDrawable(this, R.drawable.no_user);
         profile.setImageDrawable(profileDrawable);
+        TextView title = customActionBar.findViewById(R.id.TitleOfPage);
+        title.setText("The Sac Team - Home");
     }
 }
