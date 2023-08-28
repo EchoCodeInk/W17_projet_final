@@ -16,6 +16,7 @@ import Testimony from './component/testimony'
 import Cart from './component/cart'
 import Account from './component/account'
 import Register from './component/register'
+import Details from './component/details'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -62,6 +63,7 @@ function App () {
                 <Route path='/cart' element={<Cart cartItems={cartItems} />} />
                 <Route path='/account' element={<Account />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/details' element={<Details />} />
             </Routes>
             <Footer />
         </div>
