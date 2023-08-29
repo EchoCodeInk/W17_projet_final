@@ -4,7 +4,7 @@ import axios from 'axios'
 const Product = () => {
     const [data, setData] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:5000/products')
+        axios.get('http://localhost:5000/produit')
             .then(response => {
                 setData(response.data)
             })
@@ -25,7 +25,7 @@ const Product = () => {
                     </div>
                     <div className='row'>
                         {data.map(item => (
-                            <div key={item.div} className='col-sm-6 col-lg-4'>
+                            <div key={item.id} className='col-sm-6 col-lg-4'>
                                 <div className='box'>
                                     <div className='img-box'>
                                         <img src={item.image_url} alt='' />
@@ -37,11 +37,11 @@ const Product = () => {
                                     </div>
                                     <div className='detail-box'>
                                         <h5>
-                                            {item.name}
+                                            {item.nom}
                                         </h5>
                                         <div className='product_info'>
                                             <h5>
-                                                <span>$</span> {item.price}
+                                                <span>$</span> {item.prix}
                                             </h5>
                                             <div className='star_container'>
                                                 <i className='fa fa-star' aria-hidden='true' />
