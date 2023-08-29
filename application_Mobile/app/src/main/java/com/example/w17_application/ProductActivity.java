@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -60,5 +61,16 @@ public class ProductActivity extends AppCompatActivity {
         ArrayList<Product> products = ProductManager.getAll(this);
         productAdapter = new ProductAdapter(this, R.layout.product_layout, products);
         gridViewMain.setAdapter(productAdapter);
+
+        gridViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Product product = (Product) parent.getItemAtPosition(position);
+                Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("id", product.getId());
+                startActivity(intent);
+            }
+        });
+
     }
 }
