@@ -30,6 +30,20 @@ app.get('/produit', (req, res) => {
     })
 })
 
+app.post('/login', (req, res) => {
+    const { email, password } = req.body // Obtenez les données envoyées par le client
+
+    // Effectuez votre recherche SQL en utilisant les données de connexion
+    db.all('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], (err, rows) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+        } else {
+            res.json(rows)
+        }
+    })
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })

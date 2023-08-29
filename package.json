@@ -46,6 +46,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "sqlite3": "^5.1.6",
+    "sweetalert2": "^11.7.27",
     "webpack-dev-server": "^4.15.1"
   }
 }
