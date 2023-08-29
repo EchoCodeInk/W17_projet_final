@@ -39,6 +39,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         }
         Product product = getItem(position);
         TextView tvNameProduct = view.findViewById(R.id.tv_product_name);
+        TextView tvPriceProduct = view.findViewById(R.id.tv_product_price);
+
         ImageView imgProduct = view.findViewById(R.id.img_product);
         try {
             Bitmap bitmapImage = BitmapFactory.decodeStream(getContext().getAssets().open("images/" + product.getImageUrl()));
@@ -48,6 +50,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         }
 
         tvNameProduct.setText(product.getName());
+        tvPriceProduct.setText(String.valueOf(product.getPrice()) + " $");
         return view;
 
     }
