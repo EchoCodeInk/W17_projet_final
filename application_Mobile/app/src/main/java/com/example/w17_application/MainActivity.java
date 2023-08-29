@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -53,5 +54,23 @@ public class MainActivity extends AppCompatActivity {
         ImageView searchImg = findViewById(R.id.imgSearch);
         Drawable searchImgDrawable = ContextCompat.getDrawable(this, R.drawable.search);
         searchImg.setImageDrawable(searchImgDrawable);
+
+        //WhyUs
+        int black = Color.parseColor("#000000");
+
+        ImageView whyUsImgOne = findViewById(R.id.whyUsImgOne);
+        Drawable whyUsImgOneDrawable = ContextCompat.getDrawable(this, R.drawable.w1);
+        whyUsImgOne.setImageDrawable(whyUsImgOneDrawable);
+        whyUsImgOne.setColorFilter(black);
+
+        ImageView whyUsImgTwo = findViewById(R.id.whyUsImgTwo);
+        Drawable whyUsImgTwoDrawable = ContextCompat.getDrawable(this, R.drawable.w2);
+        whyUsImgTwo.setImageDrawable(whyUsImgTwoDrawable);
+        whyUsImgTwo.setColorFilter(black);
+
+        ImageView whyUsImgThree = findViewById(R.id.whyUsImgThree);
+        Drawable whyUsImgThreeDrawable = ContextCompat.getDrawable(this, R.drawable.w3);
+        whyUsImgThree.setImageDrawable(whyUsImgThreeDrawable);
+        whyUsImgThree.setColorFilter(black);
     }
 }

@@ -30,7 +30,7 @@ const Details = () => {
                         <aside className='col-lg-6'>
                             <div className='border rounded-4 mb-3 d-flex justify-content-center'>
                                 <a data-fslightbox='mygalley' className='rounded-4' target='_blank' data-type='image' href='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp' rel='noreferrer'>
-                                    <img style='max-width: 100%; max-height: 100vh; margin: auto;' className='rounded-4 fit' src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp' />
+                                    <img style={{ maxWidth: '100%', maxHeight: '100vh', margin: 'auto' }} className='rounded-4 fit' src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp' />
                                 </a>
                             </div>
                             <div className='d-flex justify-content-center mb-3'>
@@ -103,7 +103,7 @@ const Details = () => {
                                 <div className='row mb-4'>
                                     <div className='col-md-4 col-6'>
                                         <label className='mb-2'>Size</label>
-                                        <select className='form-select border border-secondary' style='height: 35px;'>
+                                        <select className='form-select border border-secondary' style={{ height: '35px' }}>
                                             <option>Small</option>
                                             <option>Medium</option>
                                             <option>Large</option>
@@ -112,7 +112,7 @@ const Details = () => {
                                     {/* <!-- col.// --> */}
                                     <div className='col-md-4 col-6 mb-3'>
                                         <label className='mb-2 d-block'>Quantity</label>
-                                        <div className='input-group mb-3' style='width: 170px;'>
+                                        <div className='input-group mb-3' style={{ width: '170px' }}>
                                             <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon1' data-mdb-ripple-color='dark'>
                                                 <i className='fas fa-minus' />
                                             </button>
@@ -232,7 +232,7 @@ const Details = () => {
                                         <h5 className='card-title'>Similar items</h5>
                                         <div className='d-flex mb-3'>
                                             <a href='#' className='me-3'>
-                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/8.webp' style='min-width: 96px; height: 96px;' className='img-md img-thumbnail' />
+                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/8.webp' style={{ minWidth: '96px', height: '96px' }} className='img-md img-thumbnail' />
                                             </a>
                                             <div className='info'>
                                                 <a href='#' className='nav-link mb-1'>
@@ -245,7 +245,7 @@ const Details = () => {
 
                                         <div className='d-flex mb-3'>
                                             <a href='#' className='me-3'>
-                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/9.webp' style='min-width: 96px; height: 96px;' className='img-md img-thumbnail' />
+                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/9.webp' style={{ minWidth: '96px', height: '96px' }} className='img-md img-thumbnail' />
                                             </a>
                                             <div className='info'>
                                                 <a href='#' className='nav-link mb-1'>
@@ -258,7 +258,7 @@ const Details = () => {
 
                                         <div className='d-flex mb-3'>
                                             <a href='#' className='me-3'>
-                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp' style='min-width: 96px; height: 96px;' className='img-md img-thumbnail' />
+                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp' style={{ minWidth: '96px', height: '96px' }} className='img-md img-thumbnail' />
                                             </a>
                                             <div className='info'>
                                                 <a href='#' className='nav-link mb-1'> T-shirts with multiple colors, for men and lady </a>
@@ -268,7 +268,7 @@ const Details = () => {
 
                                         <div className='d-flex'>
                                             <a href='#' className='me-3'>
-                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/11.webp' style='min-width: 96px; height: 96px;' className='img-md img-thumbnail' />
+                                                <img src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/11.webp' style={{ minWidth: '96px', height: '96px' }} className='img-md img-thumbnail' />
                                             </a>
                                             <div className='info'>
                                                 <a href='#' className='nav-link mb-1'> Blazer Suit Dress Jacket for Men, Blue color </a>

@@ -17,6 +17,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         open: true,
+        historyApiFallback: true,
         static: {
             directory: path.join(__dirname)
         }
@@ -50,6 +51,9 @@ module.exports = {
                 ]
             }
         ]
+    },
+    output: {
+        publicPath: '/'
     },
     plugins: [
         new HtmlWebPackPlugin({
