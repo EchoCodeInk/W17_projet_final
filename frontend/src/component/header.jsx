@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Categories from './Categories'
 
-const Header = () => {
+const Header = ({ onSelectCategory, categories }) => {
     return (
         <div>
 
@@ -39,11 +40,9 @@ const Header = () => {
                 <div className='header_bottom'>
                     <div className='container-fluid'>
                         <nav className='navbar navbar-expand-lg custom_nav-container '>
-                            {/* <a className='navbar-brand' href='index.html'>
-                                <span>
-                                    Minics
-                                </span>
-                            </a> */}
+                            <a className='navbar-brand' href='index.html'>
+                                <span><Categories categories={categories} onSelectCategory={onSelectCategory} /> </span>
+                            </a>
 
                             <button
                                 className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent'
