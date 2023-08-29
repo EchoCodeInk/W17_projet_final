@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -72,5 +73,12 @@ public class MainActivity extends AppCompatActivity {
         Drawable whyUsImgThreeDrawable = ContextCompat.getDrawable(this, R.drawable.w3);
         whyUsImgThree.setImageDrawable(whyUsImgThreeDrawable);
         whyUsImgThree.setColorFilter(black);
+
+        //Magasiner
+        Button btnMagasin = findViewById(R.id.shopButton);
+        btnMagasin.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+            startActivity(intent);
+        });
     }
 }
