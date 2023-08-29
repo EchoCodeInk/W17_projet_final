@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import './css/bootstrap.css'
@@ -14,9 +14,9 @@ import About from './component/about'
 import Whyus from './component/whyus'
 import Testimony from './component/testimony'
 import Cart from './component/cart'
-import AccountContainer from './component/account'
+import Account from './component/account'
 import Register from './component/register'
-import axios from 'axios'
+import Details from './component/details'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -34,17 +34,6 @@ function App () {
         { id: 4, name: 'Product 4', price: 55.55, quantity: 6, description: 'description item 4' }
         // Add more items as needed
     ])
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/data')
-            .then(response => {
-                setData(response.data)
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }, [])
 
     const addToCart = (product) => {
         const existingProduct = cartItems.find(item => item.id === product.id)
@@ -63,14 +52,6 @@ function App () {
 
     return (
         <div>
-            <div className='App'>
-                <h1>Data from SQLite Database</h1>
-                <ul>
-                    {data.map(item => (
-                        <li key={item.id}>{item.column_name}</li>
-                    ))}
-                </ul>
-            </div>
             <Header />
             <Routes>
                 <Route path='/' element={<Home />} />
@@ -80,8 +61,9 @@ function App () {
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
                 <Route path='/cart' element={<Cart cartItems={cartItems} />} />
-                <Route path='/account' element={<AccountContainer />} />
+                <Route path='/account' element={<Account />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/details' element={<Details />} />
             </Routes>
             <Footer />
         </div>

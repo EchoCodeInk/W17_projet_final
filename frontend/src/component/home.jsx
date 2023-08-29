@@ -49,7 +49,7 @@ const Home = () => {
                                     </div>
                                     <div className='col-md-6'>
                                         <div className='img-box'>
-                                            <img src='/public/images/p3 .png' alt='' />
+                                            <img src='/public/images/p3.png' alt='' />
                                         </div>
                                     </div>
                                 </div>
