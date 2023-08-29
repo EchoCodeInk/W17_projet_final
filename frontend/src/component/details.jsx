@@ -1,7 +1,12 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react'
+import {
+    useParams
+} from 'react-router-dom'
 
 const Details = () => {
+    const { id } = useParams()
+    console.log('id produit', id)
     return (
         <>
             {/* <!-- about section --> */}

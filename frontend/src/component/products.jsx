@@ -12,6 +12,7 @@ const Product = () => {
                 console.error(error)
             })
     }, [])
+
     return (
         <div>
             {/* <!-- product section --> */}
@@ -29,9 +30,9 @@ const Product = () => {
                                 <div className='box'>
                                     <div className='img-box'>
                                         <img src={item.image_url} alt='' />
-                                        <a href='' className='add_cart_btn'>
+                                        <a href={'/details/' + item.id} className='add_cart_btn'>
                                             <span>
-                                                Add To Cart
+                                                Details
                                             </span>
                                         </a>
                                     </div>
