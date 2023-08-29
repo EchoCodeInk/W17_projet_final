@@ -69,4 +69,3 @@ const Product = () => {
     )
 }
 export default Product
-/* <h1>hjshkahfkhakhfa</h1> */

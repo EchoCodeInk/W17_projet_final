@@ -6,6 +6,7 @@ import './css/style.css'
 import './css/ion.rangeSlider.min.css'
 import './css/responsive.css'
 import './css/style.scss'
+import { SessionProvider } from '../../backend/controleur/SessionContext'
 import Header from './component/header'
 import Footer from './component/footer'
 import Home from './component/home'
@@ -72,7 +73,9 @@ function App () {
 
 // Point d'entrée pour le rendu de l'application dans l'élément avec l'ID "root"
 root.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+    <SessionProvider>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </SessionProvider>
 )
