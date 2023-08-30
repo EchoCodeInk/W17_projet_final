@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useSession } from '../../../backend/controleur/SessionContext'
+import Utilisateur from '../../../backend/entities/utilisateur'
 
 const Home = () => {
+    const { state, dispatch } = useSession() // Accès au contexte de session
+    useEffect(() => {
+        if (!state.user) {
+            const utilisateur = new Utilisateur('anonymous', 'anonymous', 'anonymous', 'anonymous', 'icon_account.png')
+            dispatch({ type: 'LOGIN', payload: utilisateur })
+
+            // Exemple de produit
+            const produit1 = { id: 1, name: 'Product 1', price: 20, quantity: 2, description: 'description item 1' }
+            const produit2 = { id: 2, name: 'Product 2', price: 30, quantity: 1, description: 'description item 2' }
+            const produit3 = { id: 3, name: 'Product 3', price: 45.35, quantity: 3, description: 'description item 3' }
+            const produit4 = { id: 4, name: 'Product 4', price: 55.55, quantity: 6, description: 'description item 4' }
+
+            const newUser = { ...state.user, panier: [produit1, produit2, produit3, produit4] }
+            dispatch({ type: 'LOGIN', payload: newUser })
+        }
+    }, [state.user, dispatch])
+
     return (
 
         <div className='hero_area'>
+            {console.log('state.user.panier', state.user)}
             {/* <!-- slider section --> */}
             <section className='slider_section '>
                 <div id='customCarousel1' className='carousel slide' data-ride='carousel'>

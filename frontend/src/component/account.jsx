@@ -20,8 +20,7 @@ const Account = ({ state, dispatch }) => {
                 const userFound = users.find(user => user.email === email && user.password === password)
 
                 if (userFound) {
-                    const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.email, userFound.password)
-
+                    const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.email, userFound.password, userFound.image_profil)
                     // Mettre à jour le contexte avec l'utilisateur connecté
                     dispatch({ type: 'LOGIN', payload: utilisateur })
                     navigate('/home')

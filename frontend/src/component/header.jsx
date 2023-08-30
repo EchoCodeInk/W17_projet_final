@@ -26,10 +26,10 @@ const Header = () => {
                                 </button>
                             </form>
                             <div className='user_option_box'>
+
                                 {state.user != null
                                     ? (
                                         <div className='nav-link'>
-                                            <img className='icon' src='/public/images/icon_account.png' alt='' />
                                             <DeconnectButton />
                                         </div>
                                     )
@@ -40,7 +40,7 @@ const Header = () => {
                                         </Link>
                                     )}
 
-                                <Link className='nav-link' to='/cart'>
+                                <Link className='nav-link' to='/panier'>
                                     <img className='icon' src='/public/images/icon_cart.png' alt='' />
                                     <span> Cart</span>
                                 </Link>

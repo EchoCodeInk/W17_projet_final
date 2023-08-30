@@ -1,12 +1,14 @@
 import React from 'react'
+import { useSession } from '../../../backend/controleur/SessionContext'
 
-const Cart = ({ cartItems }) => {
+const Cart = () => {
+    const { state } = useSession() // Accès au contexte de session
     const calculateTotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+        return state.user.panier.reduce((total, item) => total + item.price * item.quantity, 0)
     }
 
     const calculateTotalFinal = () => {
-        const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+        const subtotal = state.user.panier.reduce((total, item) => total + item.price * item.quantity, 0)
         const tps = calculateTPS()
         const tvq = calculateTVQ()
         return subtotal + tps + tvq
@@ -39,14 +41,16 @@ const Cart = ({ cartItems }) => {
     }
     return (
         <div>
+            {console.log('state.user', state.user)}
             <h1>My Cart</h1>
-            {cartItems.length === 0
+            {/* {console.log('state.user.panier', state.user.panier)} */}
+            {state.user.panier.length === 0
                 ? (
                     <div>Your cart is empty.</div>
                 )
                 : (
                     <div className='cart-items'>
-                        {cartItems.map((item) => (
+                        {state.user.panier.map((item) => (
                             <div key={item.id} className='cart-item'>
                                 <img className='product-image' src='/public/images/evan.jpg' alt={item.name} />
                                 <div className='product-details'>

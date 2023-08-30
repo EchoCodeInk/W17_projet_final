@@ -14,7 +14,8 @@ const ConnectButton = () => {
             {state.user
                 ? (
                     <span>
-                        Bonjour, {state.user.nom}!
+                        <img className='icon' src={`/public/images/${state.user.imageProfil}`} alt='' />
+                        Bonjour, {state.user.nom}
                         <button className='account-button' onClick={handleLogout}>Déconnexion</button>
                     </span>
                 )
