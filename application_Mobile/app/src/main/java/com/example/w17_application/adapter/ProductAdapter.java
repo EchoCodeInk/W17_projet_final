@@ -49,6 +49,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             throw new RuntimeException(e);
         }
 
+        
+
+
         tvNameProduct.setText(product.getName());
         tvPriceProduct.setText(String.valueOf(product.getPrice()) + " $");
         return view;

@@ -13,7 +13,7 @@ public class ProductManager {
 
     public static ArrayList<Product> getAll(Context context) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
-        String query = "select * from products";
+        String query = "select * from Produit";
         ArrayList<Product> products = null;
         Cursor cursor = bd.rawQuery(query, null);
         if (cursor.isBeforeFirst()) {
@@ -27,7 +27,7 @@ public class ProductManager {
 
     public static Product getById(Context context, int id) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
-        String query = "SELECT * FROM products where id = ?";
+        String query = "SELECT * FROM Produit where id = ?";
         Product product = null;
         Cursor cursor = bd.rawQuery(query, new String[]{String.valueOf(id)});
         if (cursor.moveToNext()) {
