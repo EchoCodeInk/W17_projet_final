@@ -1,9 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-const Categories = ({ categories, onSelectCategory }) => {
+const Categories = () => {
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef(null)
 
+    const onSelectCategory = () => {
+        // reste a implementer
+        // useEffect(() => {
+        //     axios.get('http://localhost:5000/produit_categorie')
+        //         .then(response => {
+        //             setData(response.data)
+        //         })
+        //         .catch(error => {
+        //             console.error(error)
+        //         })
+        // }, [])
+    }
+    // Définition des catégories
+    const categories = [
+        { id: 1, name: 'Appareil photo' },
+        { id: 2, name: 'Televison' },
+        { id: 3, name: 'Jeux videos' },
+        { id: 4, name: 'Ordinateurs' }
+
+    ]
     // Gestionnaire de sélection de catégorie
     const handleCategorySelect = (category, event) => {
         event.stopPropagation()

@@ -26,7 +26,7 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx$/,
-                exclude: /node_modules/,
+                exclude: /node_modules\/(?!backend)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -62,5 +62,4 @@ module.exports = {
         }),
         new NodePolyfillPlugin()
     ]
-
 }

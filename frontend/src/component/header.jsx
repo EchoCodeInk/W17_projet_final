@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Categories from './Categories'
+import DeconnectButton from './connect_button'
+import { useSession } from '../../../backend/controleur/SessionContext'
 
-const Header = ({ onSelectCategory, categories }) => {
+const Header = () => {
+    const { state } = useSession()
     return (
         <div>
 
@@ -24,11 +27,21 @@ const Header = ({ onSelectCategory, categories }) => {
                                 </button>
                             </form>
                             <div className='user_option_box'>
-                                <Link className='nav-link' to='/account'>
-                                    <img className='icon' src='/public/images/icon_account.png' alt='' />
-                                    <span> My Account</span>
-                                </Link>
-                                <Link className='nav-link' to='/cart'>
+
+                                {state.user != null
+                                    ? (
+                                        <div className='nav-link'>
+                                            <DeconnectButton />
+                                        </div>
+                                    )
+                                    : (
+                                        <Link className='nav-link' to='/account'>
+                                            <img className='icon' src='/public/images/icon_account.png' alt='' />
+                                            <DeconnectButton />
+                                        </Link>
+                                    )}
+
+                                <Link className='nav-link' to='/panier'>
                                     <img className='icon' src='/public/images/icon_cart.png' alt='' />
                                     <span> Cart</span>
                                 </Link>
@@ -41,7 +54,7 @@ const Header = ({ onSelectCategory, categories }) => {
                     <div className='container-fluid'>
                         <nav className='navbar navbar-expand-lg custom_nav-container '>
                             <a className='navbar-brand' href='index.html'>
-                                <span><Categories categories={categories} onSelectCategory={onSelectCategory} /> </span>
+                                <span><Categories /> </span>
                             </a>
 
                             <button
