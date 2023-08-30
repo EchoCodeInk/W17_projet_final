@@ -17,6 +17,7 @@ import Cart from './component/cart'
 import Account from './component/account'
 import Register from './component/register'
 import Details from './component/details'
+import 'bootstrap/dist/css/bootstrap.css'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -34,6 +35,14 @@ function App () {
         { id: 4, name: 'Product 4', price: 55.55, quantity: 6, description: 'description item 4' }
         // Add more items as needed
     ])
+    // Définition des catégories
+    const categories = [
+        { id: 1, name: 'Appareil photo' },
+        { id: 2, name: 'Televison' },
+        { id: 3, name: 'Jeux videos' },
+        { id: 4, name: 'Ordinateurs' }
+
+    ]
 
     const addToCart = (product) => {
         const existingProduct = cartItems.find(item => item.id === product.id)
@@ -52,7 +61,7 @@ function App () {
 
     return (
         <div>
-            <Header />
+            <Header categories={categories} />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />

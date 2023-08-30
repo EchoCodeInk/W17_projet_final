@@ -20,12 +20,19 @@
             android:background="#3a4468"
             android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/BurgerMenu"
+            <Spinner
+                android:id="@+id/navSearch"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:srcCompat="@drawable/burger_menu_light" />
+                android:layout_weight="7"
+                android:entries="@array/spinner_items"/>
+
+            <ImageView
+            android:id="@+id/BurgerMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:srcCompat="@drawable/burger_menu_light" />
 
             <Spinner
                 android:id="@+id/burgerSpinnerPopUp"
@@ -33,28 +40,6 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:entries="@array/spinner_items"/>
-
-            <Spinner
-                android:id="@+id/navSearch"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="7"
-                android:entries="@array/spinner_items"
-                />
-
-
-            <ImageView
-                android:id="@+id/imgSearch"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:srcCompat="@drawable/search"/>
-
-            <SearchView
-                android:id="@+id/searchViewPopUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -82,8 +67,8 @@
 
                     <Button
                         android:id="@+id/shopButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="200dp"
+                        android:layout_height="75dp"
                         android:layout_centerInParent="true"
                         android:backgroundTint="#f3c93e"
                         android:text="Magasiner" />
