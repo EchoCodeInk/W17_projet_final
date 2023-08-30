@@ -111,16 +111,20 @@ public class MainActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.menu_home) {
-
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
                     return true;
                 } else if (itemId == R.id.menu_product) {
-
+                    Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+                    startActivity(intent);
                     return true;
                 } else if (itemId == R.id.menu_account) {
-
+                    Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                    startActivity(intent);
                     return true;
                 } else if (itemId == R.id.menu_cart) {
-
+                    Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                    startActivity(intent);
                     return true;
                 }
                 return false;
