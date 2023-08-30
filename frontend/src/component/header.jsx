@@ -4,7 +4,7 @@ import Categories from './Categories'
 import DeconnectButton from './connect_button'
 import { useSession } from '../../../backend/controleur/SessionContext'
 
-const Header = ({ onSelectCategory, categories }) => {
+const Header = () => {
     const { state } = useSession()
     return (
         <div>
@@ -54,7 +54,7 @@ const Header = ({ onSelectCategory, categories }) => {
                     <div className='container-fluid'>
                         <nav className='navbar navbar-expand-lg custom_nav-container '>
                             <a className='navbar-brand' href='index.html'>
-                                <span><Categories categories={categories} onSelectCategory={onSelectCategory} /> </span>
+                                <span><Categories /> </span>
                             </a>
 
                             <button
