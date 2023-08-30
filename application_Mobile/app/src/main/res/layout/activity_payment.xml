@@ -11,11 +11,21 @@
         android:text="Payment Details"
         android:textSize="20sp"
         android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/img_paiment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paymentTitle"
+        android:src="@drawable/credit_card"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="fitCenter" />
     <LinearLayout
         android:id="@+id/ll_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/paymentTitle"
+        android:layout_below="@id/img_paiment"
         android:orientation="horizontal">
 
         <EditText
@@ -72,6 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cvvEditText"
         android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/bleuIsh"
+        android:textColor="@color/white"
         android:text="Pay Now" />
 
 </RelativeLayout>
