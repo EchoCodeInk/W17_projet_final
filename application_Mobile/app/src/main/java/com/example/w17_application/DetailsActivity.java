@@ -2,26 +2,129 @@ package com.example.w17_application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.w17_application.entite.Product;
 import com.example.w17_application.manager.ProductManager;
 
+import java.io.IOException;
+
 public class DetailsActivity extends AppCompatActivity {
     Context context;
-    TextView tvProductDetailName;
+    private ImageView productImage;
+    private TextView productName, productPrice, productDescription;
+    private EditText quantityEditText;
+    private Button minusButton, plusButton, addToCartButton, buyNowButton;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        // ACTION BAR
+        View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(customActionBar, layoutParams);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ImageView cart = customActionBar.findViewById(R.id.CartImg);
+        Drawable cartDrawable = ContextCompat.getDrawable(this, R.drawable.yellow_shopping_cart);
+        cart.setImageDrawable(cartDrawable);
+        cart.setOnClickListener(v -> {
+            Intent intent = new Intent(DetailsActivity.this, CartActivity.class);
+            startActivity(intent);
+        });
+
+        ImageView profile = customActionBar.findViewById(R.id.ProfilePic);
+        Drawable profileDrawable = ContextCompat.getDrawable(this, R.drawable.no_user);
+        profile.setImageDrawable(profileDrawable);
+        profile.setOnClickListener(v -> {
+            Intent intent = new Intent(DetailsActivity.this, AccountActivity.class);
+            startActivity(intent);
+        });
+
+        TextView title = customActionBar.findViewById(R.id.TitleOfPage);
+        title.setText("The Sac Team - Products");
+
+        context = this;
+        productImage = findViewById(R.id.productImage);
+        productName = findViewById(R.id.productName);
+        productPrice = findViewById(R.id.productPrice);
+        productDescription = findViewById(R.id.productDescription);
+        quantityEditText = findViewById(R.id.quantityEditText);
+        minusButton = findViewById(R.id.minusButton);
+        plusButton = findViewById(R.id.plusButton);
+        addToCartButton = findViewById(R.id.addToCartButton);
+        buyNowButton = findViewById(R.id.buyNowButton);
+
+
         Intent intent = getIntent();
         int idValue = intent.getIntExtra("id", -1);
         Product product = ProductManager.getById(this, idValue);
-        context = this;
-        tvProductDetailName = findViewById(R.id.tv_product_detail_name);
-        tvProductDetailName.setText(product.getName());
+
+        productName.setText(product.getName());
+        productDescription.setText(product.getDescription());
+        productPrice.setText(String.valueOf(product.getPrice()) + "$");
+        try {
+            Bitmap bitmapImage = BitmapFactory.decodeStream(context.getAssets().open("images/" + product.getImageUrl()));
+            productImage.setImageBitmap(bitmapImage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        int initialQuantity = 1; // Quantité initiale
+        quantityEditText.setText(String.valueOf(initialQuantity));
+
+        minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentQuantity = Integer.parseInt(quantityEditText.getText().toString());
+                if (currentQuantity > 1) {
+                    currentQuantity--;
+                    quantityEditText.setText(String.valueOf(currentQuantity));
+                }
+            }
+        });
+
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentQuantity = Integer.parseInt(quantityEditText.getText().toString());
+                currentQuantity++;
+                quantityEditText.setText(String.valueOf(currentQuantity));
+            }
+        });
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // quantityEditText.getText().toString();
+                // ajout au panier avec la quantité spécifiée
+                Toast.makeText(context, "add to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        buyNowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // acheter immédiatement
+                Toast.makeText(context, "buy now", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 }
