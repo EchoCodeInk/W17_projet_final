@@ -18,6 +18,7 @@ import Panier from './component/panier'
 import Account from './component/account'
 import Register from './component/register'
 import Details from './component/details'
+import 'bootstrap/dist/css/bootstrap.css'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -30,7 +31,7 @@ function App () {
     const { state, dispatch } = useSession() // Accès au contexte de session
     return (
         <div>
-            <Header />
+            <Header categories={categories} />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
@@ -41,7 +42,7 @@ function App () {
                 <Route path='/panier' element={<Panier />} />
                 <Route path='/account' element={<Account state={state} dispatch={dispatch} />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/details' element={<Details />} />
+                <Route path='/details/:id' element={<Details />} />
             </Routes>
             <Footer />
         </div>
