@@ -49,10 +49,18 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             throw new RuntimeException(e);
         }
 
-        
+        String nameProduct = product.getName();
+        String[] words = nameProduct.split("\\s+"); // Split by whitespace
 
+        int wordsToSave = 3; // Number of words to save
+        StringBuilder newString = new StringBuilder();
 
-        tvNameProduct.setText(product.getName());
+        // Save the desired number of words
+        for (int i = 0; i < Math.min(wordsToSave, words.length); i++) {
+            newString.append(words[i]).append(" ");
+        }
+
+        tvNameProduct.setText(newString);
         tvPriceProduct.setText(String.valueOf(product.getPrice()) + " $");
         return view;
 
