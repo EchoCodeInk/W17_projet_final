@@ -120,7 +120,11 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // acheter immédiatement
-                Toast.makeText(context, "buy now", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "buy now", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, PaymentActivity.class);
+                intent.putExtra("id", product.getId());
+                intent.putExtra("quantity", quantityEditText.getText().toString());
+                startActivity(intent);
 
             }
         });

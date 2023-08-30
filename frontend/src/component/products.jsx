@@ -12,6 +12,7 @@ const Product = () => {
                 console.error(error)
             })
     }, [])
+
     return (
         <div>
             {/* <!-- product section --> */}
