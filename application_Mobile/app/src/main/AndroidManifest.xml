@@ -23,6 +23,12 @@
             android:theme="@style/AppTheme">
         </activity>
 
+        <activity android:name=".AccountActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
