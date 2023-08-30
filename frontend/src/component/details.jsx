@@ -20,9 +20,9 @@ const Details = () => {
     }, [])
     return (
         <div>
+            {console.log(data)}
 
             <h1>detail ici</h1>
-
         </div>
 
     )
