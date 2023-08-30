@@ -6,7 +6,7 @@ import './css/style.css'
 import './css/ion.rangeSlider.min.css'
 import './css/responsive.css'
 import './css/style.scss'
-import { SessionProvider } from '../../backend/controleur/SessionContext'
+import { SessionProvider, useSession } from '../../backend/controleur/SessionContext'
 import Header from './component/header'
 import Footer from './component/footer'
 import Home from './component/home'
@@ -27,6 +27,7 @@ const root = createRoot(container)
 
 // Composant racine de l'application
 function App () {
+    const { state, dispatch } = useSession() // Accès au contexte de session
     const [cartItems, setCartItems] = useState([
         // Exemple de produit
         { id: 1, name: 'Product 1', price: 20, quantity: 2, description: 'description item 1' },
@@ -62,7 +63,7 @@ function App () {
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
                 <Route path='/cart' element={<Cart cartItems={cartItems} />} />
-                <Route path='/account' element={<Account />} />
+                <Route path='/account' element={<Account state={state} dispatch={dispatch} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/details' element={<Details />} />
             </Routes>

@@ -2,7 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import sweetalert from 'sweetalert2'
-const Account = () => {
+import Utilisateur from '../../../backend/entities/utilisateur'
+const Account = ({ state, dispatch }) => {
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
@@ -14,13 +15,15 @@ const Account = () => {
 
         axios.post('http://localhost:5000/login', { email, password })
             .then(response => {
-                console.log('response', response.data)
-
                 const users = response.data
 
                 const userFound = users.find(user => user.email === email && user.password === password)
 
                 if (userFound) {
+                    const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.email, userFound.password)
+
+                    // Mettre à jour le contexte avec l'utilisateur connecté
+                    dispatch({ type: 'LOGIN', payload: utilisateur })
                     navigate('/home')
                 } else {
                     sweetalert.fire({

@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import DeconnectButton from './connect_button'
+import { useSession } from '../../../backend/controleur/SessionContext'
 
 const Header = () => {
+    const { state } = useSession()
     return (
         <div>
 
@@ -23,10 +26,20 @@ const Header = () => {
                                 </button>
                             </form>
                             <div className='user_option_box'>
-                                <Link className='nav-link' to='/account'>
-                                    <img className='icon' src='/public/images/icon_account.png' alt='' />
-                                    <span> My Account</span>
-                                </Link>
+                                {state.user != null
+                                    ? (
+                                        <div className='nav-link'>
+                                            <img className='icon' src='/public/images/icon_account.png' alt='' />
+                                            <DeconnectButton />
+                                        </div>
+                                    )
+                                    : (
+                                        <Link className='nav-link' to='/account'>
+                                            <img className='icon' src='/public/images/icon_account.png' alt='' />
+                                            <DeconnectButton />
+                                        </Link>
+                                    )}
+
                                 <Link className='nav-link' to='/cart'>
                                     <img className='icon' src='/public/images/icon_cart.png' alt='' />
                                     <span> Cart</span>
