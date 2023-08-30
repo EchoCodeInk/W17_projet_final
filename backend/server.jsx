@@ -19,8 +19,22 @@ const db = new sqlite3.Database('data/database.db', (err) => {
     }
 })
 
-app.get('/products', (req, res) => {
-    db.all('SELECT * FROM products', (err, rows) => {
+app.get('/produit', (req, res) => {
+    db.all('SELECT * FROM produit', (err, rows) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+        } else {
+            res.json(rows)
+        }
+    })
+})
+
+app.post('/login', (req, res) => {
+    const { email, password } = req.body // Obtenez les données envoyées par le client
+
+    // Effectuez votre recherche SQL en utilisant les données de connexion
+    db.all('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], (err, rows) => {
         if (err) {
             console.error(err)
             res.status(500).json({ error: 'Internal server error' })
