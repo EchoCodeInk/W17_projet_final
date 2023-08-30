@@ -43,6 +43,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="visible"
+            android:id="@+id/pageUser"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="90"
@@ -119,14 +121,148 @@
                 android:textColor="#6bdde3"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/pageUserLoggedIn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="90"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="#556599">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Name : "
+                        android:textColor="#000000" />
+
+                    <EditText
+                        android:id="@+id/inputNameUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Email : "
+                        android:textColor="#000000" />
+
+                    <EditText
+                        android:id="@+id/inputEmailUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Password : "
+                        android:gravity="center"
+                        android:textColor="#000000"/>
+
+                    <EditText
+                        android:id="@+id/inputPasswordUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:gravity="center"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Img User : "
+                        android:gravity="center"
+                        android:textColor="#000000"/>
+
+                    <EditText
+                        android:id="@+id/inputImgUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:gravity="center"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="33"
+                    android:text="Save"
+                    android:backgroundTint="#7cacd2"
+                    android:textColor="#000000"/>
+
+                <Button
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="33"
+                    android:text="Delete"
+                    android:backgroundTint="#ff0303"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="© Tout Droit Reserve 2016 ©"
             android:layout_weight="2"
-            android:gravity="center"
             android:background="#3b4568"
-            android:textColor="#FFFFFF"/>
+            android:gravity="center"
+            android:text="© Tout Droit Reserve 2016 ©"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
