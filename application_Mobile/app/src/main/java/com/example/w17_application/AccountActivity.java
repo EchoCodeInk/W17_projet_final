@@ -37,6 +37,9 @@ public class AccountActivity extends AppCompatActivity {
 
         context = this;
 
+        //logged User
+
+
         // ACTION BAR
         View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
@@ -101,6 +104,10 @@ public class AccountActivity extends AppCompatActivity {
                     EditText loggedImgName = findViewById(R.id.inputImgUser);
                     loggedImgName.setText(user.getImage_profil());
 
+                    ImageView imgUser = findViewById(R.id.imgUser);
+                    Drawable imgUserDrawable = ContextCompat.getDrawable(this, R.drawable.no_user);
+                    imgUser.setImageDrawable(imgUserDrawable);
+
                     Button btnSave = findViewById(R.id.saveBtn);
                     btnSave.setOnClickListener(v1 -> {
                         if (loggedName.getText().toString().isEmpty() || loggedEmail.getText().toString().isEmpty() || loggedPass.getText().toString().isEmpty() || loggedImgName.getText().toString().isEmpty()) {
@@ -113,6 +120,11 @@ public class AccountActivity extends AppCompatActivity {
                             updateUser.setPassword(loggedPass.getText().toString());
                             updateUser.setImage_profil(loggedImgName.getText().toString());
                             userManager.updateUser(context,updateUser);
+
+                            Intent intentReload = new Intent(AccountActivity.this, AccountActivity.class);
+                            intentReload.getIntExtra("userId", user.getId());
+                            finish();
+                            startActivity(intentReload);
                         }
                     });
 
