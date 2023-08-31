@@ -17,11 +17,12 @@ public class Product {
 
     public Product(Cursor cursor) {
         this.id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-        this.name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+        this.name = cursor.getString(cursor.getColumnIndexOrThrow("nom"));
         this.description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
-        this.category = cursor.getString(cursor.getColumnIndexOrThrow("category"));
-        this.price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
-        this.imageUrl = cursor.getString(cursor.getColumnIndexOrThrow("image_url"));
+        this.category = cursor.getString(cursor.getColumnIndexOrThrow("categorie"));
+        this.price = cursor.getInt(cursor.getColumnIndexOrThrow("prix"));
+        String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("image_url"));
+        this.imageUrl = imgUrl.substring(15);
     }
 
     public int getId() {
@@ -48,7 +49,7 @@ public class Product {
         this.description = description;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
