@@ -143,6 +143,7 @@ public class DetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, PaymentActivity.class);
                 intent.putExtra("id", product.getId());
                 intent.putExtra("quantity", quantityEditText.getText().toString());
+                finish();
                 startActivity(intent);
 
             }
