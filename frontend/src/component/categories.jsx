@@ -1,21 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react'
+import axios from 'axios'
+import React, { useRef, useEffect, useState } from 'react'
+// import { useNavigate } from 'react-router'
 
 const Categories = () => {
-    const [isOpen, setIsOpen] = useState(false)
+    const [data, setData] = useState()
     const dropdownRef = useRef(null)
 
-    const onSelectCategory = () => {
+    const onSelectCategory = (categoriName) => {
         // reste a implementer
-        // useEffect(() => {
-        //     axios.get('http://localhost:5000/produit_categorie')
-        //         .then(response => {
-        //             setData(response.data)
-        //         })
-        //         .catch(error => {
-        //             console.error(error)
-        //         })
-        // }, [])
+        useEffect(() => {
+            axios.get('http://localhost:5000/produit_categorie')
+                .then(response => {
+                    setData(response.data)
+                    console.log('response.data', response.data)
+                    console.log('data', data)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }, [])
     }
+
     // Définition des catégories
     const categories = [
         { id: 1, name: 'Appareil photo' },
@@ -24,51 +29,26 @@ const Categories = () => {
         { id: 4, name: 'Ordinateurs' }
 
     ]
-    // Gestionnaire de sélection de catégorie
-    const handleCategorySelect = (category, event) => {
-        event.stopPropagation()
-        onSelectCategory(category)
-    }
-
-    // Gestionnaire de bascule pour ouvrir/fermer la liste déroulante
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen)
-    }
-
-    useEffect(() => {
-        // Gestionnaire d'événement pour fermer la liste déroulante lors d'un clic en dehors
-        const handleGlobalClick = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false)
-            }
-        }
-
-        document.addEventListener('click', handleGlobalClick)
-
-        return () => {
-            document.removeEventListener('click', handleGlobalClick)
-        }
-    }, [])
 
     return (
         <div className='categories btn-group' ref={dropdownRef}>
             <button
                 type='button'
-                className={`btn btn-warning ${isOpen}`}
+                // className={`btn btn-warning ${isOpen}`}
                 data-toggle='dropdown'
                 aria-haspopup='true'
                 aria-expanded='false'
-                onClick={toggleDropdown}
+                className='nav-link'
             >
                 Catégories
             </button>
-            <ul className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
+            <ul className='dropdown-menu'>
                 {categories.map((category) => (
                     <li key={category.id}>
                         <a
                             className='dropdown-item'
-                            href='javascript:void(0)'
-                            onClick={(event) => handleCategorySelect(category, event)}
+                            href=''
+                            onClick={onSelectCategory(category.name)}
                         >
                             {category.name}
                         </a>
