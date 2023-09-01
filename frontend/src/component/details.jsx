@@ -14,7 +14,7 @@ const Details = () => {
         console.log('tabIndex', tabIndex)
         setSelectedTab(tabIndex)
     }
-
+    // set quality
     const [quantity, setQuantity] = useState(1)
     const maxQuantity = product.quantity
 
@@ -29,6 +29,7 @@ const Details = () => {
             setQuantity(quantity - 1)
         }
     }
+    // add to cart
     useEffect(() => {
         axios.get('http://localhost:5000/produit')
             .then(response => {
@@ -192,7 +193,7 @@ const Details = () => {
                                     </div>
                                 </div>
                                 <a href='#' className='btn btn-warning shadow-0'> Buy now </a>
-                                <a href='#' className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </a>
+                                <button className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
                                 <a href='#' className='btn btn-light border border-secondary py-2 icon-hover px-3' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-heart fa-lg' /> Save </a>
                             </div>
                         </main>
