@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Categories from './Categories'
-import DeconnectButton from './connect_button'
+import ConnectButton from './connect_button'
 import { useSession } from '../../../backend/controleur/SessionContext'
+// import Utilisateur from '../../../backend/entities/Utilisateur'
 
 const Header = () => {
     const { state } = useSession()
+
     return (
         <div>
 
@@ -27,19 +29,28 @@ const Header = () => {
                                 </button>
                             </form>
                             <div className='user_option_box'>
+                                {console.log(' header state.initUser', state.initUser)}
+                                {console.log('header state.user', state.user)}
+                                {
 
-                                {state.user != null
-                                    ? (
-                                        <div className='nav-link'>
-                                            <DeconnectButton />
-                                        </div>
-                                    )
-                                    : (
-                                        <Link className='nav-link' to='/account'>
-                                            <img className='icon' src='/public/images/icon_account.png' alt='' />
-                                            <DeconnectButton />
-                                        </Link>
-                                    )}
+                                    state.user === null
+                                        ? (
+                                            <>
+                                                <Link className='nav-link' to='/account'>
+                                                    <ConnectButton />
+                                                </Link>
+
+                                            </>
+                                        )
+                                        : (
+
+                                            <div className='nav-link'>
+                                                <ConnectButton />
+
+                                            </div>
+
+                                        )
+                                }
 
                                 <Link className='nav-link' to='/panier'>
                                     <img className='icon' src='/public/images/icon_cart.png' alt='' />
