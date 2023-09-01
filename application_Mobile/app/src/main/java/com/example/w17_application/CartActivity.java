@@ -30,7 +30,7 @@ public class CartActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     ImageButton btnDelete;
     Button btnCheckOut;
-    TextView tvProductId, tvProductName, tvProductPrice, tvProductQuantity, tvTotalAmount;
+    TextView  tvProductName, tvProductPrice, tvProductQuantity, tvTotalAmount;
     private double totalAmount = 0.0;
 
     ArrayList<Cart> itemsCart;
@@ -50,7 +50,6 @@ public class CartActivity extends AppCompatActivity {
         for (Cart cart : itemsCart) {
             LinearLayout cartLayout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.single_row_design, null);
             tvProductName = cartLayout.findViewById(R.id.cart_product_name);
-            tvProductId = cartLayout.findViewById(R.id.cart_product_id);
             tvProductPrice = cartLayout.findViewById(R.id.cart_product_prix);
             tvProductQuantity = cartLayout.findViewById(R.id.cart_product_quantity);
 
@@ -58,7 +57,6 @@ public class CartActivity extends AppCompatActivity {
 
             btnDelete = cartLayout.findViewById(R.id.delete_btn);
             tvProductName.setText(String.valueOf(getFirstNWords(product.getName(), 5)));
-            tvProductId.setText(String.valueOf(cart.getProductId()));
             tvProductPrice.setText(String.valueOf(cart.getProductPrice() + "$"));
             tvProductQuantity.setText(String.valueOf(cart.getProductQuantity()));
 

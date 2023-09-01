@@ -117,7 +117,6 @@ public class PaymentActivity extends AppCompatActivity {
                 linearLayout.addView(productLayout);
 
             }
-            Toast.makeText(context, "totalAmount " + totalAmount, Toast.LENGTH_SHORT).show();
             double totalAmountToDouble = Double.parseDouble(totalAmount);
             priceHT = totalAmountToDouble;
             priceTVQ = totalAmountToDouble * 0.09975;
