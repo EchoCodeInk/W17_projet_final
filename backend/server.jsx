@@ -20,7 +20,12 @@ const db = new sqlite3.Database('data/database.db', (err) => {
 })
 
 app.get('/produit', (req, res) => {
-    db.all('SELECT * FROM produit', (err, rows) => {
+    const { query } = req.query
+
+    // Assurez-vous d'échapper aux entrées utilisateur pour éviter les injections SQL.
+    const sqlQuery = 'SELECT * FROM produit WHERE nom LIKE ?'
+
+    db.all(sqlQuery, [`%${query}%`], (err, rows) => {
         if (err) {
             console.error(err)
             res.status(500).json({ error: 'Internal server error' })

@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Categories from './Categories'
 import ConnectButton from './connect_button'
 import { useSession } from '../../../backend/controleur/SessionContext'
-// import Utilisateur from '../../../backend/entities/Utilisateur'
 
 const Header = () => {
     const { state } = useSession()
+    const [searchQuery, setSearchQuery] = useState('')
+    // const [data, setData] = useState([])
+
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value)
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+    }
 
     return (
         <div>
-
+            {console.log('searchQuery', searchQuery)}
             {/* <!-- header section strats --> */}
             <header className='header_section'>
                 <div className='header_top'>
@@ -22,11 +31,15 @@ const Header = () => {
                                 </Link>
 
                             </div>
-                            <form className='search_form'>
-                                <input type='search' className='form-control' placeholder='Search here...' />
-                                <button className='search-button' type='submit'>
-                                    <i className='fa fa-search' aria-hidden='true' />
-                                </button>
+                            <form onSubmit={(event) => handleSubmit(event)} className='search_form'>
+                                <input
+                                    type='search'
+                                    className='form-control'
+                                    placeholder='Search here...'
+                                    value={searchQuery}
+                                    onChange={handleSearch}
+                                />
+                                <button className='search-button' type='submit' />
                             </form>
                             <div className='user_option_box'>
                                 {console.log(' header state.initUser', state.initUser)}

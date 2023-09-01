@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const Product = () => {
+const Product = ({ searchQuery }) => {
     const [data, setData] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:5000/produit')
-            .then(response => {
-                setData(response.data)
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }, [])
+        if (searchQuery) {
+            axios
+                .get(`http://localhost:5000/produit?query=${searchQuery}`)
+                .then((response) => {
+                    setData(response.data)
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        } //  else {
+        //     axios.get('http://localhost:5000/produit')
+        //         .then(response => {
+        //             setData(response.data)
+        //         })
+        //         .catch(error => {
+        //             console.error(error)
+        //         })
+        // }
+    }, [searchQuery])
 
     return (
         <div>
