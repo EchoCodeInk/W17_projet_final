@@ -30,6 +30,34 @@ app.get('/produit', (req, res) => {
     })
 })
 
+app.get('/produit_categorie', (req, res) => {
+    db.all('SELECT * FROM produit', (err, rows) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+        } else {
+            res.json(rows)
+        }
+    })
+})
+
+app.get('/produit/categorie/:nomCategorie', (req, res) => {
+    const nomCategorie = req.params.nomCategorie // Utilisez un nom plus explicite pour la variable
+
+    db.all(
+        'SELECT * FROM produit WHERE categorie_id IN (SELECT id FROM categorie WHERE nom = ?)',
+        [nomCategorie],
+        (err, rows) => {
+            if (err) {
+                console.error(err)
+                res.status(500).json({ error: 'Internal server error' })
+            } else {
+                res.json(rows)
+            }
+        }
+    )
+})
+
 app.post('/login', (req, res) => {
     const { email, password } = req.body // Obtenez les données envoyées par le client
 

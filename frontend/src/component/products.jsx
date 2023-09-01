@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 const Product = () => {
     const [data, setData] = useState([])
+    const { categoryName } = useParams()
+
     useEffect(() => {
-        axios.get('http://localhost:5000/produit')
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                let response
+
+                if (categoryName) {
+                    response = await axios.get(`http://localhost:5000/produit/categorie/${categoryName}`)
+                } else {
+                    response = await axios.get('http://localhost:5000/produit')
+                }
+
                 setData(response.data)
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error(error)
-            })
-    }, [])
+            }
+        }
+
+        fetchData()
+    }, [categoryName])
 
     return (
         <div>
