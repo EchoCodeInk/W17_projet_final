@@ -3,7 +3,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="75dp"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="1"
-        android:textSize="25dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/cart_product_name"
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:gravity="center"
-        android:text="White Shoes"
-        android:textSize="25dp" />
+        android:text="Product Name"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/cart_product_prix"
@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="250"
-        android:textSize="25dp" />
+        android:text="250$"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/cart_product_quantity"
@@ -41,7 +41,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="1"
-        android:textSize="25dp" />
+        android:textSize="20dp" />
 
 
     <ImageButton

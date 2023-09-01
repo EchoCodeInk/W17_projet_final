@@ -13,7 +13,7 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(int productId,int cartId, int productQuantity, int productPrice) {
+    public Cart(int productId, int cartId, int productQuantity, int productPrice) {
         this.productId = productId;
         this.cartId = cartId;
         this.productQuantity = productQuantity;
@@ -58,4 +58,5 @@ public class Cart {
     public void setProductPrice(int productPrice) {
         this.productPrice = productPrice;
     }
+
 }

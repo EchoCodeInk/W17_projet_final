@@ -133,12 +133,17 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // quantityEditText.getText().toString();
                 // ajout au panier avec la quantité spécifiée
-                Intent intent = new Intent(context, PaymentActivity.class);
-                intent.putExtra("id", product.getId());
-                intent.putExtra("quantity", quantityEditText.getText().toString());
-//                int quantity = Integer.parseInt(String.valueOf(quantityEditText.getText()));
-                CartManager.addProduct(context, product.getId(), 1, 2, product.getPrice());
+//                Intent intent = new Intent(context, CartActivity.class);
+//                intent.putExtra("id", product.getId());
+//                intent.putExtra("quantity", quantityEditText.getText().toString());
+//                finish();
+//                startActivity(intent);
+
+                int quantity = Integer.parseInt(String.valueOf(quantityEditText.getText()));
+                CartManager.addProduct(context, product.getId(), 1, quantity, product.getPrice());
+                finish();
                 Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
+//
             }
         });
 
@@ -150,6 +155,7 @@ public class DetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, PaymentActivity.class);
                 intent.putExtra("id", product.getId());
                 intent.putExtra("quantity", quantityEditText.getText().toString());
+                intent.putExtra("page", "pageDetails");
                 finish();
                 startActivity(intent);
 
