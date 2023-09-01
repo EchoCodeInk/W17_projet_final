@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 const Product = ({ searchQuery }) => {
     const [data, setData] = useState([])
+    const { categoryName } = useParams()
+
     useEffect(() => {
-        if (searchQuery) {
-            axios
-                .get(`http://localhost:5000/produit?query=${searchQuery}`)
-                .then((response) => {
-                    setData(response.data)
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-        } //  else {
-        //     axios.get('http://localhost:5000/produit')
-        //         .then(response => {
-        //             setData(response.data)
-        //         })
-        //         .catch(error => {
-        //             console.error(error)
-        //         })
-        // }
-    }, [searchQuery])
+        const fetchData = async () => {
+            try {
+                let response
+
+                if (categoryName) {
+                    response = await axios.get(`http://localhost:5000/produit/categorie/${categoryName}`)
+                } else {
+                    response = await axios.get('http://localhost:5000/produit')
+                }
+
+                setData(response.data)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        fetchData()
+    }, [categoryName])
 
     return (
         <div>
