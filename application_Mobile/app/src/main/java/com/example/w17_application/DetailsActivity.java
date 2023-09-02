@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.w17_application.entite.Product;
-import com.example.w17_application.manager.CartManager;
+import com.example.w17_application.manager.CartProductManager;
 import com.example.w17_application.manager.ProductManager;
 
 import java.io.IOException;
@@ -140,7 +139,7 @@ public class DetailsActivity extends AppCompatActivity {
 //                startActivity(intent);
 
                 int quantity = Integer.parseInt(String.valueOf(quantityEditText.getText()));
-                CartManager.addProduct(context, product.getId(), 1, quantity, product.getPrice());
+                CartProductManager.addProduct(context, product.getId(), 1, quantity, product.getPrice());
                 finish();
                 Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
 //

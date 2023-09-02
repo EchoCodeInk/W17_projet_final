@@ -4,12 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.w17_application.entite.Cart;
+import com.example.w17_application.entite.CartProduct;
 import com.example.w17_application.service.ConnectionDB;
 
 import java.util.ArrayList;
 
-public class CartManager {
+public class CartProductManager {
     public static void addProduct(Context context, int productId, int panierId, int quantity, int price) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
         Cursor cursor = bd.rawQuery("SELECT * FROM ItemPanier WHERE produit_id = ?", new String[]{String.valueOf(productId)});
@@ -21,14 +21,14 @@ public class CartManager {
         cursor.close();
     }
 
-    public static ArrayList<Cart> getAll(Context context) {
+    public static ArrayList<CartProduct> getAll(Context context) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
-        ArrayList<Cart> retour = null;
+        ArrayList<CartProduct> retour = null;
         Cursor cursor = bd.rawQuery("select * from ItemPanier", null);
         if (cursor.isBeforeFirst()) {
             retour = new ArrayList<>();
             while (cursor.moveToNext()) {
-                retour.add(new Cart(cursor));
+                retour.add(new CartProduct(cursor));
             }
         }
         return retour;
@@ -37,5 +37,10 @@ public class CartManager {
     public static void delete(Context context, int idProduct) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
         bd.delete("ItemPanier", "produit_id = ?", new String[]{String.valueOf(idProduct)});
+    }
+
+    public static void deleteAllCartProducts(Context context) {
+        SQLiteDatabase bd = ConnectionDB.getBd(context);
+        bd.delete("ItemPanier", null, null);
     }
 }

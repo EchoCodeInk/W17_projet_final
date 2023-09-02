@@ -2,25 +2,23 @@ package com.example.w17_application.entite;
 
 import android.database.Cursor;
 
-import java.util.List;
-
-public class Cart {
+public class CartProduct {
     private int productId;
     private int cartId;
     private int productQuantity;
     private int productPrice;
 
-    public Cart() {
+    public CartProduct() {
     }
 
-    public Cart(int productId, int cartId, int productQuantity, int productPrice) {
+    public CartProduct(int productId, int cartId, int productQuantity, int productPrice) {
         this.productId = productId;
         this.cartId = cartId;
         this.productQuantity = productQuantity;
         this.productPrice = productPrice;
     }
 
-    public Cart(Cursor cursor) {
+    public CartProduct(Cursor cursor) {
         this.productId = cursor.getInt(cursor.getColumnIndexOrThrow("produit_id"));
         this.cartId = cursor.getInt(cursor.getColumnIndexOrThrow("panier_id"));
         this.productQuantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));

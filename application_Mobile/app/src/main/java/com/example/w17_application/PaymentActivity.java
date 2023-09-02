@@ -11,13 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.w17_application.entite.Cart;
+import com.example.w17_application.entite.CartProduct;
 import com.example.w17_application.entite.Product;
-import com.example.w17_application.manager.CartManager;
+import com.example.w17_application.manager.CartProductManager;
 import com.example.w17_application.manager.ProductManager;
 
 import java.text.DecimalFormat;
@@ -31,7 +30,7 @@ public class PaymentActivity extends AppCompatActivity {
     LinearLayout linearLayout, productLayout;
 
     LinearLayout linearLayoutViewProducts;
-    ArrayList<Cart> itemsCart;
+    ArrayList<CartProduct> itemsCartProduct;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     Context context;
@@ -51,7 +50,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         String page = intent.getStringExtra("page");
 
-        itemsCart = CartManager.getAll(context);
+        itemsCartProduct = CartProductManager.getAll(context);
 
         context = this;
         linearLayout = new LinearLayout(context);
@@ -100,7 +99,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         } else {
 //            int totalAmount = intent.getIntExtra("totalAmount", -1);
-            for (Cart cart : itemsCart) {
+            for (CartProduct cartProduct : itemsCartProduct) {
                 productLayout = findViewById(R.id.ll_payment_product_detail);
                 productLayout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.single_row_product_payment, null);
 
@@ -109,10 +108,10 @@ public class PaymentActivity extends AppCompatActivity {
                 paymentProductQuantity = productLayout.findViewById(R.id.payment_product_quantity);
 
 
-                Product product = ProductManager.getById(this, cart.getProductId());
+                Product product = ProductManager.getById(this, cartProduct.getProductId());
                 paymentProductName.setText(product.getName());
-                paymentProductPrice.setText(String.valueOf(cart.getProductPrice()) + "$");
-                paymentProductQuantity.setText(String.valueOf(cart.getProductQuantity()));
+                paymentProductPrice.setText(String.valueOf(cartProduct.getProductPrice()) + "$");
+                paymentProductQuantity.setText(String.valueOf(cartProduct.getProductQuantity()));
 
                 linearLayout.addView(productLayout);
 
@@ -133,9 +132,10 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!etFirstName.getText().toString().isEmpty() && !etLastName.getText().toString().isEmpty() && !etCardNumber.getText().toString().isEmpty() && !etExpiryDate.getText().toString().isEmpty() && !etCvv.getText().toString().isEmpty()) {
-                    Intent intent = new Intent(context, ThankYouActivity.class);
-                    finish();
+                    intent = new Intent(context, ThankYouActivity.class);
+                    intent.putExtra("totalTTC",  totalTTC.getText().toString());
                     startActivity(intent);
+                    finish();
 
                 } else {
                     Toast.makeText(context, "Please fill out all the required fields before proceeding. ", Toast.LENGTH_SHORT).show();
