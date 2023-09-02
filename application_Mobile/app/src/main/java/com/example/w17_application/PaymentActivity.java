@@ -30,7 +30,7 @@ public class PaymentActivity extends AppCompatActivity {
     double priceHT, priceTVQ, priceTPS, priceTTC;
     LinearLayout linearLayout, productLayout;
 
-    ScrollView scrollViewProducts;
+    LinearLayout linearLayoutViewProducts;
     ArrayList<Cart> itemsCart;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
@@ -56,7 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
         context = this;
         linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-        scrollViewProducts = findViewById(R.id.scroller_payment);
+        linearLayoutViewProducts = findViewById(R.id.scroller_payment);
 
 
         subtotalHT = findViewById(R.id.sous_total_ht);
@@ -127,7 +127,7 @@ public class PaymentActivity extends AppCompatActivity {
             TPS.setText("TPS     " + decimalFormat.format(priceTPS) + "$");
             totalTTC.setText("Total TTC     " + decimalFormat.format(priceTTC) + "$");
         }
-        scrollViewProducts.addView(linearLayout);
+        linearLayoutViewProducts.addView(linearLayout);
 
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
