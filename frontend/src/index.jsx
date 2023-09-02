@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import './css/bootstrap.css'
@@ -30,6 +30,12 @@ const root = createRoot(container)
 // Composant racine de l'application
 function App () {
     const { state, dispatch } = useSession() // Accès au contexte de session
+    const [reloadKey, setReloadKey] = useState(0) // Initialisez la clé avec 0
+
+    const handleReloadProduct = () => {
+        // Incrémentez la clé pour forcer le rechargement du composant Product
+        setReloadKey(reloadKey + 1)
+    }
 
     useEffect(() => {
         if (!state.initUser) {
@@ -38,13 +44,21 @@ function App () {
         }
     }, [state.user, dispatch])
 
+    const [searchQueryFromHeader, setSearchQueryFromHeader] = useState('')
+
+    // Fonction de rappel pour recevoir searchQuery du composant Header
+    const handleSearchQueryChange = (searchQuery) => {
+        setSearchQueryFromHeader(searchQuery)
+        console.log('searchQueryFromHeader', searchQueryFromHeader)
+    }
+
     return (
         <div>
-            <Header />
+            <Header onSearchQueryChange={handleSearchQueryChange} handleReloadProduct={handleReloadProduct} />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
-                <Route path='/products' element={<Products />} />
+                <Route path='/products' element={<Products key={reloadKey} searchQuery={searchQueryFromHeader} />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />

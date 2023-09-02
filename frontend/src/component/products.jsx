@@ -7,29 +7,38 @@ const Product = ({ searchQuery }) => {
     const { categoryName } = useParams()
 
     useEffect(() => {
+        // Déplacez la fonction fetchData dans le hook useEffect pour éviter un appel de requête initial non nécessaire.
         const fetchData = async () => {
+            console.log('searchQuery_dans_fetchData ', searchQuery)
             try {
                 let response
 
-                if (categoryName) {
+                if (searchQuery) {
+                    console.log('searchQuery_dans_if_products ', searchQuery)
+                    response = await axios.get(`http://localhost:5000/searchQuery?query=${searchQuery}`)
+                } else if (categoryName) {
+                    console.log('categoryName_dans_if_products ', categoryName)
                     response = await axios.get(`http://localhost:5000/produit/categorie/${categoryName}`)
                 } else {
+                    console.log('else_products ')
                     response = await axios.get('http://localhost:5000/produit')
+                    console.log('else_products_response', response)
                 }
-
                 setData(response.data)
+                console.log('categoryName ', categoryName)
+                console.log('searchQuery ', searchQuery)
             } catch (error) {
                 console.error(error)
             }
         }
 
+        // Appelez fetchData() lorsque le composant est monté ou lorsque categoryName ou searchQuery change.
         fetchData()
-    }, [categoryName])
+    }, [categoryName], [searchQuery])
 
     return (
         <div>
             {/* <!-- product section --> */}
-
             <section className='product_section layout_padding'>
                 <div className='container'>
                     <div className='heading_container heading_center'>
