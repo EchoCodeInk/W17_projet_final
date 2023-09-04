@@ -43,14 +43,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="visible"
             android:id="@+id/pageUser"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="90"
+            android:background="#556599"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="#556599">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,9 +62,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Email : "
                     android:gravity="center"
-                    android:textColor="#000000"/>
+                    android:text="Email : "
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/email"
@@ -72,10 +72,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:ems="10"
-                    android:inputType="textEmailAddress"
                     android:gravity="center"
                     android:hint="Email..."
-                    android:textColor="#000000"/>
+                    android:inputType="textEmailAddress"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -88,9 +88,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Password : "
                     android:gravity="center"
-                    android:textColor="#000000"/>
+                    android:text="Password : "
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/password"
@@ -98,43 +98,49 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:ems="10"
-                    android:inputType="textPassword"
                     android:gravity="center"
                     android:hint="Password..."
-                    android:textColor="#000000"/>
+                    android:inputType="textPassword"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/connection"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Sign in"
+                android:backgroundTint="#f3c93e"
                 android:padding="10dp"
-                android:backgroundTint="#f3c93e"/>
+                android:text="Sign in" />
 
             <TextView
                 android:id="@+id/inscription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign up...."
                 android:padding="10dp"
-                android:textColor="#6bdde3"/>
+                android:text="Sign up...."
+                android:textColor="#6bdde3" />
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/pageUserLoggedIn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="90"
+            android:background="#556599"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="#556599">
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btn_my_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My orders" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -196,9 +202,9 @@
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Password : "
                         android:gravity="center"
-                        android:textColor="#000000"/>
+                        android:text="Password : "
+                        android:textColor="#000000" />
 
                     <EditText
                         android:id="@+id/inputPasswordUser"
@@ -206,9 +212,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="text"
                         android:gravity="center"
-                        android:textColor="#000000"/>
+                        android:inputType="text"
+                        android:textColor="#000000" />
 
                 </LinearLayout>
 
@@ -222,9 +228,9 @@
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Img User : "
                         android:gravity="center"
-                        android:textColor="#000000"/>
+                        android:text="Img User : "
+                        android:textColor="#000000" />
 
                     <EditText
                         android:id="@+id/inputImgUser"
@@ -232,9 +238,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="text"
                         android:gravity="center"
-                        android:textColor="#000000"/>
+                        android:inputType="text"
+                        android:textColor="#000000" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -257,18 +263,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="7"
-                    android:text="Save"
                     android:backgroundTint="#7cacd2"
-                    android:textColor="#000000"/>
+                    android:text="Save"
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/deleteBtn"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="7"
-                    android:text="Delete"
                     android:backgroundTint="#ff0303"
-                    android:textColor="#000000"/>
+                    android:text="Delete"
+                    android:textColor="#000000" />
 
             </LinearLayout>
 

@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class OrderManager {
 
-    public static ArrayList<Order> getAll(Context context) {
+    public static ArrayList<Order> getAllByUserId(Context context, int userId) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
-        String query = "select * from Commande";
+        String query = "select * from Commande where utilisateur_id = ?";
         ArrayList<Order> orders = null;
-        Cursor cursor = bd.rawQuery(query, null);
+        Cursor cursor = bd.rawQuery(query, new String[]{String.valueOf(userId)});
         if (cursor.isBeforeFirst()) {
             orders = new ArrayList<>();
             while (cursor.moveToNext()) {

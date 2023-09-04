@@ -10,11 +10,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.w17_application.entite.CartProduct;
 import com.example.w17_application.entite.Product;
+import com.example.w17_application.entite.User;
 import com.example.w17_application.manager.CartProductManager;
 import com.example.w17_application.manager.ProductManager;
 
@@ -26,8 +28,9 @@ public class CartActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     ImageButton btnDelete;
     Button btnCheckOut;
-    TextView  tvProductName, tvProductPrice, tvProductQuantity, tvTotalAmount;
+    TextView tvProductName, tvProductPrice, tvProductQuantity, tvTotalAmount;
     private double totalAmount = 0.0;
+    User user;
 
     ArrayList<CartProduct> itemsCartProduct;
 
@@ -74,6 +77,9 @@ public class CartActivity extends AppCompatActivity {
             linearLayout.addView(cartLayout);
         }
         scrollView.addView(linearLayout);
+//        Intent intent = getIntent();
+//        int userId = Integer.parseInt(intent.getStringExtra("userId"));
+//        Toast.makeText(context, "user.getId() " + "1" + userId, Toast.LENGTH_LONG).show();
 
         tvTotalAmount = findViewById(R.id.tv_total_amount);
         tvTotalAmount.setText("Total Amount : " + String.format("%.2f$", totalAmount));

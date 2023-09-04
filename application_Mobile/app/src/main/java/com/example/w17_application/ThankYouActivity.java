@@ -61,7 +61,7 @@ public class ThankYouActivity extends AppCompatActivity {
         int OrderId = Integer.parseInt(genererNumeroCommande());
         orderNumber.setText("Your Order: #" + OrderId);
         orderDate.setText("Order Date: " + dateEtHeure);
-        OrderManager.addOrder(context, OrderId, 1, Double.parseDouble(newTotalTTC), dateEtHeure);
+        OrderManager.addOrder(context, OrderId, 2, Double.parseDouble(newTotalTTC), dateEtHeure);
         CartProductManager.deleteAllCartProducts(context);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
