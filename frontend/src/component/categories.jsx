@@ -9,6 +9,7 @@ const Categories = () => {
         axios.get(`http://localhost:5000/produit/categorie/${category.name}`)
             .then(response => {
                 setData(response.data)
+                console.log('response.data', response.data)
             })
             .catch(error => {
                 console.error(error)
@@ -16,12 +17,12 @@ const Categories = () => {
     }
 
     const categories = [
-        { id: 1, name: 'appareil photo' },
+        { id: 1, name: 'appareilphoto' },
         { id: 2, name: 'televison' },
         { id: 3, name: 'drone' },
-        { id: 4, name: 'musique electronique' },
+        { id: 4, name: 'musiqueelectronique' },
         { id: 5, name: 'camera' },
-        { id: 7, name: 'jeux video' }
+        { id: 7, name: 'jeuxVideo' }
     ]
 
     const handleCategorySelect = (category, event) => {

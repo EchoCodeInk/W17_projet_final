@@ -1,12 +1,15 @@
 import React from 'react'
-
+// import { useSession } from '../../../backend/controleur/SessionContext'
 const PanierItem = ({ handlePanier }) => {
+    // const { state } = useSession()
+    const paniers = handlePanier
+    console.log('paniers in PanierItem', paniers)
     const calculateTotal = () => {
-        return handlePanier.reduce((total, item) => total + item.price * item.quantity, 0)
+        return paniers.reduce((total, item) => total + (item.product.prix * item.quantity), 0)
     }
 
     const calculateTotalFinal = () => {
-        const subtotal = handlePanier.reduce((total, item) => total + item.price * item.quantity, 0)
+        const subtotal = calculateTotal()
         const tps = calculateTPS()
         const tvq = calculateTVQ()
         return subtotal + tps + tvq
@@ -24,35 +27,32 @@ const PanierItem = ({ handlePanier }) => {
     }
 
     const handleIncreaseQuantity = (item) => {
-        // Mettre à jour la quantité de l'item en augmentant de 1
-        // Vous devrez implémenter cette logique en fonction de votre structure de données
+        console.log('handleIncreaseQuantity', handleIncreaseQuantity)
     }
 
     const handleDecreaseQuantity = (item) => {
-        // Mettre à jour la quantité de l'item en diminuant de 1
-        // Vous devrez implémenter cette logique en fonction de votre structure de données
+        console.log('handleDecreaseQuantity', handleDecreaseQuantity)
     }
 
     const handleDeleteItem = (item) => {
-        // Supprimer l'item du panier
-        // Vous devrez implémenter cette logique en fonction de votre structure de données
+        console.log('handleDeleteItem', handleDeleteItem)
     }
     return (
         <div>
 
             <h1>My Cart</h1>
-            {console.log('panier', handlePanier)}
-            {(handlePanier.length === 0)
+
+            {(!paniers || paniers.length === 0)
                 ? (
                     <div>Your cart is empty.</div>
                 )
                 : (
                     <div className='cart-items'>
-                        {handlePanier.map((item) => (
-                            <div key={item.id} className='cart-item'>
-                                <img className='product-image' src='/public/images/evan.jpg' alt={item.name} />
+                        {paniers.map((item) => (
+                            <div key={item.product.id} className='cart-item'>
+                                <img className='product-image' src={item.product.image_url} alt={item.product.name} />
                                 <div className='product-details'>
-                                    <h2 className='product-name'>{item.name}</h2>
+                                    <h2 className='product-name'>{item.product.name}</h2>
                                     <span className='product-quantity'>
                                         <button className='quantity-button' onClick={() => handleDecreaseQuantity(item)}>
                                             -
@@ -62,12 +62,12 @@ const PanierItem = ({ handlePanier }) => {
                                             +
                                         </button>
                                     </span>
-                                    <span className='product-price'>${item.price.toFixed(2)}</span>
+                                    <span className='product-price'>${item.product.prix.toFixed(2)}</span>
 
                                 </div>
-                                <h3 className='product-description'>{item.description}</h3>
+                                <h3 className='product-description'>{item.product.description}</h3>
                                 <div className='product-total'>
-                                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                                    <span>${(item.product.prix * item.quantity).toFixed(2)}</span>
                                     <button className='delete-button' onClick={() => handleDeleteItem(item)}>
                                         Delete
                                     </button>

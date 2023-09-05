@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useSession } from '../../../backend/controleur/SessionContext'
 
-const Details = () => {
-    const { id } = useParams()
+const Details = ({ selectedDetailProduct }) => {
+    const { state } = useSession()
+
     const [product, setProduct] = useState([])
     console.log('product', product)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
+
     const [selectedTab, setSelectedTab] = useState(1)
 
     const handleClickTab = (tabIndex) => {
@@ -29,45 +29,41 @@ const Details = () => {
             setQuantity(quantity - 1)
         }
     }
-    // add to cart
+
+    const hadleClickAddToCart = (product) => {
+        if (state.initUser.session === false) {
+            state.user.panier.articles.push({ product, quantity })
+            console.log('detail :state.user.panier.articles', state.user.panier.articles)
+        } else {
+            state.initUser.panier.articles.push({ product, quantity })
+            console.log('detail :state.initUser.panier.articles', state.initUser.panier.articles)
+        }
+    }
+
     useEffect(() => {
-        axios.get('http://localhost:5000/produit')
-            .then(response => {
-                if (Array.isArray(response.data) && response.data.length > 0) {
-                    console.log('response data', response.data)
-                    const products = response.data
-                    const product1 = products[id - 1]
-                    console.log('id', products.filter(item => parseInt(id) === item.id))
-                    console.log('product dans axios', product1)
-                    if (product1) {
-                        setProduct(product1)
-                        setLoading(false)
-                    } else {
-                        setError('Product not found')
-                        setLoading(false)
-                    }
-                } else {
-                    setError('No data available')
-                    setLoading(false)
-                }
-            })
-            .catch(error => {
-                console.error(error)
-                setError('An error occurred while loading the product')
-                setLoading(false)
-            })
-    }, [id])
+        // Votre code ici...
 
-    if (loading) {
-        return <div>Loading...</div>
-    }
+        if (selectedDetailProduct) {
+            localStorage.setItem('selectedDetailProduct', JSON.stringify(selectedDetailProduct))
+        }
+        const storedProduct = localStorage.getItem('selectedDetailProduct')
+        if (storedProduct) {
+            const parsedProduct = JSON.parse(storedProduct)
+            setProduct(parsedProduct)
+        } else {
+            // Si aucune valeur n'est trouvée, utilisez selectedDetailProduct
+            setProduct(selectedDetailProduct)
+        }
 
-    if (error) {
-        return <div>Error: {error}</div>
-    }
+        // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
+        return () => {
+            localStorage.removeItem('selectedDetailProduct')
+        }
+    }, [selectedDetailProduct]) // Tableau de dépendances
 
     return (
         <>
+
             {/* <!-- about section --> */}
             {/* <!-- Heading --> */}
             <div className='bg-primary'>
@@ -193,7 +189,7 @@ const Details = () => {
                                     </div>
                                 </div>
                                 <a href='#' className='btn btn-warning shadow-0'> Buy now </a>
-                                <button className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
+                                <button onClick={(even) => hadleClickAddToCart(product)} className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
                                 <a href='#' className='btn btn-light border border-secondary py-2 icon-hover px-3' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-heart fa-lg' /> Save </a>
                             </div>
                         </main>
@@ -351,6 +347,7 @@ const Details = () => {
                     </div>
                 </div>
             </section>
+
             {/* <!-- end about section --> */}
         </>
     )

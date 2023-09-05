@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-const Product = ({ searchQuery }) => {
+const Product = ({ onSelectedDetailProduct, searchQuery }) => {
     const [data, setData] = useState([])
     const { categoryName } = useParams()
 
@@ -52,11 +52,12 @@ const Product = ({ searchQuery }) => {
                                 <div className='box'>
                                     <div className='img-box'>
                                         <img src={item.image_url} alt='' />
-                                        <a href={'/details/' + item.id} className='add_cart_btn'>
+                                        {console.log('item Details', item)}
+                                        <button onClick={(event) => onSelectedDetailProduct(item)} className='add_cart_btn'>
                                             <span>
                                                 Details
                                             </span>
-                                        </a>
+                                        </button>
                                     </div>
                                     <div className='detail-box'>
                                         <h5>

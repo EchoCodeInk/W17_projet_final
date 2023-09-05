@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom'
 import './css/bootstrap.css'
 import './css/style.css'
 import './css/ion.rangeSlider.min.css'
@@ -30,6 +30,9 @@ const root = createRoot(container)
 // Composant racine de l'application
 function App () {
     const { state, dispatch } = useSession() // Accès au contexte de session
+    const [selectedDetailProduct, setSelectedDetailProduct] = useState()
+    const navigate = useNavigate()
+
     const [reloadKey, setReloadKey] = useState(0) // Initialisez la clé avec 0
 
     const handleReloadProduct = () => {
@@ -51,6 +54,11 @@ function App () {
         setSearchQueryFromHeader(searchQuery)
         console.log('searchQueryFromHeader', searchQueryFromHeader)
     }
+    const handleSelectedDetailProduct = (productSelected) => {
+        console.log('handleSelectedDetailProduct', productSelected)
+        setSelectedDetailProduct(productSelected)
+        navigate('/details')
+    }
 
     return (
         <div>
@@ -58,14 +66,14 @@ function App () {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
-                <Route path='/products' element={<Products key={reloadKey} searchQuery={searchQueryFromHeader} />} />
+                <Route path='/products' element={<Products onSelectedDetailProduct={handleSelectedDetailProduct} key={reloadKey} searchQuery={searchQueryFromHeader} />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
                 <Route path='/panier' element={<Panier />} />
                 <Route path='/account' element={<Account state={state} dispatch={dispatch} />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/details/:id' element={<Details />} />
+                <Route path='/details' element={<Details selectedDetailProduct={selectedDetailProduct} />} />
                 <Route path='/categories' element={<Categories />} />
                 <Route path='/products/:categoryName' element={<Products />} />
             </Routes>

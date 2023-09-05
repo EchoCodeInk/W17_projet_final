@@ -46,22 +46,6 @@ app.get('/searchQuery', (req, res) => {
     })
 })
 
-// app.get('/searchQuery', (req, res) => {
-//     const { query } = req.query
-//     console.log('app.get(/searchQuery', query)
-
-//     const sqlQuery = 'SELECT * FROM produit WHERE nom LIKE ?'
-
-//     db.all(sqlQuery, [`%${query}%`], (err, rows) => {
-//         if (err) {
-//             console.error(err)
-//             res.status(500).json({ error: 'Internal server error' })
-//         } else {
-//             res.json(rows)
-//         }
-//     })
-// })
-
 app.get('/produit/categorie/:nomCategorie', (req, res) => {
     const nomCategorie = req.params.nomCategorie
 
