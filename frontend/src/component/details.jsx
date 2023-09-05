@@ -6,7 +6,6 @@ const Details = ({ selectedDetailProduct }) => {
     const { state } = useSession()
 
     const [product, setProduct] = useState([])
-    console.log('product', product)
 
     const [selectedTab, setSelectedTab] = useState(1)
 
@@ -42,9 +41,9 @@ const Details = ({ selectedDetailProduct }) => {
 
     useEffect(() => {
         // Votre code ici...
-
         if (selectedDetailProduct) {
             localStorage.setItem('selectedDetailProduct', JSON.stringify(selectedDetailProduct))
+            console.log('detail :state.initUser.panier.articles', state.initUser.panier.articles)
         }
         const storedProduct = localStorage.getItem('selectedDetailProduct')
         if (storedProduct) {
