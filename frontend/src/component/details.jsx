@@ -187,6 +187,8 @@ const Details = ({ selectedDetailProduct }) => {
                                         </div>
                                     </div>
                                 </div>
+                                <a href='/checkout' className='btn btn-warning shadow-0'> Buy now </a>
+                                <button className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
                                 <a href='#' className='btn btn-warning shadow-0'> Buy now </a>
                                 <button onClick={(even) => hadleClickAddToCart(product)} className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
                                 <a href='#' className='btn btn-light border border-secondary py-2 icon-hover px-3' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-heart fa-lg' /> Save </a>
