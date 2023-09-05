@@ -18,6 +18,8 @@ import Panier from './component/panier'
 import Account from './component/account'
 import Register from './component/register'
 import Details from './component/details'
+import Checkout from './component/check_out'
+import Delivery from './component/delivery'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -42,6 +44,8 @@ function App () {
                 <Route path='/account' element={<Account state={state} dispatch={dispatch} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/details/:id' element={<Details />} />
+                <Route path='/checkout' element={<Checkout />} />
+                <Route path='/delivery' element={<Delivery />} />
             </Routes>
             <Footer />
         </div>
