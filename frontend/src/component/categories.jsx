@@ -17,12 +17,12 @@ const Categories = () => {
     }
 
     const categories = [
-        { id: 1, name: 'appareilphoto' },
+        { id: 1, name: 'appareil photo' },
         { id: 2, name: 'televison' },
         { id: 3, name: 'drone' },
-        { id: 4, name: 'musiqueelectronique' },
+        { id: 4, name: 'musique electronique' },
         { id: 5, name: 'camera' },
-        { id: 7, name: 'jeuxVideo' }
+        { id: 7, name: 'jeux video' }
     ]
 
     const handleCategorySelect = (category, event) => {
