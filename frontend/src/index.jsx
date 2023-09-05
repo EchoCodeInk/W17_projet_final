@@ -18,6 +18,8 @@ import Panier from './component/panier'
 import Account from './component/account'
 import Register from './component/register'
 import Details from './component/details'
+import Checkout from './component/check_out'
+import Delivery from './component/delivery'
 import Utilisateur from '../../backend/entities/Utilisateur'
 import Categories from './component/Categories'
 
@@ -76,6 +78,8 @@ function App () {
                 <Route path='/details' element={<Details selectedDetailProduct={selectedDetailProduct} />} />
                 <Route path='/categories' element={<Categories />} />
                 <Route path='/products/:categoryName' element={<Products />} />
+                <Route path='/checkout' element={<Checkout />} />
+                <Route path='/delivery' element={<Delivery />} />
             </Routes>
             <Footer />
         </div>
