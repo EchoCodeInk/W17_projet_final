@@ -45,7 +45,8 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_weight="90">
+        android:layout_weight="90"
+        android:background="#556599">
 
         <ImageView
             android:id="@+id/productImage"
@@ -59,8 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Product Name"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/productPrice"
@@ -68,8 +70,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Price: $19.99"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/productDescription"
