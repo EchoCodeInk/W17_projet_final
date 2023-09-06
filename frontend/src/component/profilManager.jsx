@@ -9,6 +9,7 @@ export default function ProfileManager () {
         fetch('http://localhost:5000/Utilisateur')
             .then((response) => response.json())
             .then((data) => setProfileData(data))
+
             .catch((error) => console.error('Erreur lors de la récupération des données :', error))
     }, [])
 

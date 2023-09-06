@@ -21,6 +21,7 @@ import Checkout from './component/check_out'
 import Delivery from './component/delivery'
 import Utilisateur from '../../backend/entities/Utilisateur'
 import PanierItem from './component/panier-items'
+import ProfileManager from './component/profilManager'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -83,6 +84,7 @@ function App () {
                 <Route path='/products/categorie' element={<Products onSelectedDetailProduct={handleSelectedDetailProduct} searchCategorieName={categoryName} />} />
                 <Route path='/checkout' element={<Checkout />} />
                 <Route path='/delivery' element={<Delivery />} />
+                <Route path='/profil_manager' element={<ProfileManager />} />
             </Routes>
             <Footer />
         </div>

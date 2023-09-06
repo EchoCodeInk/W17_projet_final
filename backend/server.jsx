@@ -60,6 +60,17 @@ app.get('/produit/categorie', (req, res) => {
     })
 })
 
+app.get('/Utilisateur', (req, res) => {
+    db.all('SELECT * FROM Utilisateur', (err, rows) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+        } else {
+            res.json(rows)
+        }
+    })
+})
+
 app.post('/login', (req, res) => {
     const { email, password } = req.body // Obtenez les données envoyées par le client
 
