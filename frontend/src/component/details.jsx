@@ -29,13 +29,28 @@ const Details = ({ selectedDetailProduct }) => {
         }
     }
 
-    const hadleClickAddToCart = (product) => {
+    const handleClickAddToCart = (product) => {
         if (state.initUser.session === false) {
-            state.user.panier.articles.push({ product, quantity })
-            console.log('detail :state.user.panier.articles', state.user.panier.articles)
+            const existingItem = state.user.panier.articles.find(item => item.product.id === product.id)
+            if (existingItem) {
+                // L'article existe déjà dans le panier, augmentez la quantité
+                existingItem.quantity += quantity
+            } else {
+                // L'article n'existe pas dans le panier, ajoutez-le avec une quantité de 1
+                state.user.panier.articles.push({ product, quantity })
+            }
+            console.log('détail : state.user.panier.articles', state.user.panier.articles)
         } else {
-            state.initUser.panier.articles.push({ product, quantity })
-            console.log('detail :state.initUser.panier.articles', state.initUser.panier.articles)
+            console.log('detail : state.initUser.panier.articles', state.initUser.panier.articles)
+            const existingItem = state.initUser.panier.articles.find(item => item.product.id === product.id)
+            if (existingItem) {
+                // L'article existe déjà dans le panier, augmentez la quantité
+                existingItem.quantity += quantity
+            } else {
+                // L'article n'existe pas dans le panier, ajoutez-le avec une quantité de 1
+                state.initUser.panier.articles.push({ product, quantity })
+            }
+            console.log('détail : state.initUser.panier.articles', state.initUser.panier.articles)
         }
     }
 
@@ -188,7 +203,7 @@ const Details = ({ selectedDetailProduct }) => {
                                     </div>
                                 </div>
                                 <a href='/checkout' className='btn btn-warning shadow-0'> Buy now </a>
-                                <button onClick={() => hadleClickAddToCart(product)} className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
+                                <button onClick={() => handleClickAddToCart(product)} className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
                                 <a href='#' className='btn btn-light border border-secondary py-2 icon-hover px-3' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-heart fa-lg' /> Save </a>
                             </div>
                         </main>

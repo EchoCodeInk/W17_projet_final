@@ -14,14 +14,13 @@ import Products from './component/products'
 import About from './component/about'
 import Whyus from './component/whyus'
 import Testimony from './component/testimony'
-import Panier from './component/panier'
 import Account from './component/account'
 import Register from './component/register'
 import Details from './component/details'
 import Checkout from './component/check_out'
 import Delivery from './component/delivery'
 import Utilisateur from '../../backend/entities/Utilisateur'
-import Categories from './component/Categories'
+import PanierItem from './component/panier-items'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -33,6 +32,7 @@ const root = createRoot(container)
 function App () {
     const { state, dispatch } = useSession() // Accès au contexte de session
     const [selectedDetailProduct, setSelectedDetailProduct] = useState()
+    const [categoryName, setCategoryName] = useState()
     const navigate = useNavigate()
 
     const [reloadKey, setReloadKey] = useState(0) // Initialisez la clé avec 0
@@ -56,15 +56,19 @@ function App () {
         setSearchQueryFromHeader(searchQuery)
         console.log('searchQueryFromHeader', searchQueryFromHeader)
     }
+    const handleSearchCategoryName = (categoryName) => {
+        setCategoryName(categoryName)
+        console.log('searchQueryFromHeader', searchQueryFromHeader)
+    }
     const handleSelectedDetailProduct = (productSelected) => {
         console.log('handleSelectedDetailProduct', productSelected)
         setSelectedDetailProduct(productSelected)
         navigate('/details')
     }
-
+    console.log('categoryName', categoryName)
     return (
         <div>
-            <Header onSearchQueryChange={handleSearchQueryChange} handleReloadProduct={handleReloadProduct} />
+            <Header onSearchCategoryName={handleSearchCategoryName} onSearchQueryChange={handleSearchQueryChange} handleReloadProduct={handleReloadProduct} />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
@@ -72,12 +76,11 @@ function App () {
                 <Route path='/about' element={<About />} />
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
-                <Route path='/panier' element={<Panier />} />
+                <Route path='/panier' element={<PanierItem />} />
                 <Route path='/account' element={<Account state={state} dispatch={dispatch} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/details' element={<Details selectedDetailProduct={selectedDetailProduct} />} />
-                <Route path='/categories' element={<Categories />} />
-                <Route path='/products/:categoryName' element={<Products />} />
+                <Route path='/products/categorie' element={<Products onSelectedDetailProduct={handleSelectedDetailProduct} searchCategorieName={categoryName} />} />
                 <Route path='/checkout' element={<Checkout />} />
                 <Route path='/delivery' element={<Delivery />} />
             </Routes>
