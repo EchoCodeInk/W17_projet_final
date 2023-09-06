@@ -1,8 +1,44 @@
 import React, { useEffect, useState } from 'react'
+import { useSession } from '../../../backend/controleur/SessionContext'
 
-const PanierItem = ({ handlePanier }) => {
-    // const { state } = useSession()
-    const [paniers, setPaniers] = useState([])
+const PanierItem = () => {
+    const { state } = useSession()
+
+    const initialPaniers = state.initUser.session
+        ? state.initUser.panier.articles
+        : state.user.panier.articles
+    const [paniers, setPaniers] = useState(initialPaniers)
+    // const [paniers, setPaniers] = useState(() => {
+
+    // if (state.initUser.session === true) {
+    //     setPaniers(state.initUser.panier.articles)
+    //     console.log('panier-item: paniers', paniers)
+    // } else {
+    //     setPaniers(state.user.panier.articles)
+    // }
+
+    // const storedPaniers = localStorage.getItem('paniers')
+    // return storedPaniers ? JSON.parse(storedPaniers) : []
+    // })
+    useEffect(() => {
+        // Votre code ici...
+
+        if (paniers) {
+            localStorage.setItem('storePaniers', JSON.stringify(paniers))
+        }
+
+        const storePaniers = localStorage.getItem('storePaniers')
+        if (storePaniers) {
+            const parsedPaniers = JSON.parse(storePaniers)
+            // setPaniers(parsedPaniers)
+            state.initUser.panier.articles = parsedPaniers
+        }
+        // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
+        return () => {
+            localStorage.removeItem('selectedDetailProduct')
+        }
+    }, [paniers]) // Tableau de dépendances
+
     const calculateTotal = () => {
         return paniers.reduce((total, item) => total + (item.product.prix * item.quantity), 0)
     }
@@ -46,41 +82,22 @@ const PanierItem = ({ handlePanier }) => {
     }
 
     const handleDeleteItem = (item) => {
-        console.log('handleDeleteItem', handleDeleteItem)
-    }
+        // Créez une copie de votre panier en excluant l'article à supprimer
+        const updatedPaniers = paniers.filter((cartItem) => cartItem.product.id !== item.product.id)
 
-    useEffect(() => {
-        if (handlePanier) {
-            localStorage.setItem('selectedPaniersProduct', JSON.stringify(handlePanier))
-            console.log('handlePanier dans le if du localStorage.setItem', handlePanier)
-        }
-        const storedPanier = localStorage.getItem('selectedPaniersProduct')
-        console.log('storedPanier', storedPanier)
-        if (storedPanier) {
-            const parsedPanier = JSON.parse(storedPanier)
-            setPaniers(parsedPanier)
-            console.log('storedPanier dans le if', storedPanier)
-        } else if (handlePanier) {
-            // Si aucune valeur n'est trouvée dans le localStorage, utilisez handlePanier (peut-être initialisé par une autre source).
-            setPaniers(handlePanier)
-            console.log('handlePanier dans le else if ', handlePanier)
-        } else {
-            // Si handlePanier est également undefined, vous pouvez initialiser paniers à un tableau vide.
-            setPaniers([])
-        }
-        console.log('paniers', paniers)
-        // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
-        return () => {
-            localStorage.removeItem('selectedPaniersProduct')
-        }
-    }, [handlePanier]) // Tableau de dépendances
+        // Mettez à jour le state avec le nouveau panier
+        setPaniers(updatedPaniers)
+
+        // Sauvegardez le nouveau panier dans le stockage local
+        localStorage.setItem('paniers', JSON.stringify(updatedPaniers))
+    }
 
     return (
         <div>
 
             <h1>My Cart</h1>
 
-            {(!paniers || paniers.length === 0)
+            {!paniers || paniers.length === 0
                 ? (
                     <div>Your cart is empty.</div>
                 )
