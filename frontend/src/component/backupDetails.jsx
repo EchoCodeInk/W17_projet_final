@@ -1,68 +1,56 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useSession } from '../../../backend/controleur/SessionContext'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
-const Details = ({ selectedDetailProduct }) => {
-    const { state } = useSession()
-
+const Details = () => {
+    const { id } = useParams()
     const [product, setProduct] = useState([])
-
+    console.log('product', product)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
     const [selectedTab, setSelectedTab] = useState(1)
 
     const handleClickTab = (tabIndex) => {
         console.log('tabIndex', tabIndex)
         setSelectedTab(tabIndex)
     }
-    // set quality
-    const [quantity, setQuantity] = useState(1)
-    const maxQuantity = product.quantity
-
-    const handleIncrease = () => {
-        if (quantity < maxQuantity) {
-            setQuantity(quantity + 1)
-        }
-    }
-
-    const handleDecrease = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1)
-        }
-    }
-
-    const hadleClickAddToCart = (product) => {
-        if (state.initUser.session === false) {
-            state.user.panier.articles.push({ product, quantity })
-            console.log('detail :state.user.panier.articles', state.user.panier.articles)
-        } else {
-            state.initUser.panier.articles.push({ product, quantity })
-            console.log('detail :state.initUser.panier.articles', state.initUser.panier.articles)
-        }
-    }
 
     useEffect(() => {
-        // Votre code ici...
-        if (selectedDetailProduct) {
-            localStorage.setItem('selectedDetailProduct', JSON.stringify(selectedDetailProduct))
-            console.log('detail :state.initUser.panier.articles', state.initUser.panier.articles)
-        }
-        const storedProduct = localStorage.getItem('selectedDetailProduct')
-        if (storedProduct) {
-            const parsedProduct = JSON.parse(storedProduct)
-            setProduct(parsedProduct)
-        } else {
-            // Si aucune valeur n'est trouvée, utilisez selectedDetailProduct
-            setProduct(selectedDetailProduct)
-        }
+        axios.get('http://localhost:5000/produit')
+            .then(response => {
+                if (Array.isArray(response.data) && response.data.length > 0) {
+                    console.log('response data day ne', response.data)
+                    const product = response.data.filter(item => id === item.id)
+                    console.log('product trong axios', product)
+                    if (product) {
+                        setProduct(product)
+                        setLoading(false)
+                    } else {
+                        setError('Product not found')
+                        setLoading(false)
+                    }
+                } else {
+                    setError('No data available')
+                    setLoading(false)
+                }
+            })
+            .catch(error => {
+                console.error(error)
+                setError('An error occurred while loading the product')
+                setLoading(false)
+            })
+    }, [id])
 
-        // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
-        return () => {
-            localStorage.removeItem('selectedDetailProduct')
-        }
-    }, [selectedDetailProduct]) // Tableau de dépendances
+    if (loading) {
+        return <div>Loading...</div>
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>
+    }
 
     return (
         <>
-
             {/* <!-- about section --> */}
             {/* <!-- Heading --> */}
             <div className='bg-primary'>
@@ -116,15 +104,9 @@ const Details = ({ selectedDetailProduct }) => {
                             <div className='ps-lg-3'>
                                 <h4 className='title text-dark'>
                                     {product.nom} <br />
+                                    Casual Hoodie
                                 </h4>
                                 <div className='d-flex flex-row my-3'>
-                                    <div className='text-warning mb-1 me-2'>
-                                        ★★★★☆ <span className='ms-1'>4.5</span>
-                                    </div>
-                                    <span className='text-muted'>✓ 154 orders</span>
-                                    <span className='text-success ms-2' style={{ marginLeft: '.5rem' }}> In stock</span>
-                                </div>
-                                {/* <div className='d-flex flex-row my-3'>
                                     <div className='text-warning mb-1 me-2'>
                                         <i className='fa fa-star' />
                                         <i className='fa fa-star' />
@@ -136,60 +118,61 @@ const Details = ({ selectedDetailProduct }) => {
                                         </span>
                                     </div>
                                     <span className='text-muted'><i className='fas fa-shopping-basket fa-sm mx-1' />154 orders</span>
-                                    <span className='text-success ms-2' style={{ marginLeft: '.5rem' }}> In stock</span>
-                                </div> */}
+                                    <span className='text-success ms-2'>In stock</span>
+                                </div>
 
                                 <div className='mb-3'>
-                                    <span className='h5'>{'$' + product.prix}</span>
+                                    <span className='h5'>$75.00</span>
                                     <span className='text-muted'>/per box</span>
                                 </div>
 
                                 <p>
-                                    {product.description}
+                                    Modern look and quality demo item is a streetwear-inspired collection that continues to break away from the conventions of mainstream fashion. Made in Italy, these black and brown clothing low-top shirts for
+                                    men.
                                 </p>
 
                                 <div className='row'>
-                                    <dt className='col-3'>Categorie:</dt>
-                                    <dd className='col-9'>{product.categorie}</dd>
+                                    <dt className='col-3'>Type:</dt>
+                                    <dd className='col-9'>Regular</dd>
 
-                                    {/* <dt className='col-3'>Color</dt>
-                                    <dd className='col-9'>Brown</dd> */}
+                                    <dt className='col-3'>Color</dt>
+                                    <dd className='col-9'>Brown</dd>
 
-                                    {/* <dt className='col-3'>Material</dt>
-                                    <dd className='col-9'>Cotton, Jeans</dd> */}
+                                    <dt className='col-3'>Material</dt>
+                                    <dd className='col-9'>Cotton, Jeans</dd>
 
                                     <dt className='col-3'>Brand</dt>
-                                    <dd className='col-9'>{product.marque}</dd>
+                                    <dd className='col-9'>Reebook</dd>
                                 </div>
 
                                 <hr />
 
                                 <div className='row mb-4'>
-                                    {/* <div className='col-md-4 col-6'>
+                                    <div className='col-md-4 col-6'>
                                         <label className='mb-2'>Size</label>
                                         <select className='form-select border border-secondary' style={{ height: '35px' }}>
                                             <option>Small</option>
                                             <option>Medium</option>
                                             <option>Large</option>
                                         </select>
-                                    </div> */}
+                                    </div>
                                     {/* <!-- col.// --> */}
                                     <div className='col-md-4 col-6 mb-3'>
                                         <label className='mb-2 d-block'>Quantity</label>
                                         <div className='input-group mb-3' style={{ width: '170px' }}>
-                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon1' data-mdb-ripple-color='dark' onClick={handleDecrease}>
-                                                {/* <i className='fas fa-minus' /> */} -
+                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon1' data-mdb-ripple-color='dark'>
+                                                <i className='fas fa-minus' />
                                             </button>
-                                            <input type='text' className='form-control text-center border border-secondary' placeholder='1' aria-label='Example text with button addon' aria-describedby='button-addon1' value={quantity} />
-                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon2' data-mdb-ripple-color='dark' onClick={handleIncrease}>
-                                                {/* <i className='fas fa-plus' /> */} +
+                                            <input type='text' className='form-control text-center border border-secondary' placeholder='14' aria-label='Example text with button addon' aria-describedby='button-addon1' />
+                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon2' data-mdb-ripple-color='dark'>
+                                                <i className='fas fa-plus' />
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                <a href='/checkout' className='btn btn-warning shadow-0'> Buy now </a>
-                                <button onClick={() => hadleClickAddToCart(product)} className='btn btn-primary shadow-0' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-shopping-basket' /> Add to cart </button>
-                                <a href='#' className='btn btn-light border border-secondary py-2 icon-hover px-3' style={{ marginLeft: '.5rem' }}> <i className='me-1 fa fa-heart fa-lg' /> Save </a>
+                                <a href='#' className='btn btn-warning shadow-0'> Buy now </a>
+                                <a href='#' className='btn btn-primary shadow-0'> <i className='me-1 fa fa-shopping-basket' /> Add to cart </a>
+                                <a href='#' className='btn btn-light border border-secondary py-2 icon-hover px-3'> <i className='me-1 fa fa-heart fa-lg' /> Save </a>
                             </div>
                         </main>
                     </div>
@@ -204,16 +187,16 @@ const Details = ({ selectedDetailProduct }) => {
                                 {/* <!-- Pills navs --> */}
                                 <ul className='nav nav-pills nav-justified mb-3' id='ex1' role='tablist'>
                                     <li className='nav-item d-flex' role='presentation'>
-                                        <Link className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 1 ? ' active' : '')} id='ex1-tab-1' data-mdb-toggle='pill' to='#ex1-pills-1' role='tab' aria-controls='ex1-pills-1' aria-selected={selectedTab === 1 ? 'true' : 'false'} onClick={() => handleClickTab(1)}>Specification</Link>
+                                        <a className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 1 ? ' active' : '')} id='ex1-tab-1' data-mdb-toggle='pill' href='#ex1-pills-1' role='tab' aria-controls='ex1-pills-1' aria-selected={selectedTab === 1 ? 'true' : 'false'} onClick={() => handleClickTab(1)}>Specification</a>
                                     </li>
                                     <li className='nav-item d-flex' role='presentation'>
-                                        <Link className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 2 ? ' active' : '')} id='ex1-tab-2' data-mdb-toggle='pill' to='#ex1-pills-2' role='tab' aria-controls='ex1-pills-2' aria-selected={selectedTab === 2 ? 'true' : 'false'} onClick={() => handleClickTab(2)}>Warranty info</Link>
+                                        <a className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 2 ? ' active' : '')} id='ex1-tab-2' data-mdb-toggle='pill' href='#ex1-pills-2' role='tab' aria-controls='ex1-pills-2' aria-selected={selectedTab === 2 ? 'true' : 'false'} onClick={() => handleClickTab(2)}>Warranty info</a>
                                     </li>
                                     <li className='nav-item d-flex' role='presentation'>
-                                        <Link className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 3 ? ' active' : '')} id='ex1-tab-3' data-mdb-toggle='pill' to='#ex1-pills-3' role='tab' aria-controls='ex1-pills-3' aria-selected={selectedTab === 3 ? 'true' : 'false'} onClick={() => handleClickTab(3)}>Shipping info</Link>
+                                        <a className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 3 ? ' active' : '')} id='ex1-tab-3' data-mdb-toggle='pill' href='#ex1-pills-3' role='tab' aria-controls='ex1-pills-3' aria-selected={selectedTab === 3 ? 'true' : 'false'} onClick={() => handleClickTab(3)}>Shipping info</a>
                                     </li>
                                     <li className='nav-item d-flex' role='presentation'>
-                                        <Link className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 4 ? ' active' : '')} id='ex1-tab-4' data-mdb-toggle='pill' to='#ex1-pills-4' role='tab' aria-controls='ex1-pills-4' aria-selected={selectedTab === 4 ? 'true' : 'false'} onClick={() => handleClickTab(4)}>Seller profile</Link>
+                                        <a className={'nav-link d-flex align-items-center justify-content-center w-100' + (selectedTab === 4 ? ' active' : '')} id='ex1-tab-4' data-mdb-toggle='pill' href='#ex1-pills-4' role='tab' aria-controls='ex1-pills-4' aria-selected={selectedTab === 4 ? 'true' : 'false'} onClick={() => handleClickTab(4)}>Seller profile</a>
                                     </li>
                                 </ul>
                                 {/* <!-- Pills navs --> */}
@@ -346,7 +329,6 @@ const Details = ({ selectedDetailProduct }) => {
                     </div>
                 </div>
             </section>
-
             {/* <!-- end about section --> */}
         </>
     )

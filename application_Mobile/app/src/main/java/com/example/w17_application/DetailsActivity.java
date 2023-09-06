@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.w17_application.entite.Product;
+import com.example.w17_application.manager.CartProductManager;
 import com.example.w17_application.manager.ProductManager;
 
 import java.io.IOException;
@@ -131,7 +132,17 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // quantityEditText.getText().toString();
                 // ajout au panier avec la quantité spécifiée
-                Toast.makeText(context, "add to cart", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, CartActivity.class);
+//                intent.putExtra("id", product.getId());
+//                intent.putExtra("quantity", quantityEditText.getText().toString());
+//                finish();
+//                startActivity(intent);
+
+                int quantity = Integer.parseInt(String.valueOf(quantityEditText.getText()));
+                CartProductManager.addProduct(context, product.getId(), 1, quantity, product.getPrice());
+                finish();
+                Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
+//
             }
         });
 
@@ -143,6 +154,7 @@ public class DetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, PaymentActivity.class);
                 intent.putExtra("id", product.getId());
                 intent.putExtra("quantity", quantityEditText.getText().toString());
+                intent.putExtra("page", "pageDetails");
                 finish();
                 startActivity(intent);
 
@@ -151,6 +163,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
     }
+
     private void showPopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         MenuInflater inflater = popupMenu.getMenuInflater();

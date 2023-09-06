@@ -1,9 +1,13 @@
 package com.example.w17_application;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,20 +27,35 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.w17_application.entite.Order;
 import com.example.w17_application.entite.User;
+import com.example.w17_application.manager.OrderManager;
 import com.example.w17_application.manager.UserManager;
+
+import java.util.ArrayList;
 
 public class AccountActivity extends AppCompatActivity {
 
     Context context;
     UserManager userManager = new UserManager();
+    Button connect;
+    ScrollView scrollView;
+    LinearLayout llOrders;
+    TextView tvOrderNumber, tvOrderPrice, tvOrderDate;
+    Button btnLogOut;
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
         context = this;
+
+        //logged User
+        SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
 
         // ACTION BAR
         View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
@@ -61,7 +81,7 @@ public class AccountActivity extends AppCompatActivity {
         });
 
         TextView title = customActionBar.findViewById(R.id.TitleOfPage);
-        title.setText("The Sac Team - Home");
+        title.setText("The Sac Team - Account");
 
         //NAV BAR
         ImageView burgerMenu = findViewById(R.id.BurgerMenu);
@@ -80,13 +100,38 @@ public class AccountActivity extends AppCompatActivity {
         //Recup info
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
-        Button connect = findViewById(R.id.connection);
+        connect = findViewById(R.id.connection);
+
         connect.setOnClickListener(v -> {
-            if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()) {
-                User user = userManager.getByEmailNPass(context,email.getText().toString(),password.getText().toString());
-                if (user == null) {
-                    Toast.makeText(context, "Mauvais mot de passe ou courriel", Toast.LENGTH_SHORT).show();
+            if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty() || userId != "") {
+
+                User user;
+                if (userId != "") {
+                    user = userManager.getById(context, Integer.parseInt(userId));
                 } else {
+                    user = userManager.getByEmailNPass(context, email.getText().toString(), password.getText().toString());
+                }
+                if (user == null) {
+                    Toast.makeText(context, "Wrong password or email", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userId", String.valueOf(user.getId()));
+                    editor.apply();
+
+                    btnLogOut = findViewById(R.id.btnLogOut);
+                    btnLogOut.setOnClickListener(v1 -> {
+                        editor.clear();
+                        editor.apply();
+
+                        Toast.makeText(context, "Logged Out", Toast.LENGTH_SHORT).show();
+
+                        Intent intentReload = new Intent(AccountActivity.this, AccountActivity.class);
+                        finish();
+                        startActivity(intentReload);
+                    });
+
                     LinearLayout pageLogin = findViewById(R.id.pageUser);
                     pageLogin.setVisibility(View.GONE);
                     LinearLayout pageUserLoggedIn = findViewById(R.id.pageUserLoggedIn);
@@ -101,10 +146,36 @@ public class AccountActivity extends AppCompatActivity {
                     EditText loggedImgName = findViewById(R.id.inputImgUser);
                     loggedImgName.setText(user.getImage_profil());
 
+                    ImageView imgUser = findViewById(R.id.imgUser);
+                    Drawable imgUserDrawable = ContextCompat.getDrawable(this, R.drawable.no_user);
+                    imgUser.setImageDrawable(imgUserDrawable);
+
+                    Button btnMyOrders = findViewById(R.id.btn_my_orders);
+                    ArrayList<Order> getAllorder = OrderManager.getAllByUserId(context, user.getId());
+
+                    btnMyOrders.setOnClickListener(v1 -> {
+                        setContentView(R.layout.list_orders);
+                        scrollView = findViewById(R.id.orders_scroller);
+                        llOrders = new LinearLayout(context);
+                        llOrders.setOrientation(LinearLayout.VERTICAL);
+                        for (Order order : getAllorder) {
+                            LinearLayout orderLayout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.single_row_order, null);
+                            tvOrderNumber = orderLayout.findViewById(R.id.order_number);
+                            tvOrderPrice = orderLayout.findViewById(R.id.order_price);
+                            tvOrderDate = orderLayout.findViewById(R.id.order_date);
+
+                            tvOrderNumber.setText("#" + String.valueOf(order.getOrderId()));
+                            tvOrderPrice.setText(String.valueOf(order.getPrice()) + "$");
+                            tvOrderDate.setText(order.getOrderDate());
+                            llOrders.addView(orderLayout);
+                        }
+                        scrollView.addView(llOrders);
+                    });
+
                     Button btnSave = findViewById(R.id.saveBtn);
                     btnSave.setOnClickListener(v1 -> {
                         if (loggedName.getText().toString().isEmpty() || loggedEmail.getText().toString().isEmpty() || loggedPass.getText().toString().isEmpty() || loggedImgName.getText().toString().isEmpty()) {
-                            Toast.makeText(context, "Veuiller Remplir les case", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Enter all Information", Toast.LENGTH_SHORT).show();
                         } else {
                             User updateUser = new User();
                             updateUser.setId(user.getId());
@@ -112,7 +183,12 @@ public class AccountActivity extends AppCompatActivity {
                             updateUser.setEmail(loggedEmail.getText().toString());
                             updateUser.setPassword(loggedPass.getText().toString());
                             updateUser.setImage_profil(loggedImgName.getText().toString());
-                            userManager.updateUser(context,updateUser);
+                            userManager.updateUser(context, updateUser);
+
+                            Intent intentReload = new Intent(AccountActivity.this, AccountActivity.class);
+                            intentReload.getIntExtra("userId", user.getId());
+                            finish();
+                            startActivity(intentReload);
                         }
                     });
 
@@ -138,9 +214,13 @@ public class AccountActivity extends AppCompatActivity {
                     });
                 }
             } else {
-                Toast.makeText(context, "Veuiller Remplir les case", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fill all boxes", Toast.LENGTH_SHORT).show();
             }
         });
+
+        if (userId != "") {
+            connect.performClick();
+        }
 
         TextView inscription = findViewById(R.id.inscription);
         inscription.setOnClickListener(v -> {
@@ -162,13 +242,14 @@ public class AccountActivity extends AppCompatActivity {
                 String imgUser = editTextImgUser.getText().toString();
 
                 if (!nameUser.isEmpty() && !emailUser.isEmpty() && !passwordUser.isEmpty() && !imgUser.isEmpty()) {
-                    createUserAndRefresh(nameUser, emailUser, passwordUser,imgUser);
+                    createUserAndRefresh(nameUser, emailUser, passwordUser, imgUser);
                     Toast.makeText(context, "succès", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Veuiller Remplir toute les case", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Fill all boxes", Toast.LENGTH_SHORT).show();
                 }
             });
-            builder.setNegativeButton("Cancel", (dialog, which) -> {});
+            builder.setNegativeButton("Cancel", (dialog, which) -> {
+            });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         });

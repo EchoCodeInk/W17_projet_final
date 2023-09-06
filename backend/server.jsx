@@ -30,6 +30,50 @@ app.get('/produit', (req, res) => {
     })
 })
 
+app.get('/searchQuery', (req, res) => {
+    const { query } = req.query
+    console.log('dans mon /searchQuery ', query)
+    // Assurez-vous d'échapper aux entrées utilisateur pour éviter les injections SQL.
+    const sqlQuery = `SELECT * FROM produit WHERE nom LIKE '%${query}%'`
+
+    db.all(sqlQuery, (err, rows) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+        } else {
+            res.json(rows)
+        }
+    })
+})
+
+app.get('/produit/categorie/:nomCategorie', (req, res) => {
+    const nomCategorie = req.params.nomCategorie
+
+    db.all(
+        'SELECT * FROM produit WHERE categorie_id IN (SELECT id FROM categorie WHERE nom = ?)',
+        [nomCategorie],
+        (err, rows) => {
+            if (err) {
+                console.error(err)
+                res.status(500).json({ error: 'Internal server error' })
+            } else {
+                res.json(rows)
+            }
+        }
+    )
+})
+
+app.get('/Utilisateur', (req, res) => {
+    db.all('SELECT * FROM Utilisateur', (err, rows) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+        } else {
+            res.json(rows)
+        }
+    })
+})
+
 app.post('/login', (req, res) => {
     const { email, password } = req.body // Obtenez les données envoyées par le client
 

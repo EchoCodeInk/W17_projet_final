@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import sweetalert from 'sweetalert2'
-import Utilisateur from '../../../backend/entities/utilisateur'
+import Utilisateur from '../../../backend/entities/Utilisateur'
 const Account = ({ state, dispatch }) => {
     const navigate = useNavigate()
 
@@ -23,6 +23,7 @@ const Account = ({ state, dispatch }) => {
                     const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.email, userFound.password, userFound.image_profil)
                     // Mettre à jour le contexte avec l'utilisateur connecté
                     dispatch({ type: 'LOGIN', payload: utilisateur })
+                    state.initUser.session = false
                     navigate('/home')
                 } else {
                     sweetalert.fire({

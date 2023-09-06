@@ -47,4 +47,12 @@
         android:gravity="left"
         android:text="Order Date: "
         android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btn_to_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/bleuIsh"
+        android:text="HOME" />
 </LinearLayout>
