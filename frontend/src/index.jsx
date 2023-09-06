@@ -20,6 +20,7 @@ import Register from './component/register'
 import Details from './component/details'
 import Checkout from './component/check_out'
 import Delivery from './component/delivery'
+import Confirmation from './component/order_confirm'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -46,6 +47,7 @@ function App () {
                 <Route path='/details/:id' element={<Details />} />
                 <Route path='/checkout' element={<Checkout />} />
                 <Route path='/delivery' element={<Delivery />} />
+                <Route path='/confirmation' element={<Confirmation />} />
             </Routes>
             <Footer />
         </div>

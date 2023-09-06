@@ -6,7 +6,7 @@ function Delivery () {
         <MDBContainer className='my-5 py-5' style={{ maxWidth: '1100px' }}>
             <section>
                 <MDBRow>
-                    <MDBCol md='8'>
+                    <MDBCol md='12'>
                         {/* <MDBCard className='mb-4'>
                             <MDBCardBody>
                                 <p className='text-uppercase h4 text-font'>Delivery Country:</p>
@@ -101,7 +101,7 @@ function Delivery () {
                     </MDBCol> */}
                     {/* subtotal */}
 
-                    <MDBCol md='8' className='mb-4'>
+                    <MDBCol md='12' className='mb-4'>
                         <MDBCard className='mb-4'>
                             <MDBCardHeader className='py-3'>
                                 <MDBTypography tag='h5' className='mb-0 text-font text-uppercase'>Delivery address</MDBTypography>
@@ -130,7 +130,7 @@ function Delivery () {
                             </MDBCardBody>
                         </MDBCard>
                         <div className='text-center'>
-                            <MDBBtn className='button-order col-md-10'>Place order</MDBBtn>
+                            <MDBBtn href='/confirmation' className='button-order col-md-10'>Place order</MDBBtn>
                         </div>
                     </MDBCol>
                 </MDBRow>

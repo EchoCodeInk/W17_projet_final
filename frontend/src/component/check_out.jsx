@@ -11,6 +11,9 @@ import {
     MDBTypography
 } from 'mdb-react-ui-kit'
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faLongArrowAltLeft, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons'
+import { faCcMastercard, faCcVisa, faCcAmex, faCcPaypal } from '@fortawesome/free-brands-svg-icons'
 
 function Checkout () {
     return (
@@ -23,8 +26,8 @@ function Checkout () {
                                 <MDBRow>
                                     <MDBCol lg='7'>
                                         <MDBTypography tag='h5'>
-                                            <a href='#!' className='text-body'>
-                                                <MDBIcon fas icon='long-arrow-alt-left me-2' /> Continue
+                                            <a href='/products' className='text-body'>
+                                                <FontAwesomeIcon icon={faLongArrowAltLeft} className='me-2' /> Continue
                                                 shopping
                                             </a>
                                         </MDBTypography>
@@ -77,7 +80,7 @@ function Checkout () {
                                                             </MDBTypography>
                                                         </div>
                                                         <a href='#!' style={{ color: '#cecece' }}>
-                                                            <MDBIcon fas icon='trash-alt' />
+                                                            <FontAwesomeIcon icon={faTrashAlt} />
                                                         </a>
                                                     </div>
                                                 </div>
@@ -114,7 +117,7 @@ function Checkout () {
                                                             </MDBTypography>
                                                         </div>
                                                         <a href='#!' style={{ color: '#cecece' }}>
-                                                            <MDBIcon fas icon='trash-alt' />
+                                                            <FontAwesomeIcon icon={faTrashAlt} />
                                                         </a>
                                                     </div>
                                                 </div>
@@ -151,7 +154,7 @@ function Checkout () {
                                                             </MDBTypography>
                                                         </div>
                                                         <a href='#!' style={{ color: '#cecece' }}>
-                                                            <MDBIcon fas icon='trash-alt' />
+                                                            <FontAwesomeIcon icon={faTrashAlt} />
                                                         </a>
                                                     </div>
                                                 </div>
@@ -188,7 +191,7 @@ function Checkout () {
                                                             </MDBTypography>
                                                         </div>
                                                         <a href='#!' style={{ color: '#cecece' }}>
-                                                            <MDBIcon fas icon='trash-alt' />
+                                                            <FontAwesomeIcon icon={faTrashAlt} />
                                                         </a>
                                                     </div>
                                                 </div>
@@ -210,17 +213,17 @@ function Checkout () {
                                                 </div>
 
                                                 <p className='small'>Card type</p>
-                                                <a href='#!' type='submit' className='text-white'>
-                                                    <MDBIcon fab icon='cc-mastercard fa-2x me-2' />
+                                                <a href='#!' type='submit' className='text-white' style={{ marginLeft: '.5rem' }}>
+                                                    <FontAwesomeIcon icon={faCcMastercard} size='2x' className='me-2' />
                                                 </a>
-                                                <a href='#!' type='submit' className='text-white'>
-                                                    <MDBIcon fab icon='cc-visa fa-2x me-2' />
+                                                <a href='#!' type='submit' className='text-white' style={{ marginLeft: '.5rem' }}>
+                                                    <FontAwesomeIcon icon={faCcVisa} size='2x' className='me-2' />
                                                 </a>
-                                                <a href='#!' type='submit' className='text-white'>
-                                                    <MDBIcon fab icon='cc-amex fa-2x me-2' />
+                                                <a href='#!' type='submit' className='text-white' style={{ marginLeft: '.5rem' }}>
+                                                    <FontAwesomeIcon icon={faCcAmex} size='2x' className='me-2' />
                                                 </a>
-                                                <a href='#!' type='submit' className='text-white'>
-                                                    <MDBIcon fab icon='cc-paypal fa-2x me-2' />
+                                                <a href='#!' type='submit' className='text-white' style={{ marginLeft: '.5rem' }}>
+                                                    <FontAwesomeIcon icon={faCcPaypal} size='2x' className='me-2' />
                                                 </a>
 
                                                 <form className='mt-4'>
@@ -267,12 +270,12 @@ function Checkout () {
                                                     <p className='mb-2'>$4818.00</p>
                                                 </div>
 
-                                                <MDBBtn color='info' block size='lg'>
+                                                <MDBBtn color='info' block size='lg' href='/delivery'>
                                                     <div className='d-flex justify-content-between'>
                                                         <span>$4818.00</span>
                                                         <a href='/delivery'>
                                                             Next{' '}
-                                                            <i className='fas fa-long-arrow-alt-right ms-2' />
+                                                            <FontAwesomeIcon icon={faLongArrowAltRight} className='me-2' />
                                                         </a>
                                                     </div>
                                                 </MDBBtn>
