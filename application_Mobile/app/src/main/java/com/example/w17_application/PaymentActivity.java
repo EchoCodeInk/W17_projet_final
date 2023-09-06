@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,8 +51,12 @@ public class PaymentActivity extends AppCompatActivity {
 
         String page = intent.getStringExtra("page");
 
-        itemsCartProduct = CartProductManager.getAll(context);
-
+        //logged User
+        SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
+        if (userId != "") {
+            itemsCartProduct = CartProductManager.getAllByCartID(context, Integer.parseInt(userId));
+        }
         context = this;
         linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -133,7 +138,7 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!etFirstName.getText().toString().isEmpty() && !etLastName.getText().toString().isEmpty() && !etCardNumber.getText().toString().isEmpty() && !etExpiryDate.getText().toString().isEmpty() && !etCvv.getText().toString().isEmpty()) {
                     intent = new Intent(context, ThankYouActivity.class);
-                    intent.putExtra("totalTTC",  totalTTC.getText().toString());
+                    intent.putExtra("totalTTC", totalTTC.getText().toString());
                     startActivity(intent);
                     finish();
 
