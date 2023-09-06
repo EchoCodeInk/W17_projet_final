@@ -131,11 +131,25 @@
             android:padding="10dp"
             android:visibility="gone">
 
-            <Button
-                android:id="@+id/btn_my_orders"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My orders" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_my_orders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My orders" />
+
+                <Button
+                    android:id="@+id/btnLogOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log out"
+                    android:layout_marginLeft="160dp"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

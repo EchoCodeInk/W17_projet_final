@@ -3,6 +3,7 @@ package com.example.w17_application;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class AccountActivity extends AppCompatActivity {
     ScrollView scrollView;
     LinearLayout llOrders;
     TextView tvOrderNumber, tvOrderPrice, tvOrderDate;
+    Button btnLogOut;
 
 
     @SuppressLint("MissingInflatedId")
@@ -52,7 +54,8 @@ public class AccountActivity extends AppCompatActivity {
         context = this;
 
         //logged User
-
+        SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
 
         // ACTION BAR
         View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
@@ -78,7 +81,7 @@ public class AccountActivity extends AppCompatActivity {
         });
 
         TextView title = customActionBar.findViewById(R.id.TitleOfPage);
-        title.setText("The Sac Team - Home");
+        title.setText("The Sac Team - Account");
 
         //NAV BAR
         ImageView burgerMenu = findViewById(R.id.BurgerMenu);
@@ -100,12 +103,35 @@ public class AccountActivity extends AppCompatActivity {
         connect = findViewById(R.id.connection);
 
         connect.setOnClickListener(v -> {
-            if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()) {
+            if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty() || userId != "") {
 
-                User user = userManager.getByEmailNPass(context, email.getText().toString(), password.getText().toString());
-                if (user == null) {
-                    Toast.makeText(context, "Mauvais mot de passe ou courriel", Toast.LENGTH_SHORT).show();
+                User user;
+                if (userId != "") {
+                    user = userManager.getById(context, Integer.parseInt(userId));
                 } else {
+                    user = userManager.getByEmailNPass(context, email.getText().toString(), password.getText().toString());
+                }
+                if (user == null) {
+                    Toast.makeText(context, "Wrong password or email", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userId", String.valueOf(user.getId()));
+                    editor.apply();
+
+                    btnLogOut = findViewById(R.id.btnLogOut);
+                    btnLogOut.setOnClickListener(v1 -> {
+                        editor.clear();
+                        editor.apply();
+
+                        Toast.makeText(context, "Logged Out", Toast.LENGTH_SHORT).show();
+
+                        Intent intentReload = new Intent(AccountActivity.this, AccountActivity.class);
+                        finish();
+                        startActivity(intentReload);
+                    });
+
                     LinearLayout pageLogin = findViewById(R.id.pageUser);
                     pageLogin.setVisibility(View.GONE);
                     LinearLayout pageUserLoggedIn = findViewById(R.id.pageUserLoggedIn);
@@ -144,12 +170,12 @@ public class AccountActivity extends AppCompatActivity {
                             llOrders.addView(orderLayout);
                         }
                         scrollView.addView(llOrders);
-
                     });
+
                     Button btnSave = findViewById(R.id.saveBtn);
                     btnSave.setOnClickListener(v1 -> {
                         if (loggedName.getText().toString().isEmpty() || loggedEmail.getText().toString().isEmpty() || loggedPass.getText().toString().isEmpty() || loggedImgName.getText().toString().isEmpty()) {
-                            Toast.makeText(context, "Veuiller Remplir les case", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Enter all Information", Toast.LENGTH_SHORT).show();
                         } else {
                             User updateUser = new User();
                             updateUser.setId(user.getId());
@@ -188,9 +214,13 @@ public class AccountActivity extends AppCompatActivity {
                     });
                 }
             } else {
-                Toast.makeText(context, "Veuiller Remplir les case", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fill all boxes", Toast.LENGTH_SHORT).show();
             }
         });
+
+        if (userId != "") {
+            connect.performClick();
+        }
 
         TextView inscription = findViewById(R.id.inscription);
         inscription.setOnClickListener(v -> {
@@ -215,7 +245,7 @@ public class AccountActivity extends AppCompatActivity {
                     createUserAndRefresh(nameUser, emailUser, passwordUser, imgUser);
                     Toast.makeText(context, "succès", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Veuiller Remplir toute les case", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Fill all boxes", Toast.LENGTH_SHORT).show();
                 }
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> {
