@@ -6,10 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.w17_application.entite.Product;
+import com.example.w17_application.manager.CartProductManager;
 import com.example.w17_application.manager.ProductManager;
 
 import java.io.IOException;
@@ -58,6 +63,21 @@ public class DetailsActivity extends AppCompatActivity {
 
         TextView title = customActionBar.findViewById(R.id.TitleOfPage);
         title.setText("The Sac Team - Products");
+
+        //NAV BAR
+        ImageView burgerMenu = findViewById(R.id.BurgerMenu);
+        Drawable burgerMenuDrawable = ContextCompat.getDrawable(this, R.drawable.burger_menu_light);
+        burgerMenu.setImageDrawable(burgerMenuDrawable);
+
+        Spinner burgerSpinnerPopUp = findViewById(R.id.burgerSpinnerPopUp);
+
+        burgerMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(view);
+            }
+        });
+
 
         context = this;
         productImage = findViewById(R.id.productImage);
@@ -112,7 +132,17 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // quantityEditText.getText().toString();
                 // ajout au panier avec la quantité spécifiée
-                Toast.makeText(context, "add to cart", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, CartActivity.class);
+//                intent.putExtra("id", product.getId());
+//                intent.putExtra("quantity", quantityEditText.getText().toString());
+//                finish();
+//                startActivity(intent);
+
+                int quantity = Integer.parseInt(String.valueOf(quantityEditText.getText()));
+                CartProductManager.addProduct(context, product.getId(), 1, quantity, product.getPrice());
+                finish();
+                Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
+//
             }
         });
 
@@ -120,11 +150,51 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // acheter immédiatement
-                Toast.makeText(context, "buy now", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "buy now", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, PaymentActivity.class);
+                intent.putExtra("id", product.getId());
+                intent.putExtra("quantity", quantityEditText.getText().toString());
+                intent.putExtra("page", "pageDetails");
+                finish();
+                startActivity(intent);
 
             }
         });
 
 
+    }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_image_popup, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.menu_home) {
+                    Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.menu_product) {
+                    Intent intent = new Intent(DetailsActivity.this, ProductActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.menu_account) {
+                    Intent intent = new Intent(DetailsActivity.this, AccountActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.menu_cart) {
+                    Intent intent = new Intent(DetailsActivity.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        popupMenu.show();
     }
 }

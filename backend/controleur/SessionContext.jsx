@@ -6,6 +6,8 @@ const SessionContext = createContext()
 // Créez le réducteur
 const sessionReducer = (state, action) => {
     switch (action.type) {
+    case 'INIT_USER':
+        return { ...state, initUser: action.payload }
     case 'LOGIN':
         return { ...state, user: action.payload }
     case 'LOGOUT':

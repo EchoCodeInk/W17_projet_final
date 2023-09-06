@@ -8,6 +8,7 @@ class Utilisateur {
         this.password = password
         this.imageProfil = imageProfil
         this.panier = new Panier()
+        this.session = true
     }
 }
 
