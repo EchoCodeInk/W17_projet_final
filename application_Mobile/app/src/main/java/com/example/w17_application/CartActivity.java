@@ -2,6 +2,7 @@ package com.example.w17_application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,66 +38,78 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
         context = this;
-        itemsCartProduct = CartProductManager.getAll(context);
-        scrollView = findViewById(R.id.scroller);
+        //logged User
+        SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
+        if (userId != "") {
+            setContentView(R.layout.activity_cart);
 
-        linearLayout = new LinearLayout(context);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+            itemsCartProduct = CartProductManager.getAllByCartID(context, Integer.parseInt(userId));
+
+            scrollView = findViewById(R.id.scroller);
+
+            linearLayout = new LinearLayout(context);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
 
 
-        for (CartProduct cartProduct : itemsCartProduct) {
-            LinearLayout cartLayout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.single_row_design, null);
-            tvProductName = cartLayout.findViewById(R.id.cart_product_name);
-            tvProductPrice = cartLayout.findViewById(R.id.cart_product_prix);
-            tvProductQuantity = cartLayout.findViewById(R.id.cart_product_quantity);
+            for (CartProduct cartProduct : itemsCartProduct) {
+                LinearLayout cartLayout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.single_row_design, null);
+                tvProductName = cartLayout.findViewById(R.id.cart_product_name);
+                tvProductPrice = cartLayout.findViewById(R.id.cart_product_prix);
+                tvProductQuantity = cartLayout.findViewById(R.id.cart_product_quantity);
 
-            Product product = ProductManager.getById(this, cartProduct.getProductId());
+                Product product = ProductManager.getById(this, cartProduct.getProductId());
 
-            btnDelete = cartLayout.findViewById(R.id.delete_btn);
-            tvProductName.setText(String.valueOf(getFirstNWords(product.getName(), 5)));
-            tvProductPrice.setText(String.valueOf(cartProduct.getProductPrice() + "$"));
-            tvProductQuantity.setText(String.valueOf(cartProduct.getProductQuantity()));
+                btnDelete = cartLayout.findViewById(R.id.delete_btn);
+                tvProductName.setText(String.valueOf(getFirstNWords(product.getName(), 5)));
+                tvProductPrice.setText(String.valueOf(cartProduct.getProductPrice() + "$"));
+                tvProductQuantity.setText(String.valueOf(cartProduct.getProductQuantity()));
 
-            double productAmount = cartProduct.getProductPrice() * cartProduct.getProductQuantity();
-            totalAmount += productAmount;
+                double productAmount = cartProduct.getProductPrice() * cartProduct.getProductQuantity();
+                totalAmount += productAmount;
 
-            btnDelete.setOnClickListener(v -> {
-                CartProductManager.delete(this, cartProduct.getProductId());
-                linearLayout.removeView(cartLayout);
+                btnDelete.setOnClickListener(v -> {
+                    CartProductManager.delete(this, cartProduct.getProductId(), Integer.parseInt(userId));
+                    linearLayout.removeView(cartLayout);
 
-                CartProductManager.delete(this, cartProduct.getProductId());
-                linearLayout.removeView(cartLayout);
-                // Mettez à jour le montant total après la suppression du produit.
-                double productAmountDelete = cartProduct.getProductPrice() * cartProduct.getProductQuantity();
-                totalAmount -= productAmountDelete;
-                tvTotalAmount.setText("Total Amount : " + String.format("%.2f$", totalAmount));
-            });
+                    CartProductManager.delete(this, cartProduct.getProductId(), Integer.parseInt(userId));
+                    linearLayout.removeView(cartLayout);
+                    // Mettez à jour le montant total après la suppression du produit.
+                    double productAmountDelete = cartProduct.getProductPrice() * cartProduct.getProductQuantity();
+                    totalAmount -= productAmountDelete;
+                    tvTotalAmount.setText("Total Amount : " + String.format("%.2f$", totalAmount));
+                });
 
-            linearLayout.addView(cartLayout);
-        }
-        scrollView.addView(linearLayout);
+                linearLayout.addView(cartLayout);
+            }
+            scrollView.addView(linearLayout);
 //        Intent intent = getIntent();
 //        int userId = Integer.parseInt(intent.getStringExtra("userId"));
 //        Toast.makeText(context, "user.getId() " + "1" + userId, Toast.LENGTH_LONG).show();
 
-        tvTotalAmount = findViewById(R.id.tv_total_amount);
-        tvTotalAmount.setText("Total Amount : " + String.format("%.2f$", totalAmount));
-        btnCheckOut = findViewById(R.id.btn_checkout);
-        btnCheckOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            tvTotalAmount = findViewById(R.id.tv_total_amount);
+            tvTotalAmount.setText("Total Amount : " + String.format("%.2f$", totalAmount));
+            btnCheckOut = findViewById(R.id.btn_checkout);
+            btnCheckOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Intent intent = new Intent(context, PaymentActivity.class);
-                intent.putExtra("totalAmount", String.valueOf(totalAmount).toString());
-                intent.putExtra("page", "pageCart");
+                    Intent intent = new Intent(context, PaymentActivity.class);
+                    intent.putExtra("totalAmount", String.valueOf(totalAmount).toString());
+                    intent.putExtra("page", "pageCart");
 
 //                intent.putExtra("quantity", quantityEditText.getText().toString());
-                finish();
-                startActivity(intent);
-            }
-        });
+                    finish();
+                    startActivity(intent);
+                }
+            });
+        } else {
+            Intent intent = new Intent(CartActivity.this, AccountActivity.class);
+            startActivity(intent);
+            Toast.makeText(context, "You must log in to your account", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     public String getFirstNWords(String input, int n) {
