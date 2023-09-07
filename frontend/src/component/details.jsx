@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSession } from '../../../backend/controleur/SessionContext'
 import Comment from './comment'
+import { Link } from 'react-router-dom'
 
 const Details = ({ selectedDetailProduct }) => {
     const { state } = useSession()
