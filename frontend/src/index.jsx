@@ -21,6 +21,7 @@ import Checkout from './component/check_out'
 import Delivery from './component/delivery'
 import Utilisateur from '../../backend/entities/Utilisateur'
 import ProfileManager from './component/profilManager'
+import Confirmation from './component/order_confirm'
 
 // Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
@@ -83,6 +84,7 @@ function App () {
                 <Route path='/checkout' element={<Checkout />} />
                 <Route path='/delivery' element={<Delivery />} />
                 <Route path='/profil_manager' element={<ProfileManager />} />
+                <Route path='/confirmation' element={<Confirmation />} />
             </Routes>
             <Footer />
         </div>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,9 @@ public class ThankYouActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thank_you);
         context = this;
+        //logged User
+        SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
         Date maintenant = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String dateEtHeure = format.format(maintenant);
@@ -61,8 +65,8 @@ public class ThankYouActivity extends AppCompatActivity {
         int OrderId = Integer.parseInt(genererNumeroCommande());
         orderNumber.setText("Your Order: #" + OrderId);
         orderDate.setText("Order Date: " + dateEtHeure);
-        OrderManager.addOrder(context, OrderId, 2, Double.parseDouble(newTotalTTC), dateEtHeure);
-        CartProductManager.deleteAllCartProducts(context);
+        OrderManager.addOrder(context, OrderId, Integer.parseInt(userId), Double.parseDouble(newTotalTTC), dateEtHeure);
+        CartProductManager.deleteAllCartProducts(context, Integer.parseInt(userId));
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

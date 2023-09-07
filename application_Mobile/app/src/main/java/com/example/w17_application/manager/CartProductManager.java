@@ -21,10 +21,10 @@ public class CartProductManager {
         cursor.close();
     }
 
-    public static ArrayList<CartProduct> getAll(Context context) {
+    public static ArrayList<CartProduct> getAllByCartID(Context context, int cartId) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
         ArrayList<CartProduct> retour = null;
-        Cursor cursor = bd.rawQuery("select * from ItemPanier", null);
+        Cursor cursor = bd.rawQuery("select * from ItemPanier where panier_id = ?", new String[]{String.valueOf(cartId)});
         if (cursor.isBeforeFirst()) {
             retour = new ArrayList<>();
             while (cursor.moveToNext()) {
@@ -34,13 +34,15 @@ public class CartProductManager {
         return retour;
     }
 
-    public static void delete(Context context, int idProduct) {
+    public static void delete(Context context, int idProduct, int carteId) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
-        bd.delete("ItemPanier", "produit_id = ?", new String[]{String.valueOf(idProduct)});
+        String selection = "produit_id = ? AND panier_id = ?";
+        String[] selectionArgs = {String.valueOf(idProduct), String.valueOf(carteId)};
+        bd.delete("ItemPanier", selection, selectionArgs);
     }
 
-    public static void deleteAllCartProducts(Context context) {
+    public static void deleteAllCartProducts(Context context, int carteId) {
         SQLiteDatabase bd = ConnectionDB.getBd(context);
-        bd.delete("ItemPanier", null, null);
+        bd.delete("ItemPanier", "panier_id = ?", new String[]{String.valueOf(carteId)});
     }
 }
