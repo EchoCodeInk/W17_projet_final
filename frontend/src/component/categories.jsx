@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 const Categories = () => {
     const [data, setData] = useState([])
 
+<<<<<<< Updated upstream
     const onSelectCategory = (category) => {
         axios.get(`http://localhost:5000/produit/categorie/${category.name}`)
             .then(response => {
@@ -22,6 +23,17 @@ const Categories = () => {
         { id: 4, name: 'musique electronique' },
         { id: 5, name: 'camera' },
         { id: 7, name: 'jeux video' }
+=======
+        { id: 1, name: 'Appareil Photo' },
+        { id: 2, name: 'Télévison' },
+        { id: 3, name: 'Drone' },
+        { id: 4, name: 'Musique Électronique' },
+        { id: 5, name: 'Camera' },
+        { id: 6, name: 'Jeux Video' },
+        { id: 7, name: 'Telephones cellulaires' },
+        { id: 8, name: 'Ordinateurs' },
+        { id: 9, name: 'Tablettes' }
+>>>>>>> Stashed changes
     ]
 
     const handleCategorySelect = (category, event) => {
