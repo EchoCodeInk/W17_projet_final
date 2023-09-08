@@ -13,6 +13,10 @@ function Checkout () {
         : state.user.panier.articles
     const [paniers, setPaniers] = useState(initialPaniers)
 
+    const detailsCardPicture = !(state.initUser.session)
+        ? state.user.imageProfil
+        : 'icon_account.png'
+
     useEffect(() => {
         // Votre code ici...
 
@@ -24,7 +28,11 @@ function Checkout () {
         if (storePaniers) {
             const parsedPaniers = JSON.parse(storePaniers)
 
-            state.initUser.panier.articles = parsedPaniers
+            if (state.initUser.session) {
+                state.initUser.panier.articles = parsedPaniers
+            } else {
+                state.user.panier.articles = parsedPaniers
+            }
         }
         // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
         return () => {
@@ -182,8 +190,8 @@ function Checkout () {
                                                         Card details
                                                     </MDBTypography>
                                                     <MDBCardImage
-                                                        src='https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp'
-                                                        fluid className='rounded-3' style={{ width: '45px' }} alt='Avatar'
+                                                        src={`/public/images/${detailsCardPicture}`}
+                                                        fluid className='rounded-3' style={{ width: '200px' }} alt='Avatar'
                                                     />
                                                 </div>
 
