@@ -53,7 +53,7 @@ public class UserManager {
         statement.executeInsert();
     }
 
-    public User getById(Context context, int id) {
+    public static User getById(Context context, int id) {
 
         SQLiteDatabase db = ConnectionDB.getBd(context);
         String sql = "SELECT * FROM Utilisateur WHERE id = ?";

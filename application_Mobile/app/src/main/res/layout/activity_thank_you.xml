@@ -47,6 +47,14 @@
         android:gravity="left"
         android:text="Order Date: "
         android:textSize="24sp" />
+    <TextView
+    android:id="@+id/order_email_sent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:gravity="left"
+    android:text="We have sent the order confirmation details to {email}"
+    android:textSize="24sp" />
 
     <Button
         android:id="@+id/btn_to_home"
