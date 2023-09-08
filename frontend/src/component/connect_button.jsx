@@ -23,7 +23,7 @@ const ConnectButton = () => {
                             Bonjour, {state.user.nom}
                             <button className='account-button' onClick={handleLogout}>Déconnexion</button>
                         </div>
-                        <Link to='/profil_parametre'>Profil Manager </Link>
+                        <Link to='/profil_manager'>Profil Manager </Link>
                     </>
                 )
                 : (

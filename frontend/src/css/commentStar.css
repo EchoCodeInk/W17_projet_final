@@ -1,0 +1,34 @@
+/* commentStar.css */
+
+.star-container {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px; /* Khoảng cách giữa các biểu tượng và văn bản */
+}
+
+.star-icon {
+    cursor: pointer; /* Con trỏ chuột biểu thị rằng biểu tượng có thể tương tác */
+}
+
+.star-text {
+    position: absolute;
+    top: -25px; /* Điều chỉnh vị trí của văn bản lên trên */
+    left: 50%; /* Điều chỉnh vị trí ngang để căn giữa */
+    transform: translateX(-50%); /* Dịch chuyển văn bản ngang */
+    background-color: #007bff; /* Màu nền của văn bản khi hover */
+    color: white; /* Màu chữ của văn bản khi hover */
+    padding: 3px 8px; /* Khoảng cách giữa văn bản và biểu tượng */
+    border-radius: 4px; /* Bo góc của hộp văn bản */
+    font-size: 12px; /* Cỡ chữ của văn bản */
+    white-space: nowrap; /* Ngăn ngừng văn bản khi quá dài */
+    opacity: 0; /* Ẩn văn bản ban đầu */
+    transition: opacity 0.3s; /* Hiệu ứng hiển thị văn bản */
+}
+
+.star-container:hover .star-text {
+    opacity: 1; /* Hiển thị văn bản khi hover */
+}
+
+.star-icon.clicked {
+    color: #007bff; /* Màu xanh sau khi click */
+}

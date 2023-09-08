@@ -1,35 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
 
-const Product = () => {
+const Product = ({ onSelectedDetailProduct, searchQuery, searchCategorieName }) => {
     const [data, setData] = useState([])
-    const { categoryName } = useParams()
 
     useEffect(() => {
+        // Déplacez la fonction fetchData dans le hook useEffect pour éviter un appel de requête initial non nécessaire.
         const fetchData = async () => {
+            console.log('searchQuery_dans_fetchData ', searchQuery)
+            console.log('searchCategorieName_dans_fetchData ', searchCategorieName)
             try {
                 let response
 
-                if (categoryName) {
-                    response = await axios.get(`http://localhost:5000/produit/categorie/${categoryName}`)
+                if (searchQuery) {
+                    console.log('searchQuery_dans_if_products ', searchQuery)
+                    response = await axios.get(`http://localhost:5000/searchQuery?query=${searchQuery}`)
+                } else if (searchCategorieName) {
+                    console.log('categoryName_dans_if_products ', searchCategorieName)
+                    response = await axios.get(`http://localhost:5000/produit/categorie?query=${searchCategorieName}`)
                 } else {
+                    console.log('else_products ')
                     response = await axios.get('http://localhost:5000/produit')
+                    console.log('else_products_response', response)
                 }
-
                 setData(response.data)
+                console.log('categoryName ', searchCategorieName)
+                console.log('searchQuery ', searchQuery)
             } catch (error) {
                 console.error(error)
             }
         }
 
+        // Appelez fetchData() lorsque le composant est monté ou lorsque categoryName ou searchQuery change.
         fetchData()
-    }, [categoryName])
+    }, [searchCategorieName], [searchQuery])
 
     return (
         <div>
             {/* <!-- product section --> */}
-
             <section className='product_section layout_padding'>
                 <div className='container'>
                     <div className='heading_container heading_center'>
@@ -43,11 +51,12 @@ const Product = () => {
                                 <div className='box'>
                                     <div className='img-box'>
                                         <img src={item.image_url} alt='' />
-                                        <a href={'/details/' + item.id} className='add_cart_btn'>
+                                        {console.log('item Details', item)}
+                                        <button onClick={() => onSelectedDetailProduct(item)} className='add_cart_btn'>
                                             <span>
                                                 Details
                                             </span>
-                                        </a>
+                                        </button>
                                     </div>
                                     <div className='detail-box'>
                                         <h5>

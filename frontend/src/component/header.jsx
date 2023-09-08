@@ -1,16 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Categories from './Categories'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import Categories from '../component/categories'
 import ConnectButton from './connect_button'
 import { useSession } from '../../../backend/controleur/SessionContext'
-// import Utilisateur from '../../../backend/entities/Utilisateur'
 
-const Header = () => {
+const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct }) => {
     const { state } = useSession()
+    const [searchQuery, setSearchQuery] = useState('')
+    const navigate = useNavigate()
+
+    const handleSearch = (event) => {
+        const newSearchQuery = event.target.value
+        setSearchQuery(newSearchQuery)
+        onSearchQueryChange(newSearchQuery)
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault() // Empêche le comportement par défaut du formulaire (rechargement de la page)
+        handleReloadProduct()
+        navigate('/products')
+    }
 
     return (
         <div>
-
             {/* <!-- header section strats --> */}
             <header className='header_section'>
                 <div className='header_top'>
@@ -22,15 +33,18 @@ const Header = () => {
                                 </Link>
 
                             </div>
-                            <form className='search_form'>
-                                <input type='search' className='form-control' placeholder='Search here...' />
-                                <button className='search-button' type='submit'>
-                                    <i className='fa fa-search' aria-hidden='true' />
-                                </button>
+                            <form onSubmit={handleSubmit} className='search_form'>
+                                <input
+                                    type='search'
+                                    className='form-control'
+                                    placeholder='Search here...'
+                                    value={searchQuery}
+                                    onChange={handleSearch}
+                                />
+                                <button className='search-button' type='submit' />
                             </form>
                             <div className='user_option_box'>
-                                {console.log(' header state.initUser', state.initUser)}
-                                {console.log('header state.user', state.user)}
+
                                 {
 
                                     state.user === null
@@ -52,9 +66,9 @@ const Header = () => {
                                         )
                                 }
 
-                                <Link className='nav-link' to='/panier'>
+                                <Link className='nav-link' to='/checkout'>
                                     <img className='icon' src='/public/images/icon_cart.png' alt='' />
-                                    <span> Cart</span>
+                                    <span>Cart</span>
                                 </Link>
                             </div>
                         </div>
@@ -64,8 +78,8 @@ const Header = () => {
                 <div className='header_bottom'>
                     <div className='container-fluid'>
                         <nav className='navbar navbar-expand-lg custom_nav-container '>
-                            <a className='navbar-brand' href='index.html'>
-                                <span><Categories /> </span>
+                            <a className='navbar-brand'>
+                                <span><Categories onSearchCategoryName={onSearchCategoryName} /> </span>
                             </a>
 
                             <button

@@ -2,11 +2,17 @@ package com.example.w17_application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -14,6 +20,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,10 +37,17 @@ public class ProductActivity extends AppCompatActivity {
     GridView gridViewMain;
     ProductAdapter productAdapter;
     Context context;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+        context = this;
+        //logged User
+        SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
+        if (userId != "") {
 
+        }
         // ACTION BAR
         View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
@@ -74,7 +88,6 @@ public class ProductActivity extends AppCompatActivity {
             }
         });
 
-        context = this;
         gridViewMain = findViewById(R.id.list_view_products);
         ArrayList<Product> products = ProductManager.getAll(this);
         productAdapter = new ProductAdapter(this, R.layout.product_layout, products);
@@ -125,5 +138,4 @@ public class ProductActivity extends AppCompatActivity {
 
         popupMenu.show();
     }
-
 }

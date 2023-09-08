@@ -49,20 +49,20 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             throw new RuntimeException(e);
         }
 
-        String nameProduct = product.getName();
-        String[] words = nameProduct.split("\\s+"); // Split by whitespace
+        tvNameProduct.setText(getFirstNWords(product.getName(),3));
+        tvPriceProduct.setText(String.valueOf(product.getPrice()) + "$");
+        return view;
 
-        int wordsToSave = 3; // Number of words to save
+    }
+
+    public String getFirstNWords(String input, int n) {
+        String[] words = input.split("\\s+");
         StringBuilder newString = new StringBuilder();
 
-        // Save the desired number of words
-        for (int i = 0; i < Math.min(wordsToSave, words.length); i++) {
+        for (int i = 0; i < Math.min(n, words.length); i++) {
             newString.append(words[i]).append(" ");
         }
 
-        tvNameProduct.setText(newString);
-        tvPriceProduct.setText(String.valueOf(product.getPrice()) + " $");
-        return view;
-
+        return newString.toString().trim();
     }
 }

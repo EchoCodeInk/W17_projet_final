@@ -2,10 +2,12 @@ package com.example.w17_application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +23,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.w17_application.entite.Cart;
 import com.example.w17_application.entite.Product;
+import com.example.w17_application.manager.CartManager;
+import com.example.w17_application.manager.CartProductManager;
 import com.example.w17_application.manager.ProductManager;
 
 import java.io.IOException;
@@ -37,6 +42,14 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        context = this;
+
+        //logged User
+        SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
+//        if (userId != "") {
+//
+//        }
         // ACTION BAR
         View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
@@ -77,8 +90,6 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-
-        context = this;
         productImage = findViewById(R.id.productImage);
         productName = findViewById(R.id.productName);
         productPrice = findViewById(R.id.productPrice);
@@ -131,7 +142,28 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // quantityEditText.getText().toString();
                 // ajout au panier avec la quantité spécifiée
-                Toast.makeText(context, "add to cart", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, CartActivity.class);
+//                intent.putExtra("id", product.getId());
+//                intent.putExtra("quantity", quantityEditText.getText().toString());
+//                finish();
+//                startActivity(intent);
+                if (userId != "") {
+                    Cart existingCart = CartManager.getCartByUserId(context, Integer.parseInt(userId));
+                    if (existingCart == null) {
+                        CartManager.createCart(context, Integer.parseInt(userId));
+                    }
+
+                    Cart cartUser = CartManager.getCartByUserId(context, Integer.parseInt(userId));
+                    Log.d("tata", "getCartId : " + cartUser.getCartId());
+                    int quantity = Integer.parseInt(String.valueOf(quantityEditText.getText()));
+                    CartProductManager.addProduct(context, product.getId(), cartUser.getCartId(), quantity, product.getPrice());
+                    finish();
+                    Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(DetailsActivity.this, AccountActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(context, "You must log in to your account", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -140,17 +172,25 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // acheter immédiatement
 //                Toast.makeText(context, "buy now", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, PaymentActivity.class);
-                intent.putExtra("id", product.getId());
-                intent.putExtra("quantity", quantityEditText.getText().toString());
-                finish();
-                startActivity(intent);
+                if (userId != "") {
+                    Intent intent = new Intent(context, PaymentActivity.class);
+                    intent.putExtra("id", product.getId());
+                    intent.putExtra("quantity", quantityEditText.getText().toString());
+                    intent.putExtra("page", "pageDetails");
+                    finish();
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(DetailsActivity.this, AccountActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(context, "You must log in to your account", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
 
 
     }
+
     private void showPopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         MenuInflater inflater = popupMenu.getMenuInflater();
