@@ -20,7 +20,6 @@ import Details from './component/details'
 import Checkout from './component/check_out'
 import Delivery from './component/delivery'
 import Utilisateur from '../../backend/entities/Utilisateur'
-import PanierItem from './component/panier-items'
 import ProfileManager from './component/profilManager'
 import Confirmation from './component/order_confirm'
 
@@ -49,7 +48,7 @@ function App () {
             const initUser = new Utilisateur('anonymous', 'anonymous', 'anonymous', 'anonymous', 'icon_account.png')
             dispatch({ type: 'INIT_USER', payload: initUser })
         }
-    }, [state.user, dispatch])
+    }, [state.initUser, dispatch])
 
     const [searchQueryFromHeader, setSearchQueryFromHeader] = useState('')
 
@@ -78,7 +77,6 @@ function App () {
                 <Route path='/about' element={<About />} />
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
-                <Route path='/panier' element={<PanierItem />} />
                 <Route path='/account' element={<Account state={state} dispatch={dispatch} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/details' element={<Details selectedDetailProduct={selectedDetailProduct} />} />

@@ -66,7 +66,7 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
                                         )
                                 }
 
-                                <Link className='nav-link' to='/panier'>
+                                <Link className='nav-link' to='/checkout'>
                                     <img className='icon' src='/public/images/icon_cart.png' alt='' />
                                     <span>Cart</span>
                                 </Link>
