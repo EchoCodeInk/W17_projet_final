@@ -18,8 +18,18 @@ const sessionReducer = (state, action) => {
 }
 
 // Créez le fournisseur de contexte
+// const SessionProvider = ({ children }) => {
+//     const [state, dispatch] = useReducer(sessionReducer, { user: null })
+
+//     return (
+//         <SessionContext.Provider value={{ state, dispatch }}>
+//             {children}
+//         </SessionContext.Provider>
+//     )
+// }
+
 const SessionProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(sessionReducer, { user: null })
+    const [state, dispatch] = useReducer(sessionReducer, { user: null, initUser: null }) // Ajoutez initUser
 
     return (
         <SessionContext.Provider value={{ state, dispatch }}>
