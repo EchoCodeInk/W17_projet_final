@@ -7,8 +7,6 @@ const Product = ({ onSelectedDetailProduct, searchQuery, searchCategorieName }) 
     useEffect(() => {
         // Déplacez la fonction fetchData dans le hook useEffect pour éviter un appel de requête initial non nécessaire.
         const fetchData = async () => {
-            console.log('searchQuery_dans_fetchData ', searchQuery)
-            console.log('searchCategorieName_dans_fetchData ', searchCategorieName)
             try {
                 let response
 

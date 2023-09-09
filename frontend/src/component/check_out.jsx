@@ -1,44 +1,14 @@
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
-import React, { useEffect, useState } from 'react'
-import { useSession } from '../../../backend/controleur/SessionContext'
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons'
 import { faCcMastercard, faCcVisa, faCcAmex, faCcPaypal } from '@fortawesome/free-brands-svg-icons'
+import { Link } from 'react-router-dom'
 
-function Checkout () {
-    const { state } = useSession()
-
-    const initialPaniers = state.initUser.session
-        ? state.initUser.panier.articles
-        : state.user.panier.articles
-    const [paniers, setPaniers] = useState(initialPaniers)
-
-    const detailsCardPicture = !(state.initUser.session)
-        ? state.user.imageProfil
-        : 'icon_account.png'
-
-    useEffect(() => {
-        // Votre code ici...
-
-        if (paniers) {
-            localStorage.setItem('storePaniers', JSON.stringify(paniers))
-        }
-
-        const storePaniers = localStorage.getItem('storePaniers')
-        if (storePaniers) {
-            const parsedPaniers = JSON.parse(storePaniers)
-
-            if (state.initUser.session) {
-                state.initUser.panier.articles = parsedPaniers
-            } else {
-                state.user.panier.articles = parsedPaniers
-            }
-        }
-        // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
-        return () => {
-            // localStorage.removeItem('storePaniers')
-        }
-    }, [paniers]) // Tableau de dépendances
+function Checkout ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
+    const sessionUser = onloadStateFromLocalStorage()
+    console.log('check_out :  sessionUser.panier.articles', sessionUser.panier.articles)
+    const [paniers, setPaniers] = useState(sessionUser.panier.articles)
 
     const calculateSubTotal = () => {
         return paniers.reduce((total, item) => total + (item.product.prix * item.quantity), 0)
@@ -55,13 +25,11 @@ function Checkout () {
         return subtotal + tps + tvq
     }
     const calculateTPS = () => {
-        // Calcul de la TPS (ex: 5%)
         const tpsRate = 0.05
         return calculateSubTotal() * tpsRate
     }
 
     const calculateTVQ = () => {
-        // Calcul de la TVQ (ex: 9.975%)
         const tvqRate = 0.09975
         return calculateSubTotal() * tvqRate
     }
@@ -74,6 +42,8 @@ function Checkout () {
             return cartItem
         })
         setPaniers(updatedPaniers)
+        sessionUser.panier.articles = updatedPaniers
+        onSaveStateToLocalStorage(sessionUser)
     }
 
     const handleDecreaseQuantity = (item) => {
@@ -81,20 +51,28 @@ function Checkout () {
             if (cartItem.product.id === item.product.id) {
                 return { ...cartItem, quantity: cartItem.quantity - 1 }
             }
+
+            console.log('cartItem', cartItem)
+            console.log('cartItem.quantity', cartItem.quantity)
+
             return cartItem
         })
-        setPaniers(updatedPaniers)
+
+        if (item.quantity <= 1) {
+            handleDeleteItem(item)
+        } else {
+            setPaniers(updatedPaniers)
+            sessionUser.panier.articles = updatedPaniers
+            onSaveStateToLocalStorage(sessionUser)
+        }
     }
 
     const handleDeleteItem = (item) => {
-        // Créez une copie de votre panier en excluant l'article à supprimer
         const updatedPaniers = paniers.filter((cartItem) => cartItem.product.id !== item.product.id)
-
-        // Mettez à jour le state avec le nouveau panier
         setPaniers(updatedPaniers)
-
-        // Sauvegardez le nouveau panier dans le stockage local
         localStorage.setItem('paniers', JSON.stringify(updatedPaniers))
+        sessionUser.panier.articles = updatedPaniers
+        onSaveStateToLocalStorage(sessionUser)
     }
     return (
         <section className='h-100 h-custom' style={{ backgroundColor: '#eee' }}>
@@ -149,12 +127,12 @@ function Checkout () {
                                                                 <div className='d-flex flex-row align-items-center'>
                                                                     <div style={{ width: '50px' }}>
                                                                         <MDBTypography tag='h5' className='fw-normal mb-0 small'>
-                                                                            <button className='quantity-button' onClick={() => handleDecreaseQuantity(item)}>
-                                                                                -
-                                                                            </button>
-                                                                            Qty:{item.quantity}
                                                                             <button className='quantity-button' onClick={() => handleIncreaseQuantity(item)}>
                                                                                 +
+                                                                            </button>
+                                                                            Qty:{item.quantity}
+                                                                            <button className='quantity-button' onClick={() => handleDecreaseQuantity(item)}>
+                                                                                -
                                                                             </button>
                                                                         </MDBTypography>
                                                                     </div>
@@ -190,7 +168,7 @@ function Checkout () {
                                                         Card details
                                                     </MDBTypography>
                                                     <MDBCardImage
-                                                        src={`/public/images/${detailsCardPicture}`}
+                                                        src={`/public/images/${sessionUser.imageProfil}`}
                                                         fluid className='rounded-3' style={{ width: '200px' }} alt='Avatar'
                                                     />
                                                 </div>
@@ -261,15 +239,15 @@ function Checkout () {
                                                     <p className='mb-2'>${calculateTotalFinal().toFixed(2)}</p>
                                                 </div>
 
-                                                <MDBBtn color='info' block size='lg' href='/delivery'>
-                                                    <div className='d-flex justify-content-between'>
+                                                <Link color='info' block size='lg' to='/delivery'>
+                                                    <div className='link-next-buy d-flex justify-content-between'>
                                                         <span>${calculateTotalFinal().toFixed(2)}</span>
-                                                        <a href='/delivery'>
-                                                            Next{' '}
+                                                        <span>
+                                                            Buy{' '}
                                                             <FontAwesomeIcon icon={faLongArrowAltRight} className='me-2' />
-                                                        </a>
+                                                        </span>
                                                     </div>
-                                                </MDBBtn>
+                                                </Link>
                                             </MDBCardBody>
                                         </MDBCard>
                                     </MDBCol>

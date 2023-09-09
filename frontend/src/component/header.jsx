@@ -2,11 +2,17 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Categories from '../component/categories'
 import ConnectButton from './connect_button'
-import { useSession } from '../../../backend/controleur/SessionContext'
+import Utilisateur from '../../../backend/entities/Utilisateur'
 
-const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct }) => {
-    const { state } = useSession()
+const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const [searchQuery, setSearchQuery] = useState('')
+
+    let sessionUser = onloadStateFromLocalStorage()
+    if (!sessionUser) {
+        sessionUser = new Utilisateur('', '', '', '', '', '', '', '', 'icon_account.png')
+        onSaveStateToLocalStorage(sessionUser)
+    }
+    console.log('sessionUser', sessionUser)
     const navigate = useNavigate()
 
     const handleSearch = (event) => {
@@ -47,11 +53,11 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
 
                                 {
 
-                                    state.user === null
+                                    sessionUser.session === true
                                         ? (
                                             <>
                                                 <Link className='nav-link' to='/account'>
-                                                    <ConnectButton />
+                                                    <ConnectButton handleReloadProduct={handleReloadProduct} onloadStateFromLocalStorage={onloadStateFromLocalStorage} onSaveStateToLocalStorage={onSaveStateToLocalStorage} />
                                                 </Link>
 
                                             </>
@@ -59,7 +65,7 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
                                         : (
 
                                             <div className='nav-link'>
-                                                <ConnectButton />
+                                                <ConnectButton handleReloadProduct={handleReloadProduct} onloadStateFromLocalStorage={onloadStateFromLocalStorage} onSaveStateToLocalStorage={onSaveStateToLocalStorage} />
 
                                             </div>
 

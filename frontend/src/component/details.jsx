@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { useSession } from '../../../backend/controleur/SessionContext'
 import Comment from './comment'
 import { Link } from 'react-router-dom'
 
-const Details = ({ selectedDetailProduct }) => {
-    const { state } = useSession()
-
+const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const [product, setProduct] = useState([])
-
-    // set quality
     const [quantity, setQuantity] = useState(1)
     const maxQuantity = product.quantity
+
+    const sessionUser = onloadStateFromLocalStorage()
 
     const handleIncrease = () => {
         if (quantity < maxQuantity) {
@@ -25,49 +22,36 @@ const Details = ({ selectedDetailProduct }) => {
     }
 
     const handleClickAddToCart = (product) => {
-        if (state.initUser.session === false) {
-            const existingItem = state.user.panier.articles.find(item => item.product.id === product.id)
+        if (sessionUser) {
+            const existingItem = sessionUser.panier.articles.find(item => item.product.id === product.id)
             if (existingItem) {
                 // L'article existe déjà dans le panier, augmentez la quantité
                 existingItem.quantity += quantity
             } else {
                 // L'article n'existe pas dans le panier, ajoutez-le avec une quantité de 1
-                state.user.panier.articles.push({ product, quantity })
+                sessionUser.panier.articles.push({ product, quantity })
             }
-            console.log('détail : state.user.panier.articles', state.user.panier.articles)
-        } else {
-            console.log('detail : state.initUser.panier.articles', state.initUser.panier.articles)
-            const existingItem = state.initUser.panier.articles.find(item => item.product.id === product.id)
-            if (existingItem) {
-                // L'article existe déjà dans le panier, augmentez la quantité
-                existingItem.quantity += quantity
-            } else {
-                // L'article n'existe pas dans le panier, ajoutez-le avec une quantité de 1
-                state.initUser.panier.articles.push({ product, quantity })
-            }
-            console.log('détail : state.initUser.panier.articles', state.initUser.panier.articles)
+            onSaveStateToLocalStorage(sessionUser)
         }
     }
 
     useEffect(() => {
-        // Votre code ici...
+    //     // Votre code ici...
         if (selectedDetailProduct) {
             localStorage.setItem('selectedDetailProduct', JSON.stringify(selectedDetailProduct))
-            console.log('detail :state.initUser.panier.articles', state.initUser.panier.articles)
         }
         const storedProduct = localStorage.getItem('selectedDetailProduct')
         if (storedProduct) {
             const parsedProduct = JSON.parse(storedProduct)
             setProduct(parsedProduct)
         } else {
-            // Si aucune valeur n'est trouvée, utilisez selectedDetailProduct
             setProduct(selectedDetailProduct)
         }
 
-        // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
-        return () => {
-            localStorage.removeItem('selectedDetailProduct')
-        }
+    //     // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
+    //     return () => {
+    //         localStorage.removeItem('selectedDetailProduct')
+    //     }
     }, [selectedDetailProduct]) // Tableau de dépendances
 
     return (

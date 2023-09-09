@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import sweetalert from 'sweetalert2'
 import Utilisateur from '../../../backend/entities/Utilisateur'
-const Account = ({ state, dispatch }) => {
+const Account = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const navigate = useNavigate()
+    let sessionUser = onloadStateFromLocalStorage()
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -16,14 +17,14 @@ const Account = ({ state, dispatch }) => {
         axios.post('http://localhost:5000/login', { email, password })
             .then(response => {
                 const users = response.data
-
                 const userFound = users.find(user => user.email === email && user.password === password)
 
                 if (userFound) {
-                    const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.email, userFound.password, userFound.image_profil)
-                    // Mettre à jour le contexte avec l'utilisateur connecté
-                    dispatch({ type: 'LOGIN', payload: utilisateur })
-                    state.initUser.session = false
+                    console.log('db userFound :', userFound)
+                    const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.email, userFound.password, userFound.no_civique, userFound.street, userFound.city, userFound.pays, userFound.image_profil)
+                    sessionUser = utilisateur
+                    sessionUser.session = false
+                    onSaveStateToLocalStorage(sessionUser)
                     navigate('/home')
                 } else {
                     sweetalert.fire({

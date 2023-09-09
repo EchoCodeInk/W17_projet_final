@@ -1,26 +1,24 @@
 import React from 'react'
-import { useSession } from '../../../backend/controleur/SessionContext'
+
 import { Link } from 'react-router-dom'
 
-const ConnectButton = () => {
-    const { state, dispatch } = useSession()
-
+const ConnectButton = ({ handleReloadProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
+    let sessionUser = onloadStateFromLocalStorage()
+    console.log('connect_button_sessionUser', sessionUser)
     const handleLogout = () => {
-    // Dispatch l'action de déconnexion
-        dispatch({ type: 'LOGOUT' })
-        state.initUser.session = true
+        sessionUser = null
+        onSaveStateToLocalStorage(sessionUser)
+        handleReloadProduct()
     }
 
     return (
         <span>
-            {console.log(' connect_button state.initUser', state.initUser)}
-            {console.log('connect_button state.user', state.user)}
-            {state.user
+            {sessionUser.session === false
                 ? (
                     <>
                         <div>
-                            <img className='icon' src={`/public/images/${state.user.imageProfil}`} alt='' />
-                            Bonjour, {state.user.nom}
+                            <img className='icon' src={`/public/images/${sessionUser.imageProfil}`} alt='' />
+                            Bonjour, {sessionUser.nom}
                             <button className='account-button' onClick={handleLogout}>Déconnexion</button>
                         </div>
                         <Link to='/profil_manager'>Profil Manager </Link>
