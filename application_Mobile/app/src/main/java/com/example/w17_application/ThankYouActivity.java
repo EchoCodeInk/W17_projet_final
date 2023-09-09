@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.w17_application.entite.User;
 import com.example.w17_application.manager.CartProductManager;
 import com.example.w17_application.manager.OrderManager;
 import com.example.w17_application.manager.ProductManager;
+import com.example.w17_application.manager.UserManager;
+import com.example.w17_application.service.EmailSender;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +26,7 @@ import java.util.Random;
 
 public class ThankYouActivity extends AppCompatActivity {
 
-    private TextView orderNumber, orderDate;
+    private TextView orderNumber, orderDate, orderEmail;
     Intent intent;
     Context context;
     Button btnHome;
@@ -62,11 +65,24 @@ public class ThankYouActivity extends AppCompatActivity {
         orderNumber = findViewById(R.id.order_number);
         btnHome = findViewById(R.id.btn_to_home);
         orderDate = findViewById(R.id.order_date);
-        int OrderId = Integer.parseInt(genererNumeroCommande());
-        orderNumber.setText("Your Order: #" + OrderId);
+        orderEmail = findViewById(R.id.order_email_sent);
+        User user = UserManager.getById(context,Integer.parseInt(userId));
+        String receiverEmail = user.getEmail();
+        int orderId = Integer.parseInt(genererNumeroCommande());
+        orderNumber.setText("Your Order: #" + orderId);
         orderDate.setText("Order Date: " + dateEtHeure);
-        OrderManager.addOrder(context, OrderId, Integer.parseInt(userId), Double.parseDouble(newTotalTTC), dateEtHeure);
+        orderEmail.setText("We have sent the order confirmation details to " + receiverEmail);
+        OrderManager.addOrder(context, orderId, Integer.parseInt(userId), Double.parseDouble(newTotalTTC), dateEtHeure);
+
+        String subject = "Order Confirmation - #" + orderId;
+        String msgBody = "Thank you for choosing The Sac Team for your recent purchase. We are excited to confirm your order and provide you with the details below:\n" +
+            "\n" +
+            "Order Number: #" + orderId + "\n" +
+            "Order Date: " + dateEtHeure + "\n";
+        EmailSender.sendEmail(receiverEmail, subject, msgBody);
+
         CartProductManager.deleteAllCartProducts(context, Integer.parseInt(userId));
+
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
