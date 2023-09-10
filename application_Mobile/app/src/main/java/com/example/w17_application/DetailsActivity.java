@@ -47,9 +47,7 @@ public class DetailsActivity extends AppCompatActivity {
         //logged User
         SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", "");
-//        if (userId != "") {
-//
-//        }
+
         // ACTION BAR
         View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
@@ -71,6 +69,7 @@ public class DetailsActivity extends AppCompatActivity {
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(DetailsActivity.this, AccountActivity.class);
             startActivity(intent);
+            finish();
         });
 
         TextView title = customActionBar.findViewById(R.id.TitleOfPage);
@@ -182,6 +181,7 @@ public class DetailsActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(DetailsActivity.this, AccountActivity.class);
                     startActivity(intent);
+                    finish();
                     Toast.makeText(context, "You must log in to your account", Toast.LENGTH_SHORT).show();
                 }
 
@@ -204,14 +204,17 @@ public class DetailsActivity extends AppCompatActivity {
                 if (itemId == R.id.menu_home) {
                     Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_product) {
                     Intent intent = new Intent(DetailsActivity.this, ProductActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_account) {
                     Intent intent = new Intent(DetailsActivity.this, AccountActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_cart) {
                     Intent intent = new Intent(DetailsActivity.this, CartActivity.class);

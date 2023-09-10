@@ -14,7 +14,7 @@
             android:layout_width="75dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Name : "
+            android:text="Name* : "
             android:gravity="center"/>
 
         <EditText
@@ -37,7 +37,7 @@
             android:layout_width="75dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Email : "
+            android:text="Email* : "
             android:gravity="center"/>
 
         <EditText
@@ -60,7 +60,7 @@
             android:layout_width="75dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Password : "
+            android:text="Password* : "
             android:gravity="center"/>
 
         <EditText
@@ -84,7 +84,7 @@
             android:layout_width="75dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Img User : "
+            android:text="Img User* : "
             android:gravity="center"/>
 
         <EditText

@@ -69,6 +69,7 @@ public class ProductActivity extends AppCompatActivity {
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(ProductActivity.this, AccountActivity.class);
             startActivity(intent);
+            finish();
         });
 
         TextView title = customActionBar.findViewById(R.id.TitleOfPage);
@@ -78,6 +79,8 @@ public class ProductActivity extends AppCompatActivity {
         ImageView burgerMenu = findViewById(R.id.BurgerMenu);
         Drawable burgerMenuDrawable = ContextCompat.getDrawable(this, R.drawable.burger_menu_light);
         burgerMenu.setImageDrawable(burgerMenuDrawable);
+
+
 
         Spinner burgerSpinnerPopUp = findViewById(R.id.burgerSpinnerPopUp);
 
@@ -118,14 +121,17 @@ public class ProductActivity extends AppCompatActivity {
                 if (itemId == R.id.menu_home) {
                     Intent intent = new Intent(ProductActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_product) {
                     Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_account) {
                     Intent intent = new Intent(ProductActivity.this, AccountActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_cart) {
                     Intent intent = new Intent(ProductActivity.this, CartActivity.class);

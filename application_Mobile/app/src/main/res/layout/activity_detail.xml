@@ -46,7 +46,7 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_weight="90"
-        android:background="#556599">
+        android:background="#FFFFFF">
 
         <ImageView
             android:id="@+id/productImage"
