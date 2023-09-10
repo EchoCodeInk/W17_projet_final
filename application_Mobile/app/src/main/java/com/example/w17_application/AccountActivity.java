@@ -230,6 +230,10 @@ public class AccountActivity extends AppCompatActivity {
             EditText editTextEmail = dialogView.findViewById(R.id.inputEmailUser);
             EditText editTextPassword = dialogView.findViewById(R.id.inputPasswordUser);
             EditText editTextImgUser = dialogView.findViewById(R.id.inputImgUser);
+            EditText editTextCivicNumber = dialogView.findViewById(R.id.inputCivicNumberUser);
+            EditText editTextStreet = dialogView.findViewById(R.id.inputStreetUser);
+            EditText editTextCity = dialogView.findViewById(R.id.inputCityUser);
+            EditText editTextCountry = dialogView.findViewById(R.id.inputCountryUser);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("New User");
@@ -240,9 +244,13 @@ public class AccountActivity extends AppCompatActivity {
                 String emailUser = editTextEmail.getText().toString();
                 String passwordUser = editTextPassword.getText().toString();
                 String imgUser = editTextImgUser.getText().toString();
+                String civicNumber = editTextCivicNumber.getText().toString();
+                String street = editTextStreet.getText().toString();
+                String city = editTextCity.getText().toString();
+                String country = editTextCountry.getText().toString();
 
                 if (!nameUser.isEmpty() && !emailUser.isEmpty() && !passwordUser.isEmpty() && !imgUser.isEmpty()) {
-                    createUserAndRefresh(nameUser, emailUser, passwordUser, imgUser);
+                    createUserAndRefresh(nameUser, emailUser, passwordUser, imgUser, civicNumber, street, city, country);
                     Toast.makeText(context, "succès", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "Fill all boxes", Toast.LENGTH_SHORT).show();
@@ -255,12 +263,16 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    private void createUserAndRefresh(String name, String email, String password, String userImg) {
+    private void createUserAndRefresh(String name, String email, String password, String userImg, String civicNumber, String street, String city, String country) {
         User newUser = new User();
         newUser.setNom(name);
         newUser.setEmail(email);
         newUser.setPassword(password);
         newUser.setImage_profil(userImg);
+        newUser.setNo_civique(civicNumber);
+        newUser.setStreet(street);
+        newUser.setCity(city);
+        newUser.setPays(country);
 
         userManager.AddUser(context, newUser);
 

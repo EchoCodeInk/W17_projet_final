@@ -7,6 +7,11 @@ public class User {
     String password;
     String image_profil;
 
+    String no_civique;
+    String street;
+    String city;
+    String pays;
+
     public int getId() {
         return id;
     }
@@ -45,5 +50,37 @@ public class User {
 
     public void setImage_profil(String image_profil) {
         this.image_profil = image_profil;
+    }
+
+    public String getNo_civique() {
+        return no_civique;
+    }
+
+    public void setNo_civique(String no_civique) {
+        this.no_civique = no_civique;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
     }
 }

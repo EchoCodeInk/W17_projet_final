@@ -8,7 +8,8 @@ public class Product {
     private String name;
     private String description;
     private int price;
-    private String category;
+    private int categoryId;
+    private String brand;
     private String imageUrl;
 
 
@@ -18,8 +19,9 @@ public class Product {
     public Product(Cursor cursor) {
         this.id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
         this.name = cursor.getString(cursor.getColumnIndexOrThrow("nom"));
+        this.brand = cursor.getString(cursor.getColumnIndexOrThrow("marque"));
         this.description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
-        this.category = cursor.getString(cursor.getColumnIndexOrThrow("categorie"));
+        this.categoryId = cursor.getInt(cursor.getColumnIndexOrThrow("categorie_id"));
         this.price = cursor.getInt(cursor.getColumnIndexOrThrow("prix"));
         String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("image_url"));
         this.imageUrl = imgUrl.substring(15);
@@ -57,12 +59,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getImageUrl() {
@@ -71,5 +73,13 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }
