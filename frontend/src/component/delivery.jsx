@@ -1,11 +1,11 @@
 import React from 'react'
 import { MDBAccordion, MDBAccordionItem, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
-import { useNavigate } from 'react-router'
+// import { useNavigate } from 'react-router'
 import axios from 'axios'
 function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
     const sessionUser = onloadStateFromLocalStorage()
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const firstNAme = sessionUser.prenom
     const lastName = sessionUser.nom
     const userEmail = sessionUser.email
