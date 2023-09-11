@@ -8,11 +8,14 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
     const [searchQuery, setSearchQuery] = useState('')
 
     let sessionUser = onloadStateFromLocalStorage()
+
     if (!sessionUser) {
-        sessionUser = new Utilisateur('', '', '', '', '', '', '', '', 'icon_account.png')
+        sessionUser = new Utilisateur('', '', '', '', '', '', '', '', '', 'icon_account.png')
+        console.log('header sessionUser', sessionUser)
+
         onSaveStateToLocalStorage(sessionUser)
     }
-    console.log('sessionUser', sessionUser)
+
     const navigate = useNavigate()
 
     const handleSearch = (event) => {

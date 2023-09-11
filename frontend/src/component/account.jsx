@@ -21,7 +21,7 @@ const Account = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => 
 
                 if (userFound) {
                     console.log('db userFound :', userFound)
-                    const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.email, userFound.password, userFound.no_civique, userFound.street, userFound.city, userFound.pays, userFound.image_profil)
+                    const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.prenom, userFound.email, userFound.password, userFound.no_civique, userFound.street, userFound.city, userFound.pays, userFound.image_profil)
                     sessionUser = utilisateur
                     sessionUser.session = false
                     onSaveStateToLocalStorage(sessionUser)
