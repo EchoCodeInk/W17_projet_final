@@ -10,7 +10,10 @@ const Categories = ({ onSearchCategoryName }) => {
         { id: 3, name: 'Drone' },
         { id: 4, name: 'Musique Électronique' },
         { id: 5, name: 'Camera' },
-        { id: 6, name: 'Jeux Video' }
+        { id: 6, name: 'Jeux Video' },
+        { id: 7, name: 'Telephones cellulaires' },
+        { id: 8, name: 'Ordinateurs' },
+        { id: 9, name: 'Tablettes' }
     ]
 
     const handleClickCategorie = (categoryId) => {
