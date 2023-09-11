@@ -1,11 +1,13 @@
 import React from 'react'
-import { MDBAccordion, MDBAccordionItem, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
-// import { useNavigate } from 'react-router'
+import { MDBAccordion, MDBAccordionItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
+import { useNavigate } from 'react-router'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import sweetalert from 'sweetalert2'
 function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
     const sessionUser = onloadStateFromLocalStorage()
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const firstNAme = sessionUser.prenom
     const lastName = sessionUser.nom
     const userEmail = sessionUser.email
@@ -39,13 +41,20 @@ function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
 
                     sessionUser.panier.articles = []
                     onSaveStateToLocalStorage(sessionUser)
+                    navigate('/orderConfirmation')
                     console.log('sessionUser email', sessionUser)
                 } else {
                     console.error('Erreur lors de l\'envoi de l\'e-mail')
+                    sweetalert.fire({
+                        title: 'Erreur lors de l\'envoi de l\'e-mail'
+                    })
                 }
             })
             .catch(error => {
                 console.error('Erreur lors de l\'envoi de l\'e-mail', error)
+                sweetalert.fire({
+                    title: 'Erreur lors de l\'envoi de l\'e-mail'
+                })
             })
     }
 
@@ -107,7 +116,7 @@ function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
                         </MDBCard>
 
                         <div className='text-center'>
-                            <MDBBtn href='/confirmation' className='button-order col-md-10' onClick={() => envoyerEmailAchat(contenuEmail)}>Place order</MDBBtn>
+                            <Link className='btn btn-warning button-order col-md-10' onClick={() => envoyerEmailAchat(contenuEmail)}>Place order</Link>
                         </div>
 
                     </MDBCol>
