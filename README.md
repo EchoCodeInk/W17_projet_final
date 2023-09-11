@@ -1,12 +1,6 @@
 # w16_w17_projet_finale
 
-Equipe :
-/Evan Cholette
-/Taoufik Boussemousse
-/Sara Salek
-/Antoine Ouelette
-/Charles-Maximilien Gros
-/Công Tai Hô
+Equipe : Evan Cholette | Taoufik Boussemousse | Sara Salek | Antoine Ouelette | Charles-Maximilien Gros | Công Tai Hô
 
 Comment demarer le project :
 *Assurez vous d'avoir node.js d'installé.
