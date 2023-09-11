@@ -78,7 +78,7 @@ function App () {
                 <Route path='/details' element={<Details selectedDetailProduct={selectedDetailProduct} onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
                 <Route path='/products/categorie' element={<Products onSelectedDetailProduct={handleSelectedDetailProduct} searchCategorieName={categoryName} />} />
                 <Route path='/checkout' element={<Checkout key={reloadKey} onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
-                <Route path='/delivery' element={<Delivery />} />
+                <Route path='/delivery' element={<Delivery onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
                 <Route path='/profil_manager' element={<ProfileManager />} />
                 <Route path='/confirmation' element={<Confirmation />} />
             </Routes>

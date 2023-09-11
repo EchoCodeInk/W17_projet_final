@@ -118,20 +118,6 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
                                     <span className='text-muted'>✓ 154 orders</span>
                                     <span className='text-success ms-2' style={{ marginLeft: '.5rem' }}> In stock</span>
                                 </div>
-                                {/* <div className='d-flex flex-row my-3'>
-                                    <div className='text-warning mb-1 me-2'>
-                                        <i className='fa fa-star' />
-                                        <i className='fa fa-star' />
-                                        <i className='fa fa-star' />
-                                        <i className='fa fa-star' />
-                                        <i className='fas fa-star-half-alt' />
-                                        <span className='ms-1'>
-                                            4.5
-                                        </span>
-                                    </div>
-                                    <span className='text-muted'><i className='fas fa-shopping-basket fa-sm mx-1' />154 orders</span>
-                                    <span className='text-success ms-2' style={{ marginLeft: '.5rem' }}> In stock</span>
-                                </div> */}
 
                                 <div className='mb-3'>
                                     <span className='h5'>{'$' + product.prix}</span>
@@ -146,12 +132,6 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
                                     <dt className='col-3'>Categorie:</dt>
                                     <dd className='col-9'>{product.categorie}</dd>
 
-                                    {/* <dt className='col-3'>Color</dt>
-                                    <dd className='col-9'>Brown</dd> */}
-
-                                    {/* <dt className='col-3'>Material</dt>
-                                    <dd className='col-9'>Cotton, Jeans</dd> */}
-
                                     <dt className='col-3'>Brand</dt>
                                     <dd className='col-9'>{product.marque}</dd>
                                 </div>
@@ -159,14 +139,7 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
                                 <hr />
 
                                 <div className='row mb-4'>
-                                    {/* <div className='col-md-4 col-6'>
-                                        <label className='mb-2'>Size</label>
-                                        <select className='form-select border border-secondary' style={{ height: '35px' }}>
-                                            <option>Small</option>
-                                            <option>Medium</option>
-                                            <option>Large</option>
-                                        </select>
-                                    </div> */}
+
                                     {/* <!-- col.// --> */}
                                     <div className='col-md-4 col-6 mb-3'>
                                         <label className='mb-2 d-block'>Quantity</label>

@@ -1,39 +1,59 @@
 import React from 'react'
-import { MDBAccordion, MDBAccordionItem, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTextArea, MDBTypography } from 'mdb-react-ui-kit'
+import { MDBAccordion, MDBAccordionItem, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
+import { useNavigate } from 'react-router'
+import axios from 'axios'
+function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
+    const sessionUser = onloadStateFromLocalStorage()
 
-function Delivery () {
+    const navigate = useNavigate()
+    const firstNAme = sessionUser.prenom
+    const lastName = sessionUser.nom
+    const userEmail = sessionUser.email
+    const noCivique = sessionUser.noCivique
+    const street = sessionUser.street
+    const city = sessionUser.city
+    const pays = sessionUser.pays
+    const paniers = sessionUser.panier.articles
+
+    const informationsAchat = paniers.map(item => {
+        return `Nom de l'item : ${item.product.nom}
+         Quantity : ${item.quantity}
+                `
+    })
+
+    // Joignez les éléments HTML ensemble dans une seule chaîne
+    const contenuEmail = informationsAchat.join('')
+
+    function envoyerEmailAchat (contenuEmail) {
+        const email = userEmail
+        const sujet = 'Confirmation d\'achat'
+
+        axios.post('http://localhost:5000/envoyer-email', {
+            destinataire: email,
+            sujet,
+            contenu: contenuEmail
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log('E-mail envoyé avec succès')
+
+                    sessionUser.panier.articles = []
+                    onSaveStateToLocalStorage(sessionUser)
+                    console.log('sessionUser email', sessionUser)
+                } else {
+                    console.error('Erreur lors de l\'envoi de l\'e-mail')
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de l\'envoi de l\'e-mail', error)
+            })
+    }
+
     return (
         <MDBContainer className='my-5 py-5' style={{ maxWidth: '1100px' }}>
             <section>
                 <MDBRow>
                     <MDBCol md='12'>
-                        {/* <MDBCard className='mb-4'>
-                            <MDBCardBody>
-                                <p className='text-uppercase h4 text-font'>Delivery Country:</p>
-                                <MDBRow>
-                                    <MDBCol md='1'>
-                                        <MDBCardImage
-                                            src='https://mdbcdn.b-cdn.net/img/Others/extended-example/usa2.webp'
-                                            className='rounded-circle me-2'
-                                            style={{ width: '35px' }}
-                                            alt='USA'
-                                        />
-                                    </MDBCol>
-                                    <MDBCol md='8'>
-                                        <select className='custom-select'>
-                                            <option value='1'>United States</option>
-                                            <option value='2'>Spain</option>
-                                            <option value='3'>Poland</option>
-                                            <option value='4'>Italy</option>
-                                            <option value='5'>Greece</option>
-                                            <option value='6'>Germany</option>
-                                            <option value='7'>Croatia</option>
-                                            <option value='8'>Sweden</option>
-                                        </select>
-                                    </MDBCol>
-                                </MDBRow>
-                            </MDBCardBody>
-                        </MDBCard> */}
 
                         <MDBAccordion className='card mb-4'>
                             <MDBAccordionItem collapseId={1} className='border-0' headerTitle='Promo/Student Code or Vouchers'>
@@ -41,65 +61,7 @@ function Delivery () {
                             </MDBAccordionItem>
                         </MDBAccordion>
 
-                        {/* <MDBCard className='mb-4'>
-                            <MDBCardBody>
-                                <p className='text-uppercase fw-bold mb-3 text-font'>Email address</p>
-                                <MDBRow>
-                                    <MDBCol md='4'>
-                                        <p>your-email@gmail.com</p>
-                                    </MDBCol>
-                                    <MDBCol md='7'>
-                                        <MDBBtn outline color='dark' className='float-end button-color'>Change</MDBBtn>
-                                    </MDBCol>
-                                </MDBRow>
-                            </MDBCardBody>
-                        </MDBCard> */}
                     </MDBCol>
-                    {/* subtotal */}
-                    {/* <MDBCol md='4' className='mb-4 position-statics'>
-                        <MDBCard className='mb-4'>
-                            <MDBCardHeader className='py-3'>
-                                <MDBTypography tag='h5' className='mb-0 text-font'>
-                                    1 item <span className='float-end mt-1' style={{ fontSize: '13px' }}>Edit</span>
-                                </MDBTypography>
-                            </MDBCardHeader>
-                            <MDBCardBody>
-                                <MDBRow>
-                                    <MDBCol md='4'>
-                                        <MDBCardImage
-                                            src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp'
-                                            className='rounded-3' style={{ width: '100px' }} alt='Blue Jeans Jacket'
-                                        />
-                                    </MDBCol>
-                                    <MDBCol md='6' className='ms-3'>
-                                        <span className='mb-0 text-price'>$35.00</span>
-                                        <p className='mb-0 text-descriptions'>Denim jacket </p>
-                                        <span className='text-descriptions fw-bold'>Black</span>
-                                        <span
-                                            className='text-descriptions fw-bold'
-                                        >UK 8
-                                        </span>
-                                        <p className='text-descriptions mt-0'>
-                                            Qty:<span className='text-descriptions fw-bold'>1</span>
-                                        </p>
-                                    </MDBCol>
-                                </MDBRow>
-                            </MDBCardBody>
-                            <MDBCardFooter className='mt-4'>
-                                <MDBListGroup flush>
-                                    <MDBListGroupItem className='d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted'>
-                                        Subtotal
-                                        <span>$35.00</span>
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem className='d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase'>
-                                        Total to pay
-                                        <span>$35.00</span>
-                                    </MDBListGroupItem>
-                                </MDBListGroup>
-                            </MDBCardFooter>
-                        </MDBCard>
-                    </MDBCol> */}
-                    {/* subtotal */}
 
                     <MDBCol md='12' className='mb-4'>
                         <MDBCard className='mb-4'>
@@ -110,28 +72,44 @@ function Delivery () {
                                 <form>
                                     <MDBRow className='mb-4'>
                                         <MDBCol>
-                                            <MDBInput label='First name' type='text' />
+                                            <MDBInput label='First name' type='text' value={firstNAme} />
                                         </MDBCol>
                                         <MDBCol>
-                                            <MDBInput label='Last name' type='text' />
+                                            <MDBInput label='Last name' type='text' value={lastName} />
+                                        </MDBCol>
+                                    </MDBRow>
+                                    <MDBInput label='Email' type='text' className='mb-4' value={userEmail} />
+                                    <MDBRow className='mb-4'>
+
+                                        <MDBCol>
+                                            <MDBInput label='No civique' type='text' value={noCivique} />
+                                        </MDBCol>
+                                        <MDBCol>
+                                            <MDBInput label='Street' type='text' value={street} />
+                                        </MDBCol>
+                                        <MDBCol>
+                                            <MDBInput label='City' type='text' value={city} />
+                                        </MDBCol>
+                                        <MDBCol>
+                                            <MDBInput label='Pays' type='text' value={pays} />
                                         </MDBCol>
                                     </MDBRow>
 
-                                    <MDBInput label='Company name' type='text' className='mb-4' />
-                                    <MDBInput label='Address' type='text' className='mb-4' />
-                                    <MDBInput label='Email' type='text' className='mb-4' />
-                                    <MDBInput label='Phone' type='text' className='mb-4' />
-                                    <MDBTextArea label='Additional information' rows={4} className='mb-4' />
-
-                                    <div className='d-flex justify-content-center'>
-                                        <MDBCheckbox name='flexCheck' value='' id='flexCheckChecked' label='Create an account?' defaultChecked />
-                                    </div>
+                                    {sessionUser.session === true
+                                        ? (
+                                            <div className='d-flex justify-content-center'>
+                                                <MDBCheckbox name='flexCheck' value='' id='flexCheckChecked' label='Create an account?' defaultChecked />
+                                            </div>
+                                        )
+                                        : null}
                                 </form>
                             </MDBCardBody>
                         </MDBCard>
+
                         <div className='text-center'>
-                            <MDBBtn href='/confirmation' className='button-order col-md-10'>Place order</MDBBtn>
+                            <MDBBtn href='/confirmation' className='button-order col-md-10' onClick={() => envoyerEmailAchat(contenuEmail)}>Place order</MDBBtn>
                         </div>
+
                     </MDBCol>
                 </MDBRow>
             </section>

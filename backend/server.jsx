@@ -1,9 +1,18 @@
 const express = require('express')
 const cors = require('cors')
 const sqlite3 = require('sqlite3').verbose()
+const nodemailer = require('nodemailer')
 
 const app = express()
 const port = 5000
+
+const transporter = nodemailer.createTransport({
+    service: 'Outlook',
+    auth: {
+        user: 'TheSacTeamBoutique@outlook.com',
+        pass: '@etu456...'
+    }
+})
 
 app.use(cors({
     origin: 'http://localhost:8080', // Remplacez par l'URL de votre frontend
@@ -113,6 +122,27 @@ app.post('/register', (req, res) => {
             // Renvoyez un message de succès avec l'ID du nouvel utilisateur créé
             res.status(200).json({ message: 'Nouvel utilisateur créé avec l\'ID ' + this.lastID })
         })
+    })
+})
+
+app.post('/envoyer-email', (req, res) => {
+    const { destinataire, sujet, contenu } = req.body
+
+    const mailOptions = {
+        from: 'TheSacTeamBoutique@outlook.com',
+        to: destinataire,
+        subject: sujet,
+        text: contenu
+    }
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error(error)
+            res.status(500).send('Erreur lors de l\'envoi de l\'e-mail.')
+        } else {
+            console.log('E-mail envoyé : ' + info.response)
+            res.status(200).send('E-mail envoyé avec succès.')
+        }
     })
 })
 
