@@ -1,1 +1,120 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\Users\isi.751FJW2\Desktop\w17_projet_final\backend\Data\database.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1716"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,7:mainProduit"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Categorie" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="40"/><column index="2" value="134"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Produit" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="40"/><column index="2" value="300"/><column index="3" value="53"/><column index="4" value="63"/><column index="5" value="300"/><column index="6" value="142"/><column index="7" value="81"/><column index="8" value="89"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1"></sql><current_tab id="0"/></tab_sql></sqlb_project>
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\_mes_cours\W16_W17\w17_projet_final\backend\Data\database.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1750"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,7:mainProduit"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Categorie" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="40"/><column index="2" value="134"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Produit" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="40"/><column index="2" value="300"/><column index="3" value="53"/><column index="4" value="63"/><column index="5" value="300"/><column index="6" value="142"/><column index="7" value="81"/><column index="8" value="89"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">BEGIN TRANSACTION;
+
+DROP TABLE if EXISTS &quot;Utilisateur&quot;;
+DROP TABLE if EXISTS &quot;Panier&quot;;
+DROP TABLE if EXISTS &quot;ItemPanier&quot;;
+DROP TABLE if EXISTS &quot;CouponLivraisonGratuite&quot;;
+DROP TABLE if EXISTS &quot;Commande&quot;;
+DROP TABLE if EXISTS &quot;Produit&quot;;
+DROP TABLE if EXISTS &quot;Categorie&quot;;
+
+CREATE TABLE IF NOT EXISTS &quot;Categorie&quot; (
+	&quot;id&quot;	INTEGER,
+	&quot;nom&quot;	TEXT,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS &quot;Utilisateur&quot; (
+	&quot;id&quot;	INTEGER,
+	&quot;nom&quot;	TEXT,
+	&quot;prenom&quot;	TEXT,
+	&quot;email&quot;	TEXT NOT NULL,
+	&quot;password&quot;	TEXT NOT NULL,
+	&quot;no_civique&quot;	TEXT,
+	&quot;street&quot;	TEXT,
+	&quot;city&quot;	TEXT,
+	&quot;pays&quot;	TEXT,
+	&quot;image_profil&quot;	TEXT,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS &quot;Panier&quot; (
+	&quot;id&quot;	INTEGER,
+	&quot;utilisateur_id&quot;	INTEGER NOT NULL,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;utilisateur_id&quot;) REFERENCES &quot;Utilisateur&quot;(&quot;id&quot;)
+);
+CREATE TABLE IF NOT EXISTS &quot;ItemPanier&quot; (
+	&quot;id&quot;	INTEGER,
+	&quot;panier_id&quot;	INTEGER NOT NULL,
+	&quot;produit_id&quot;	INTEGER NOT NULL,
+	&quot;quantity&quot;	INTEGER,
+	&quot;prix&quot;	REAL NOT NULL,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;panier_id&quot;) REFERENCES &quot;Panier&quot;(&quot;id&quot;),
+	FOREIGN KEY(&quot;produit_id&quot;) REFERENCES &quot;Produit&quot;(&quot;id&quot;)
+);
+CREATE TABLE IF NOT EXISTS &quot;CouponLivraisonGratuite&quot; (
+	&quot;code&quot;	TEXT,
+	&quot;montantMinimum&quot;	REAL,
+	PRIMARY KEY(&quot;code&quot;)
+);
+CREATE TABLE IF NOT EXISTS &quot;Commande&quot; (
+	&quot;id&quot;	INTEGER,
+	&quot;utilisateur_id&quot;	INTEGER NOT NULL,
+	&quot;montantTotal&quot;	REAL NOT NULL,
+	&quot;date&quot;	DATETIME NOT NULL,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;utilisateur_id&quot;) REFERENCES &quot;Utilisateur&quot;(&quot;id&quot;)
+);
+CREATE TABLE IF NOT EXISTS &quot;Produit&quot; (
+	&quot;id&quot;	INTEGER,
+	&quot;nom&quot;	TEXT,
+	&quot;prix&quot;	DECIMAL(10, 2),
+	&quot;quantity&quot;	INTEGER,
+	&quot;description&quot;	TEXT,
+	&quot;image_url&quot;	TEXT,
+	&quot;marque&quot;	TEXT,
+	&quot;categorie_id&quot;	INTEGER,
+	PRIMARY KEY(&quot;id&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;categorie_id&quot;) REFERENCES &quot;Categorie&quot;(&quot;id&quot;)
+);
+INSERT INTO &quot;Categorie&quot; (&quot;id&quot;,&quot;nom&quot;) VALUES (1,'appareil photo'),
+ (2,'television'),
+ (3,'drone'),
+ (4,'musique electronique'),
+ (5,'camera'),
+ (6,'jeux video'),
+ (7,'telephones cellulaires '),
+ (8,'ordinateurs'),
+ (9,'tablettes');
+INSERT INTO &quot;Utilisateur&quot; (&quot;id&quot;,&quot;nom&quot;,&quot;prenom&quot;,&quot;email&quot;,&quot;password&quot;,&quot;no_civique&quot;,&quot;street&quot;,&quot;city&quot;,&quot;pays&quot;,&quot;image_profil&quot;) VALUES
+ (1,'Cholette','Evan','e_cholette@hotmail.com','1','152','Boivin','Montreal','Canada','evan.jpg');
+INSERT INTO &quot;Produit&quot; (&quot;id&quot;,&quot;nom&quot;,&quot;prix&quot;,&quot;quantity&quot;,&quot;description&quot;,&quot;image_url&quot;,&quot;marque&quot;,&quot;categorie_id&quot;) VALUES (1,'Canon PowerShot SX70 HS Appareil photo numerique',944.95,100,'Canon PowerShot SX70 HS Appareil photo numerique','/public/images/p1.png','Canon',1),
+ (2,'GameSir G4 Pro Controleur leur de jeu sans fil Bluetooth',29.99,200,'Controleur leur PC avec ABXY magnÃ©tique, manette de jeu compatible avec Switch/PC Windows/ATTOE/ telephone/portable Android/iOS pour jeux Apple Arcade MFi','/public/images/p2.png','Game Sir',6),
+ (3,'Drone quadricoptÃ¨re pliable super endurance pour debutants',129.99,50,'40 minutes de temps de vol, drone FPV Wi-Fi avec camera HD 1080p grand angle de 120 Â°, positionnement du flux optique, suivez-moi, double cameras (2 piles)','/public/images/p3.png','CHUBORY',3),
+ (4,'Brightin Star Objectif grand angle 35 mm F1.7 APS-C',149.99,10,'Mise au point manuelle sans miroir, compatible avec Canon EF-M Mount M, M2, M3, M5, M6, M10, M100, M50, M200 (argent)','/public/images/p4.png','Brightin Star',1),
+ (5,'Klipsch R-100SW Caisson de basses 25,4 cm',328.99,300,'Nom du modÃƒÆ’Ã‚Â¨le: Klipsch R-100SW, Type de haut-parleur Caisson de basse, Technologie de connectivitÃƒÆ’Ã‚Â© RCA, FonctionnalitÃƒÆ’Ã‚Â© spÃƒÆ’Ã‚Â©ciale','/public/images/p5.png','Klipsch',4),
+ (6,'Razer Wolverine V2 Pro Manette de jeu sans fil pour PlayStation 5 / PS5 PC',199.99,5,'HyperSpeed Wireless - Boutons d action mÃƒÆ’Ã‚Â©caniques tactiles - 8 voies Microswitch D-Pad - 6 boutons reprogrammables - Chroma RGB - Noir','/public/images/p6.png','Razer',6),
+ (7,'DJI Mini 3 Pro (DJI RC)',79.99,150,'Drone camera leger et pliable avec video 4K/60fps, photo 48MP, temps de vol 34 min, detection d obstacles tridirectionnelle, ideal pour la photographie aerienne et les medias sociaux','/public/images/p7.png','DJI',3),
+ (8,'Appareil photo numerique 4K',145.59,250,'Appareil photo compact 48 MP - Ecran de 7,6 cm - Rechargeable - Zoom numerique 16X - Double camera HD avec carte SD - Noir','/public/images/p8.png','Birosnsy',1),
+ (9,'Noorio B200 Camera de securite exterieure sans fil',104.58,1000,'Camera de securite domestique 1080p, camÃƒÆ’Ã‚Â©ra WiFi alimentÃƒÆ’Ã‚Â©e par piles sans fil, vision nocturne couleur, detection de mouvement IA, fonctionne avec Alexa, mise en place en quelques minutes','/public/images/p9.png','Noorio',5),
+ (10,'TÃ©lÃ©vision intelligente',399.99,450,'TÃ©lÃ©vision intelligente Amazon Fire TV 43 po SÃ©rie 4 4K UHD, regardez la tÃ©lÃ©vision en direct sans avoir besoin du cÃ¢ble','/public/images/p10.png','Amazon',2),
+ (11,'Television Roku intelligent',168.95,400,'TCL TÃ©lÃ©viseur Roku intelligent 32&quot; Classe 3 Full HD 1080p LED - 32S359-CA','/public/images/p11.png','TCL',2),
+ (12,'Ordinateur portable Windows 11',699.99,250,'Ordinateur portable Windows 11 Processeur Intel Celeron N5095 (jusqu''Ã  2,9 GHz), 15,6&quot; 12 Go DDR4 512 Go SSD, FHD 1920 x 1080 avec ventilateur de processeur, WiFi double bande, Bluetooth 4.2 (gris)','/public/images/p12.png','Sgin',8),
+ (13,'Ordinateur portable Windows 11 12 Go DDR4 512 Go SSD',489.99,245,'ordinateur portable de 15,6&quot; avec processeur Intel Celeron N5095 (jusqu''Ã  2,9 GHz), ordinateur portable FHD 1920 x 1080 avec 2 ports USB 3.0, Wi-Fi double bande, Bluetooth 4.2 (gris)','/public/images/p13.png','Sgin',8),
+ (14,'Ordinateur portable professionnel,Lenovo ThinkPad T480',299,452,'Lenovo ThinkPad T480 Ordinateur portable professionnel HD 14&quot; (Intel 8e gÃ©nÃ©ration Quad-Core i5-8250U, 16 Go de RAM DDR4, Toshiba 256 Go PCIe NVMe 2242 M.2 SSD) Empreinte digitale, Thunderbolt 3 Type-C, WiFi, Windows 10 Pro (renouvelÃ©)','/public/images/p14.png','Lenovo',8),
+ (15,'Appareil photo numerique Canon EOS',845.15,250,'Canon EOS M50 Mark II + EF-M 15-45 mm est un kit STM noir','/public/images/p15.png','Canon',1),
+ (16,'Appareil photo reflex numÃ©rique Canon EOS Rebel T7',639.99,350,'Appareil photo reflex numÃ©rique Canon EOS Rebel T7 avec objectif zoom EF-S 18-55 mm + carte mÃ©moire SanDisk 32 Go + trÃ©pied + Ã©tui + objectifs grand angle + accessoires ZeeTech','/public/images/p16.png','ZeeTech',1),
+ (17,'Piano avec kit d''affichage tactile',229.99,250,'RockJam61 Key Keyboard Piano avec kit d''affichage tactile, support de clavier, banc de piano, pÃ©dale de maintien, casque, app et autocollants de touches de piano','/public/images/p17.png','RockJam',4),
+ (18,'Apple iPad 2018 32 Go',229.99,20,'Apple iPad 2018 32 Go â€“ WiFi uniquement â€“ Gris sidÃ©ral (renouvelÃ©)','/public/images/p18.png','Apple',9),
+ (19,'Samsung Galaxy Tab S6 Lite',329.99,500,'Samsung Galaxy Tab S6 Lite (nouveau) Bleu 10,4&quot; 64 Go WiFi Android Tablet w/S Pen, design fin en mÃ©tal, deux haut-parleurs, 8 MP + 5 MP (version CAD et garantie)','/public/images/p19.png','Samsung',9),
+ (20,'Samsung Galaxy Tab A7 Lite ',155,250,'Samsung Galaxy Tab A7 Lite 8,7&quot; 32 Go Gris foncÃ© Wi-Fi SM-T220NZAAXAR','/public/images/p20.png','Samsung',9),
+ (21,'Apple iPad (10e gÃ©nÃ©ration)',549.99,150,'Apple iPad (10e gÃ©nÃ©ration) : avec puce A14 Bionic, Ã©cran Retina liquide de 11,9 pouces, 64 Go, Wi-Fi 6, appareil photo avant/arriÃ¨re 12 MP, Touch ID, autonomie de la batterie toute la journÃ©e - Rose','/public/images/p21.png','Apple',9),
+ (22,' Ordinateur portable Apple MacBook Air 2023 ',1649.99,20,'Apple MacBook Air 2023 Ordinateur portable avec puce M2 : Ã©cran Retina liquide de 15,3&quot;, 8 Go de RAM, 256 Go de stockage SSD, camÃ©ra FaceTime HD 1080p, Touch ID. Fonctionne avec iPhone/iPad, Starlight, anglais','/public/images/p22.png','Apple',8),
+ (23,'Ordinateur portable Apple MacBook Air 2022 ',1349.99,50,'Apple MacBook Air 2022 Ordinateur portable avec puce M2 : Ã©cran Retina liquide de 13,6 pouces, 8 Go de RAM, 256 Go de stockage SSD, clavier rÃ©troÃ©clairÃ©, camÃ©ra FaceTime HD 1080p Fonctionne avec iPhone et iPad Minuit Anglais','/public/images/p23.png','Apple',8),
+ (24,'CamÃ©ra de sÃ©curitÃ© intÃ©rieure ','39,98',250,' CamÃ©ra de sÃ©curitÃ© intÃ©rieure avec application tÃ©lÃ©phonique, camÃ©ra de sÃ©curitÃ© intÃ©rieure Ã  vue Ã  360Â°, camÃ©ra WiFi 1080p pour bÃ©bÃ©/animal de compagnie, camÃ©ra de sÃ©curitÃ© domestique avec vision nocturne infrarouge, suivi automatique, audio bidirectionnel','/public/images/p24.png','Crzwok',5),
+ (25,'camera Blink Video Doorbell',164.98,150,'sonnette vidÃ©o Blink Video Doorbell + 2 camÃ©ras extÃ©rieures (3e gÃ©nÃ©ration)','/public/images/p25.png','Alexa',5),
+ (26,' CamÃ©ra de sÃ©curitÃ© intelligente HD sans fil',159.99,150,'CamÃ©ra de sÃ©curitÃ© intelligente HD sans fil, autonomie de 2 ans, audio bidirectionnel, dÃ©tection de mouvements amÃ©liorÃ©e, fonctionne avec Alexa: 1 camÃ©ra','/public/images/p26.png','Alexa',5),
+ (27,'Casque sans fil Noir',199.99,45,'Skullcandy Crusher Evo S6EVW-N740 Casque sans fil Noir','/public/images/p27.png','SKULLCANDY',4),
+ (28,'Appareil photo numÃ©rique avec zoom optique 25x ',476.96,50,'Canon PowerShot SX620 Appareil photo numÃ©rique avec zoom optique 25x â€“ Compatible Wi-Fi et NFC (noir)','/public/images/p28.png','canon',1),
+ (29,'Appareil photo plein cadre sans miroir interchangeable',4198,70,' Appareil photo plein cadre sans miroir interchangeable avec capteur haute rÃ©solution 61 MP, jusqu''Ã  10 fps avec suivi continu AF/AE','/public/images/p29.png','sony',1),
+ (30,' appareil photo instantanÃ© ',70.85,250,'Fujifilm Instax Mini 11 appareil photo instantanÃ© ','/public/images/p30.png','instax',1),
+ (31,'Appareil photo numÃ©rique 4K avec Ã©tui pour appareil photo',199.99,145,'Appareil photo numÃ©rique 4K avec Ã©tui pour appareil photo, camÃ©ra de vlogging YouTube 48 MP pour photographie et vidÃ©o avec flash viseur, zoom 16x, autofocus compact et camÃ©ra de prise de vue avec carte de 32 Go et 2 piles','/public/images/p31.png','sixtary',1),
+ (32,'Television Hisense 43A68H',328,510,'Hisense 43A68H - 43 pouces Smart Ultra HD 4K Dolby Vision HDR10 Google TV avec Bluetooth, tÃ©lÃ©commande vocale (modÃ¨le Canada) 2022','/public/images/p32.png','TCL',2),
+ (33,'TCL TÃ©lÃ©viseur Roku intelligent 32',298,450,'TCL TÃ©lÃ©viseur Roku intelligent 32&quot; Classe 3 Full HD 1080p LED - 32S359-CA','/public/images/p33.png','TCL',2),
+ (34,'Toshiba Smart TV 4K',629,250,'Toshiba Smart TV 4K UHD HDR LED 50 po (50C350KC) â€“ Fire TV Edition â€“ 2021','/public/images/p34.png','Toshiba',2),
+ (35,'TÃ©lÃ©vision intelligente UHD 4K Amazon Fire TV SÃ©rie Omni QLED de 50 pouces',679.99,250,'TÃ©lÃ©vision intelligente UHD 4K Amazon Fire TV SÃ©rie Omni QLED de 50 pouces, avec Dolby Vision IQ, tamisage local, mains libres avec Alexa','/public/images/p35.png','Amazon',2),
+ (36,'TÃ©lÃ©viseur intelligent 4K de 50 pouces',597.99,450,'LG TÃ©lÃ©viseur intelligent 4K de 50 pouces UQ7590 Series Alexa intÃ©grÃ© 50&quot; (3840 x 2160), Bluetooth, Wi-Fi, USB, Ethernet, HDMI 60 Hz, taux de rafraÃ®chissement 4K, alimentÃ© par l''IA (50UQ7590)','/public/images/p36.png','LG',2),
+ (37,'TÃ©lÃ©vision intelligente Amazon Fire TV 65 po SÃ©rie Omni UHD 4K',899.99,150,'TÃ©lÃ©vision intelligente Amazon Fire TV 65 po SÃ©rie Omni UHD 4K avec Dolby Vision et contrÃ´le vocal mains libres avec Alexa','/public/images/p37.png','Alexa',2),
+ (38,'Television Google TV intelligent 4K ',548,350,'Hisense 55U68K - Google TV intelligent 4K ULED de 55 po avec technologie Quantum Dot (modÃ¨le Canada) 2023','/public/images/p38.png','Hisense',2);
+COMMIT;
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
