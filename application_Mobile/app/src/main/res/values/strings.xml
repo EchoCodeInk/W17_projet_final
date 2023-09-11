@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">w17-Application</string>
+    <string name="app_name">The Sac Teams</string>
     <string-array name="spinner_items">
-        <item>All</item>
-        <item>Electronics</item>
+<!--        <item>All</item>-->
+<!--        <item>Electronics</item>-->
     </string-array>
 </resources>

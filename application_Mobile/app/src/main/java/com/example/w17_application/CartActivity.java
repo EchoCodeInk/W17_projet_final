@@ -81,7 +81,7 @@ public class CartActivity extends AppCompatActivity {
             });
 
             TextView title = customActionBar.findViewById(R.id.TitleOfPage);
-            title.setText("The Sac Team - Account");
+            title.setText("The Sac Team - Cart");
 
 //            //NAV BAR
 //            ImageView burgerMenu = findViewById(R.id.BurgerMenu);
