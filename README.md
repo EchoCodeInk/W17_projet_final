@@ -20,6 +20,7 @@ Comment demarer le project :
 
 3 - Dans le 1er terminal faite la commande suivante sur le bon dossier "w17_projet_final" : npm start
     Cette commande démare le project dans le navigateur 
+    
     ![image](https://github.com/EchoCodeInk/w17_projet_final/assets/143127630/6600855c-8752-4884-9fca-44122180a8fb)
 
 
