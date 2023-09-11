@@ -7,7 +7,7 @@ import sweetalert from 'sweetalert2'
 function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
     const sessionUser = onloadStateFromLocalStorage()
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const firstNAme = sessionUser.prenom
     const lastName = sessionUser.nom
     const userEmail = sessionUser.email
