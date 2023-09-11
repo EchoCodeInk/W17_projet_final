@@ -20,8 +20,8 @@ public class EmailSender {
     public static void sendEmail(String receiverEmail,String subject , String msgBody) {
 
         try {
-            String stringSenderEmail = "richmondhnson90@gmail.com";
-            String stringPasswordSenderEmail = "ggdrkkthhtcapdnh";
+            String stringSenderEmail = "TheSacTeams@gmail.com";
+            String stringPasswordSenderEmail = "efctetcshbzvxnql";
 
             String stringHost = "smtp.gmail.com";
 

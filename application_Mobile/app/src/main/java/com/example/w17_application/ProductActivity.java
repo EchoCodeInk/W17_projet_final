@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,7 +28,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.w17_application.adapter.ProductAdapter;
+import com.example.w17_application.entite.Category;
 import com.example.w17_application.entite.Product;
+import com.example.w17_application.manager.CategoryManager;
 import com.example.w17_application.manager.ProductManager;
 
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class ProductActivity extends AppCompatActivity {
     GridView gridViewMain;
     ProductAdapter productAdapter;
     Context context;
-
+    ArrayList<Product> products;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
@@ -69,6 +72,7 @@ public class ProductActivity extends AppCompatActivity {
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(ProductActivity.this, AccountActivity.class);
             startActivity(intent);
+            finish();
         });
 
         TextView title = customActionBar.findViewById(R.id.TitleOfPage);
@@ -79,6 +83,8 @@ public class ProductActivity extends AppCompatActivity {
         Drawable burgerMenuDrawable = ContextCompat.getDrawable(this, R.drawable.burger_menu_light);
         burgerMenu.setImageDrawable(burgerMenuDrawable);
 
+
+
         Spinner burgerSpinnerPopUp = findViewById(R.id.burgerSpinnerPopUp);
 
         burgerMenu.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +94,41 @@ public class ProductActivity extends AppCompatActivity {
             }
         });
 
+
+        Spinner categoryFilter = findViewById(R.id.categoryFilter);
+
+        // afficher la list catégories
+        ArrayList<Category> allCatogory = CategoryManager.getAll(context);
+        ArrayList<String> categoryList = new ArrayList<>();
+        categoryList.add("All");
+        for (Category nouvelElement : allCatogory) {
+            categoryList.add(nouvelElement.getCategoryName());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoryFilter.setAdapter(adapter);
+
         gridViewMain = findViewById(R.id.list_view_products);
-        ArrayList<Product> products = ProductManager.getAll(this);
-        productAdapter = new ProductAdapter(this, R.layout.product_layout, products);
-        gridViewMain.setAdapter(productAdapter);
+
+        categoryFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String selectedCategory = (String) parentView.getItemAtPosition(position);
+                if (selectedCategory.equals("All")) {
+                    products = ProductManager.getAll(context);
+                } else {
+                    products = ProductManager.getByCategoryId(context, position);
+                }
+                productAdapter = new ProductAdapter(context, R.layout.product_layout, products);
+                gridViewMain.setAdapter(productAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                products = ProductManager.getAll(context);
+            }
+        });
+
 
         gridViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -118,14 +155,17 @@ public class ProductActivity extends AppCompatActivity {
                 if (itemId == R.id.menu_home) {
                     Intent intent = new Intent(ProductActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_product) {
                     Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_account) {
                     Intent intent = new Intent(ProductActivity.this, AccountActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_cart) {
                     Intent intent = new Intent(ProductActivity.this, CartActivity.class);

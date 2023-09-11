@@ -26,6 +26,10 @@ public class UserManager {
                 user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
                 user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow("password")));
                 user.setImage_profil(cursor.getString(cursor.getColumnIndexOrThrow("image_profil")));
+                user.setStreet(cursor.getString(cursor.getColumnIndexOrThrow("street")));
+                user.setCity(cursor.getString(cursor.getColumnIndexOrThrow("city")));
+                user.setPays(cursor.getString(cursor.getColumnIndexOrThrow("pays")));
+                user.setNo_civique(cursor.getString(cursor.getColumnIndexOrThrow("no_civique")));
                 users.add(user);
             }
         }
@@ -41,14 +45,24 @@ public class UserManager {
         String email = newUser.getEmail();
         String password = newUser.getPassword();
         String userImg = newUser.getImage_profil();
+        String noCivique = newUser.getNo_civique();
+        String street = newUser.getStreet();
+        String city = newUser.getCity();
+        String pays = newUser.getPays();
 
-        String query = "INSERT INTO Utilisateur VALUES (?, ?, ?, ?,?);";
+
+        String query = "INSERT INTO Utilisateur VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         SQLiteStatement statement = db.compileStatement(query);
         statement.bindLong(1, id);
         statement.bindString(2, nom);
         statement.bindString(3, email);
         statement.bindString(4, password);
-        statement.bindString(5,userImg);
+        statement.bindString(5, noCivique);
+        statement.bindString(6, street);
+        statement.bindString(7, city);
+        statement.bindString(8, pays);
+        statement.bindString(9, userImg);
+
 
         statement.executeInsert();
     }
@@ -68,6 +82,10 @@ public class UserManager {
             user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
             user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow("password")));
             user.setImage_profil(cursor.getString(cursor.getColumnIndexOrThrow("image_profil")));
+            user.setStreet(cursor.getString(cursor.getColumnIndexOrThrow("street")));
+            user.setCity(cursor.getString(cursor.getColumnIndexOrThrow("city")));
+            user.setPays(cursor.getString(cursor.getColumnIndexOrThrow("pays")));
+            user.setNo_civique(cursor.getString(cursor.getColumnIndexOrThrow("no_civique")));
 
             cursor.close();
             return user;
@@ -92,6 +110,10 @@ public class UserManager {
             user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
             user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow("password")));
             user.setImage_profil(cursor.getString(cursor.getColumnIndexOrThrow("image_profil")));
+            user.setStreet(cursor.getString(cursor.getColumnIndexOrThrow("street")));
+            user.setCity(cursor.getString(cursor.getColumnIndexOrThrow("city")));
+            user.setPays(cursor.getString(cursor.getColumnIndexOrThrow("pays")));
+            user.setNo_civique(cursor.getString(cursor.getColumnIndexOrThrow("no_civique")));
 
             cursor.close();
             return user;
@@ -108,14 +130,18 @@ public class UserManager {
         contentValues.put("nom", userToUpdate.getNom());
         contentValues.put("email", userToUpdate.getEmail());
         contentValues.put("password", userToUpdate.getPassword());
-        contentValues.put("image_profil",userToUpdate.getImage_profil());
-
+        contentValues.put("image_profil", userToUpdate.getImage_profil());
+        contentValues.put("street", userToUpdate.getStreet());
+        contentValues.put("city", userToUpdate.getCity());
+        contentValues.put("pays", userToUpdate.getPays());
+        contentValues.put("no_civique", userToUpdate.getNo_civique());
         SQLiteDatabase db = ConnectionDB.getBd(context);
+
         db.update("Utilisateur", contentValues, "id = ?", new String[]{String.valueOf(userToUpdate.getId())});
     }
 
-    public static void delete(Context context, int idUser){
+    public static void delete(Context context, int idUser) {
         SQLiteDatabase db = ConnectionDB.getBd(context);
-        db.delete("Utilisateur","id = ?" , new String[]{String.valueOf(idUser)});
+        db.delete("Utilisateur", "id = ?", new String[]{String.valueOf(idUser)});
     }
 }

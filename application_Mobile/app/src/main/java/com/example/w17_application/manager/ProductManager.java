@@ -36,4 +36,18 @@ public class ProductManager {
 
         return product;
     }
+
+    public static ArrayList<Product> getByCategoryId(Context context, int categoryId) {
+        SQLiteDatabase bd = ConnectionDB.getBd(context);
+        String query = "SELECT * FROM Produit where categorie_id = ?";
+        ArrayList<Product> products = null;
+        Cursor cursor = bd.rawQuery(query, new String[]{String.valueOf(categoryId)});
+        if (cursor.isBeforeFirst()) {
+            products = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                products.add(new Product(cursor));
+            }
+        }
+        return products;
+    }
 }

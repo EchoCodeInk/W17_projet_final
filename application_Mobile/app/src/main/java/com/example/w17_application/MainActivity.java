@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AccountActivity.class);
             startActivity(intent);
+            finish();
         });
 
         TextView title = customActionBar.findViewById(R.id.TitleOfPage);
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         btnMagasin.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ProductActivity.class);
             startActivity(intent);
+            finish();
         });
 
     }
@@ -113,14 +115,17 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.menu_home) {
                     Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_product) {
                     Intent intent = new Intent(MainActivity.this, ProductActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_account) {
                     Intent intent = new Intent(MainActivity.this, AccountActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.menu_cart) {
                     Intent intent = new Intent(MainActivity.this, CartActivity.class);
