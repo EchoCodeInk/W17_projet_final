@@ -69,14 +69,53 @@ app.get('/produit/categorie', (req, res) => {
     })
 })
 
-app.get('/Utilisateur', (req, res) => {
-    db.all('SELECT * FROM Utilisateur', (err, rows) => {
+app.get('/utilisateurs', (req, res) => {
+    db.all('SELECT * FROM utilisateur', (err, rows) => {
         if (err) {
             console.error(err)
             res.status(500).json({ error: 'Internal server error' })
         } else {
             res.json(rows)
         }
+    })
+})
+
+app.get('/utilisateurs/:id', (req, res) => {
+    const userId = req.params.id
+    const sql = 'SELECT * FROM utilisateur WHERE id = ?'
+
+    db.get(sql, [userId], (err, row) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+            return
+        }
+
+        if (!row) {
+            res.status(404).json({ error: 'Utilisateur non trouvé' })
+            return
+        }
+
+        res.json(row)
+    })
+})
+
+app.put('/utilisateurs/:id', (req, res) => {
+    const userId = req.params.id
+    const updatedUserData = req.body
+
+    const sql = 'UPDATE utilisateur SET nom = ?, email = ?, no_civique = ?, street = ?, city = ?, pays = ?, image_profil = ? WHERE id = ?'
+
+    const { nom, email, street, city, pays } = updatedUserData
+
+    db.run(sql, [nom, email, street, city, pays, userId], (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+            return
+        }
+
+        res.json({ message: 'Utilisateur mis à jour avec succès' })
     })
 })
 
