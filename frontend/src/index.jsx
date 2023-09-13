@@ -80,7 +80,7 @@ function App () {
                 <Route path='/checkout' element={<Checkout key={reloadKey} onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
                 <Route path='/delivery' element={<Delivery onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
                 <Route path='/profil_manager' element={<ProfileManager onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
-                <Route path='/confirmation' element={<Confirmation />} />
+                <Route path='/confirmation' element={<OrderConfirmation />} />
             </Routes>
             <Footer />
         </div>
