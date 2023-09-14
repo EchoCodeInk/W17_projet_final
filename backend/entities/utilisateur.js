@@ -13,7 +13,7 @@ class Utilisateur {
         this.pays = pays
         this.imageProfil = imageProfil
         this.panier = new Panier()
-        this.session = true
+        this.session = false
     }
 }
 

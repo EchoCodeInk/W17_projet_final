@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBBtn } from 'mdb-react-ui-kit'
+import React, { useState } from 'react'
+import { MDBBtn } from 'mdb-react-ui-kit'
+import sweetalert from 'sweetalert2'
 
 const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
-    const [profileData, setProfileData] = useState({})
-    const [isEditing, setIsEditing] = useState(false)
-    const [updatedUserData, setUpdatedUserData] = useState({
-        nom: '',
-        email: '',
-        street: '',
-        city: '',
-        pays: ''
+    const sessionUserOnload = onloadStateFromLocalStorage()
+    const [sessionUser, setSessionUser] = useState({
+        prenom: sessionUserOnload.prenom,
+        nom: sessionUserOnload.nom,
+        email: sessionUserOnload.email,
+        no_civique: sessionUserOnload.noCivique,
+        street: sessionUserOnload.street,
+        city: sessionUserOnload.city,
+        pays: sessionUserOnload.pays
     })
 
-    const sessionUser = onloadStateFromLocalStorage()
-    const userId = sessionUser.id
-
-    useEffect(() => {
+    const handleOnSaveRegister = (event) => {
         const fetchData = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/utilisateurs/${userId}`)
@@ -31,149 +30,105 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
 
         fetchData()
         onSaveStateToLocalStorage(sessionUser)
-    }, [userId, onloadStateFromLocalStorage, onSaveStateToLocalStorage])
+    }
 
-    const handleEditClick = () => {
+    console.log('sessionUser', sessionUser)
+    const [isEditing, setIsEditing] = useState()
+
+    const handleEditClick = (event) => {
+        event.preventDefault()
         setIsEditing(true)
+        console.log('handleEditClick')
     }
 
-    const handleSaveClick = async () => {
-        try {
-            const response = await fetch(`http://localhost:5000/utilisateurs/${userId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedUserData)
-            })
-
-            if (!response.ok) {
-                throw new Error('Échec de la mise à jour')
-            }
-
-            // Mise à jour des données du profil avec les nouvelles données
-            setProfileData(updatedUserData)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsEditing(false)
-        }
-    }
-
-    const handleCancelClick = () => {
+    const handleCancelClick = (event) => {
+        event.preventDefault()
+        console.log('handleCancelClick')
         setIsEditing(false)
+        window.location.reload()
     }
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target
-        setUpdatedUserData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }))
+    const handleValidateform = (event) => {
+        event.preventDefault()
+
+        const formData = new FormData(event.target)
+        const formDataObject = {}
+
+        formData.forEach((value, key) => {
+            formDataObject[key] = value
+        })
+
+        if (formDataObject.password === '' || formDataObject.confirmPassword === '' || formDataObject.confirmPassword !== formDataObject.password) {
+            sweetalert.fire({
+                title: 'Password non conforme'
+            })
+        }
+
+        console.log('Données du formulaire :', formDataObject)
     }
 
     return (
-        <div className='vh-100' style={{ backgroundColor: '#eee' }}>
-            <MDBContainer className='container py-5 h-100'>
-                <MDBRow className='justify-content-center align-items-center h-100'>
-                    <MDBCol md='12' xl='4'>
-                        <MDBCard style={{ borderRadius: '15px' }}>
-                            <MDBCardBody className='text-center'>
-                                <h2>Profil</h2>
-                                {isEditing
-                                    ? (
-                                        <div>
-                                            <div className='mb-4'>
-                                                <input
-                                                    type={profileData.nom}
-                                                    name='nom'
-                                                    value={updatedUserData.nom}
-                                                    onChange={handleInputChange}
-                                                    placeholder='Nom'
-                                                />
-                                            </div>
-                                            <div className='mb-4'>
-                                                <input
-                                                    type='text'
-                                                    name='email'
-                                                    value={updatedUserData.email}
-                                                    onChange={handleInputChange}
-                                                    placeholder='Email'
-                                                />
-                                            </div>
-                                            <div className='mb-4'>
-                                                <input
-                                                    type='text'
-                                                    name='street'
-                                                    value={updatedUserData.street}
-                                                    onChange={handleInputChange}
-                                                    placeholder='Rue'
-                                                />
-                                            </div>
-                                            <div className='mb-4'>
-                                                <input
-                                                    type='text'
-                                                    name='city'
-                                                    value={updatedUserData.city}
-                                                    onChange={handleInputChange}
-                                                    placeholder='Ville'
-                                                />
-                                            </div>
-                                            <div className='mb-4'>
-                                                <input
-                                                    type='text'
-                                                    name='pays'
-                                                    value={updatedUserData.pays}
-                                                    onChange={handleInputChange}
-                                                    placeholder='Pays'
-                                                />
-                                            </div>
-                                            <MDBBtn onClick={handleSaveClick}>Sauvegarder</MDBBtn>
-                                            <MDBBtn onClick={handleCancelClick} color='danger'>Annuler </MDBBtn>
-                                        </div>
-                                    )
-                                    : (
-                                        <div>
-                                            <div className='mt-3 mb-4'>
-                                                <MDBCardImage
-                                                    src={`/public/images/${profileData.image_profil}`}
-                                                    className='rounded-circle'
-                                                    fluid
-                                                    style={{ width: '100px' }}
-                                                />
-                                            </div>
-                                            <MDBTypography tag='h4'>{profileData.nom}</MDBTypography>
-                                            <MDBCardText className='text-muted mb-4'>
-                                                <div>
-                                                    <span style={{ color: '#000000' }}>Courriel :</span>{' '}
-                                                    {profileData.email}
-                                                </div>
-                                                <div>
-                                                    {' '}
-                                                    <span style={{ color: '#000000' }}>Adresse :</span>{' '}
-                                                    {profileData.no_civique}, rue {profileData.street}
-                                                </div>
-                                                <div>
-                                                    {' '}
-                                                    <span style={{ color: '#000000' }}>Ville :</span>{' '}
-                                                    {profileData.city}
-                                                </div>
-                                                <div>
-                                                    {' '}
-                                                    <span style={{ color: '#000000' }}>Pays :</span>{' '}
-                                                    {profileData.pays}
-                                                </div>
-                                            </MDBCardText>
-                                            <MDBBtn onClick={handleEditClick}>Modifier</MDBBtn>
-                                        </div>
-                                    )}
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
-        </div>
+        <>
+
+            <div className='register-container'>
+                <h1>Create an Account</h1>
+
+                <form onSubmit={handleValidateform} className='register-form' method='post'>
+                    <label htmlFor='prenom'>Prénom</label>
+                    <input type='text' id='prenom' name='prenom' value={sessionUser.prenom} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, prenom: e.target.value }) : null} />
+
+                    <label htmlFor='nom'>Nom</label>
+                    <input type='text' id='nom' name='nom' value={sessionUser.nom} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, nom: e.target.value }) : null} />
+
+                    <label htmlFor='email'>Email</label>
+                    <input type='email' id='email' name='email' value={sessionUser.email} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, email: e.target.value }) : null} />
+
+                    <label htmlFor='password'>Change Password</label>
+                    <input type='password' id='password' name='password' onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
+
+                    <label htmlFor='confirmPassword'>Confirm Password</label>
+                    <input type='password' id='confirmPassword' name='confirmPassword' onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
+
+                    <label htmlFor='nocivique'>No civique</label>
+                    <input type='text' id='nocivique' name='nocivique' value={sessionUser.no_civique} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, no_civique: e.target.value }) : null} />
+
+                    <label htmlFor='street'>Street</label>
+                    <input type='text' id='street' name='street' value={sessionUser.street} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, street: e.target.value }) : null} />
+
+                    <label htmlFor='city'>City</label>
+                    <input type='text' id='city' name='city' value={sessionUser.city} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, city: e.target.value }) : null} />
+
+                    <label htmlFor='pays'>Pays</label>
+                    <input type='text' id='pays' name='pays' value={sessionUser.pays} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, pays: e.target.value }) : null} />
+                    <div className='mb-3'>
+                        {isEditing
+                            ? (
+                                <>
+                                    <button className='btn btn-primary shadow-0' type='submit' color='primary'>
+                                        Enregistrer les modifications
+                                    </button>
+
+                                    <button className='btn btn-warning shadow-0' type='submit' onClick={handleCancelClick}>
+                                        Annuler
+                                    </button>
+
+                                </>
+                            )
+                            : (
+                                <MDBBtn type='button' color='danger' onClick={handleEditClick}>
+                                    Modifier
+                                </MDBBtn>
+
+                            )}
+                    </div>
+                </form>
+
+            </div>
+
+        </>
     )
 }
 
 export default ProfileManager
+
+// onSubmit={(event) => handleSubmit(event)}

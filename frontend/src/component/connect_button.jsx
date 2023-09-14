@@ -13,7 +13,7 @@ const ConnectButton = ({ handleReloadProduct, onloadStateFromLocalStorage, onSav
 
     return (
         <span>
-            {sessionUser.session === false
+            {sessionUser.session === true
                 ? (
                     <>
                         <div>

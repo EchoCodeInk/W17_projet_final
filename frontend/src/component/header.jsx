@@ -56,7 +56,7 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
 
                                 {
 
-                                    sessionUser.session === true
+                                    sessionUser.session === false
                                         ? (
                                             <>
                                                 <Link className='nav-link' to='/account'>
@@ -69,7 +69,6 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
 
                                             <div className='nav-link'>
                                                 <ConnectButton handleReloadProduct={handleReloadProduct} onloadStateFromLocalStorage={onloadStateFromLocalStorage} onSaveStateToLocalStorage={onSaveStateToLocalStorage} />
-
                                             </div>
 
                                         )
