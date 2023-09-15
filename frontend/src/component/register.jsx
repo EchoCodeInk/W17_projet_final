@@ -15,7 +15,6 @@ const Register = () => {
         if (password === confirmPassword) {
             axios.post('http://localhost:5000/register', { email, password })
                 .then(response => {
-                    console.log('response', response)
                     if (response.status === 200) {
                         sweetalert.fire({
                             title: 'Création réussie'

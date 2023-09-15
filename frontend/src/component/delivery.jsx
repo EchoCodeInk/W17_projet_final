@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MDBAccordion, MDBAccordionItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
@@ -8,14 +8,18 @@ function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
     const sessionUser = onloadStateFromLocalStorage()
 
     const navigate = useNavigate()
-    const firstNAme = sessionUser.prenom
-    const lastName = sessionUser.nom
-    const userEmail = sessionUser.email
-    const noCivique = sessionUser.noCivique
-    const street = sessionUser.street
-    const city = sessionUser.city
-    const pays = sessionUser.pays
+
+    const [firstNAme, setFirstNAme] = useState(sessionUser.prenom)
+    const [lastName, setLastName] = useState(sessionUser.nom)
+    const [userEmail, setUserEmail] = useState(sessionUser.email)
+    const [noCivique, setNoCivique] = useState(sessionUser.noCivique)
+    const [street, setStreet] = useState(sessionUser.street)
+    const [city, setCity] = useState(sessionUser.city)
+    const [pays, setPays] = useState(sessionUser.pays)
     const paniers = sessionUser.panier.articles
+
+    console.log('firstNAme', firstNAme)
+    console.log('userEmail', userEmail)
 
     const informationsAchat = paniers.map(item => {
         return `Nom de l'item : ${item.product.nom}
@@ -36,10 +40,6 @@ function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
         })
             .then(response => {
                 if (response.status === 200) {
-                    sweetalert.fire({
-                        title: 'E-mail envoyé avec succès'
-                    })
-
                     sessionUser.panier.articles = []
                     onSaveStateToLocalStorage(sessionUser)
                     navigate('/orderConfirmation')
@@ -81,30 +81,30 @@ function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
                                 <form>
                                     <MDBRow className='mb-4'>
                                         <MDBCol>
-                                            <MDBInput label='First name' type='text' value={firstNAme} />
+                                            <MDBInput label='First name' type='text' value={firstNAme || null} onChange={(e) => setFirstNAme(e.target.value)} />
                                         </MDBCol>
                                         <MDBCol>
-                                            <MDBInput label='Last name' type='text' value={lastName} />
+                                            <MDBInput label='Last name' type='text' value={lastName || null} onChange={(e) => setLastName(e.target.value)} />
                                         </MDBCol>
                                     </MDBRow>
-                                    <MDBInput label='Email' type='text' className='mb-4' value={userEmail} />
+                                    <MDBInput label='Email' type='text' className='mb-4' value={userEmail || null} onChange={(e) => setUserEmail(e.target.value)} />
                                     <MDBRow className='mb-4'>
 
                                         <MDBCol>
-                                            <MDBInput label='No civique' type='text' value={noCivique} />
+                                            <MDBInput label='No civique' type='text' value={noCivique || null} onChange={(e) => setNoCivique(e.target.value)} />
                                         </MDBCol>
                                         <MDBCol>
-                                            <MDBInput label='Street' type='text' value={street} />
+                                            <MDBInput label='Street' type='text' value={street || null} onChange={(e) => setStreet(e.target.value)} />
                                         </MDBCol>
                                         <MDBCol>
-                                            <MDBInput label='City' type='text' value={city} />
+                                            <MDBInput label='City' type='text' value={city || null} onChange={(e) => setCity(e.target.value)} />
                                         </MDBCol>
                                         <MDBCol>
-                                            <MDBInput label='Pays' type='text' value={pays} />
+                                            <MDBInput label='Pays' type='text' value={pays || null} onChange={(e) => setPays(e.target.value)} />
                                         </MDBCol>
                                     </MDBRow>
 
-                                    {sessionUser.session === true
+                                    {sessionUser.session === false
                                         ? (
                                             <div className='d-flex justify-content-center'>
                                                 <MDBCheckbox name='flexCheck' value='' id='flexCheckChecked' label='Create an account?' defaultChecked />
