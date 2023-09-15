@@ -81,9 +81,9 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
                 <div className='header_bottom'>
                     <div className='container-fluid'>
                         <nav className='navbar navbar-expand-lg custom_nav-container '>
-                            <a className='navbar-brand'>
+                            <div className='navbar-brand'>
                                 <span><Categories onSearchCategoryName={onSearchCategoryName} /> </span>
-                            </a>
+                            </div>
 
                             <button
                                 className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent'

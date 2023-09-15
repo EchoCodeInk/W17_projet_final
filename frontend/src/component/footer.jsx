@@ -56,10 +56,10 @@ const Footer = () => {
                                     </button>
                                 </form>
                                 <div className='social_box'>
-                                    <a href='https://facebook.com/' />
-                                    <a href='https://twitter.com/' />
-                                    <a href='https://www.instagram.com/' />
-                                    <a href='https://www.youtube.com/'>                                    </a>
+                                    <Link to='https://facebook.com/' />
+                                    <Link to='https://twitter.com/' />
+                                    <Link to='https://www.instagram.com/' />
+                                    <Link to='https://www.youtube.com/' />
                                 </div>
                             </div>
                         </div>
@@ -71,12 +71,12 @@ const Footer = () => {
                 <div className='container'>
                     <div className='copyright'>
                         <span id='displayYear'>  &copy; All Rights Reserved By</span>
-                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Evan Cholette |</a>
-                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Taoufik Boussemousse |</a>
-                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Sara Salek |</a>
-                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Antoine Ouelette |</a>
-                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Charles-Maximilien Gros |</a>
-                        <a href='https://github.com/EchoCodeInk/W17_projet_final'>Công Tai Hô</a>
+                        <Link to='https://github.com/EchoCodeInk/W17_projet_final'>Evan Cholette |</Link>
+                        <Link to='https://github.com/EchoCodeInk/W17_projet_final'>Taoufik Boussemousse |</Link>
+                        <Link to='https://github.com/EchoCodeInk/W17_projet_final'>Sara Salek |</Link>
+                        <Link to='https://github.com/EchoCodeInk/W17_projet_final'>Antoine Ouelette |</Link>
+                        <Link to='https://github.com/EchoCodeInk/W17_projet_final'>Charles-Maximilien Gros |</Link>
+                        <Link to='https://github.com/EchoCodeInk/W17_projet_final'>Công Tai Hô</Link>
 
                     </div>
                 </div>

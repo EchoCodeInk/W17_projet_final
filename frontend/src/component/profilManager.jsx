@@ -23,14 +23,11 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
         imageProfil: sessionUserOnload.imageProfil
     })
 
-    const handleOnSaveRegister = () => {
+    const handleOnSaveProfil = () => {
         axios.put('http://localhost:5000/profil', sessionUser)
             .then(response => {
                 console.log('profil manager response', response)
                 if (response.status === 200) {
-                    sweetalert.fire({
-                        title: 'Information modifié avec succes.'
-                    })
                     setIsEditing(false)
                     navigate('/profil_manager')
                 }
@@ -67,7 +64,7 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
             })
         }
 
-        handleOnSaveRegister()
+        handleOnSaveProfil()
         onSaveStateToLocalStorage(sessionUser)
     }
 
@@ -80,31 +77,85 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                 <form onSubmit={handleValidateform} className='register-form' method='post'>
                     <input type='hidden' id='id' name='id' value={sessionUser.id} />
                     <label htmlFor='prenom'>Prénom</label>
-                    <input type='text' id='prenom' name='prenom' value={sessionUser.prenom} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, prenom: e.target.value }) : null} />
+                    <input
+                        type='text'
+                        id='prenom'
+                        name='prenom'
+                        value={isEditing ? (sessionUser.prenom ? sessionUser.prenom : null) : (sessionUser.prenom ? sessionUser.prenom : '')}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, prenom: e.target.value }) : null}
+                    />
 
                     <label htmlFor='nom'>Nom</label>
-                    <input type='text' id='nom' name='nom' value={sessionUser.nom} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, nom: e.target.value }) : null} />
+                    <input
+                        type='text'
+                        id='nom'
+                        name='nom'
+                        value={isEditing ? (sessionUser.nom ? sessionUser.nom : null) : (sessionUser.nom ? sessionUser.nom : '')}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, nom: e.target.value }) : null}
+                    />
 
                     <label htmlFor='email'>Email</label>
-                    <input type='email' id='email' name='email' value={sessionUser.email} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, email: e.target.value }) : null} />
+                    <input
+                        type='email'
+                        id='email'
+                        name='email'
+                        value={isEditing ? (sessionUser.email ? sessionUser.email : null) : (sessionUser.email ? sessionUser.email : '')}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, email: e.target.value }) : null}
+                    />
 
                     <label htmlFor='password'>Change Password</label>
-                    <input type='password' id='password' name='password' value={isEditing ? null : ''} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
+                    <input
+                        type='password'
+                        id='password'
+                        name='password'
+                        value={isEditing ? null : ''}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null}
+                    />
 
                     <label htmlFor='confirmPassword'>Confirm Password</label>
-                    <input type='password' id='confirmPassword' name='confirmPassword' value={isEditing ? null : ''} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
+                    <input
+                        type='password'
+                        id='confirmPassword'
+                        name='confirmPassword'
+                        value={isEditing ? null : ''}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null}
+                    />
 
                     <label htmlFor='nocivique'>No civique</label>
-                    <input type='text' id='nocivique' name='nocivique' value={sessionUser.noCivique} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, noCivique: e.target.value }) : null} />
+                    <input
+                        type='text'
+                        id='nocivique'
+                        name='nocivique'
+                        value={isEditing ? (sessionUser.noCivique ? sessionUser.noCivique : null) : (sessionUser.noCivique ? sessionUser.noCivique : '')}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, noCivique: e.target.value }) : null}
+                    />
 
                     <label htmlFor='street'>Street</label>
-                    <input type='text' id='street' name='street' value={sessionUser.street} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, street: e.target.value }) : null} />
+                    <input
+                        type='text'
+                        id='street'
+                        name='street'
+                        value={isEditing ? (sessionUser.street ? sessionUser.street : null) : (sessionUser.street ? sessionUser.street : '')}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, street: e.target.value }) : null}
+                    />
 
                     <label htmlFor='city'>City</label>
-                    <input type='text' id='city' name='city' value={sessionUser.city} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, city: e.target.value }) : null} />
+                    <input
+                        type='text'
+                        id='city'
+                        name='city'
+                        value={isEditing ? (sessionUser.city ? sessionUser.city : null) : (sessionUser.city ? sessionUser.city : '')}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, city: e.target.value }) : null}
+                    />
 
                     <label htmlFor='pays'>Pays</label>
-                    <input type='text' id='pays' name='pays' value={sessionUser.pays} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, pays: e.target.value }) : null} />
+                    <input
+                        type='text'
+                        id='pays'
+                        name='pays'
+                        value={isEditing ? (sessionUser.pays ? sessionUser.pays : null) : (sessionUser.pays ? sessionUser.pays : '')}
+                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, pays: e.target.value }) : null}
+                    />
                     <div className='mb-3'>
                         {isEditing
                             ? (

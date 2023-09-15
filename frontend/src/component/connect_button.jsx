@@ -5,6 +5,10 @@ import { Link, useNavigate } from 'react-router-dom'
 const ConnectButton = ({ handleReloadProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const navigate = useNavigate()
     let sessionUser = onloadStateFromLocalStorage()
+
+    const prenom = (sessionUser.prenom ? sessionUser.prenom : '')
+    const nom = (sessionUser.nom ? sessionUser.nom : '')
+
     const handleLogout = () => {
         sessionUser = null
         onSaveStateToLocalStorage(sessionUser)
@@ -19,7 +23,7 @@ const ConnectButton = ({ handleReloadProduct, onloadStateFromLocalStorage, onSav
                     <>
                         <div>
                             <img className='icon' src={`/public/images/${sessionUser.imageProfil}`} alt='' />
-                            {' '} Bonjour, {sessionUser.prenom + ' ' + sessionUser.nom + ' '}
+                            {' '} Bonjour, {prenom + ' ' + nom + ' '}
                             <button className='account-button' onClick={handleLogout}>Déconnexion</button>
                         </div>
                         <Link to='/profil_manager'>Profil Manager </Link>
