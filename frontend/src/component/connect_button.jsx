@@ -1,14 +1,15 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const ConnectButton = ({ handleReloadProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
+    const navigate = useNavigate()
     let sessionUser = onloadStateFromLocalStorage()
-    console.log('connect_button_sessionUser', sessionUser)
     const handleLogout = () => {
         sessionUser = null
         onSaveStateToLocalStorage(sessionUser)
         handleReloadProduct()
+        navigate('/account')
     }
 
     return (
@@ -18,7 +19,7 @@ const ConnectButton = ({ handleReloadProduct, onloadStateFromLocalStorage, onSav
                     <>
                         <div>
                             <img className='icon' src={`/public/images/${sessionUser.imageProfil}`} alt='' />
-                            Bonjour, {sessionUser.nom}
+                            {' '} Bonjour, {sessionUser.prenom + ' ' + sessionUser.nom + ' '}
                             <button className='account-button' onClick={handleLogout}>Déconnexion</button>
                         </div>
                         <Link to='/profil_manager'>Profil Manager </Link>

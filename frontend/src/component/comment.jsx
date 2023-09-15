@@ -20,37 +20,28 @@ function Comment () {
     const [rating, setRating] = useState(0)
     const [commentText, setCommentText] = useState('')
     const [hoveredRating, setHoveredRating] = useState(0)
-    // tạo một mảng ratingLabels chứa các nhãn tương ứng với mỗi mức đánh giá
     const ratingLabels = ['Poor', 'OK', 'Good', 'Very Good', 'Excellent']
-
-    // Hàm xử lý khi người dùng thêm bình luận và đánh giá
     const addComment = () => {
-    // Kiểm tra nếu người dùng chưa đánh giá sao thì không thêm bình luận
         if (rating === 0) {
             alert('Please select a rating before adding a comment.')
             return
         }
 
-        // Tạo một bình luận mới
         const newComment = {
             rating,
             text: commentText
         }
 
-        // Thêm bình luận mới vào danh sách bình luận
         setComments([...comments, newComment])
 
-        // Đặt lại đánh giá sao và văn bản bình luận
         setRating(0)
         setCommentText('')
     }
 
-    // Hàm xử lý khi người dùng bấm nút "Clear"
     const clearComment = () => {
-        setCommentText('') // Đặt giá trị của nội dung thành chuỗi rỗng
+        setCommentText('')
     }
 
-    // Hàm hiển thị sao
     const renderRatingStars = (selectedRating) => {
         const stars = []
         for (let i = 1; i <= 5; i++) {
@@ -74,7 +65,6 @@ function Comment () {
         return stars
     }
 
-    // Hàm để lấy ngày hiện tại
     const getCurrentDate = () => {
         const date = new Date()
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`

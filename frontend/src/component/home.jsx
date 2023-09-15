@@ -5,7 +5,7 @@ const Home = () => {
     return (
 
         <div className='hero_area'>
-            {/* <!-- slider section --> */}
+
             <section className='slider_section '>
                 <div id='customCarousel1' className='carousel slide' data-ride='carousel'>
                     <div className='carousel-inner'>
@@ -92,7 +92,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            {/* <!-- end slider section --> */}
+
         </div>
 
     )

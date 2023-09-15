@@ -18,11 +18,12 @@ const Account = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => 
             .then(response => {
                 const users = response.data
                 const userFound = users.find(user => user.email === email && user.password === password)
+
                 if (userFound) {
-                    console.log('db userFound :', userFound)
                     const utilisateur = new Utilisateur(userFound.id, userFound.nom, userFound.prenom, userFound.email, userFound.password, userFound.no_civique, userFound.street, userFound.city, userFound.pays, userFound.image_profil)
                     sessionUser = utilisateur
                     sessionUser.session = true
+
                     onSaveStateToLocalStorage(sessionUser)
                     navigate('/home')
                 } else {

@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Categories = ({ onSearchCategoryName }) => {
-    // const [categoryName, setCategoryName] = useState('')
     const categories = [
 
         { id: 1, name: 'Appareil Photo' },

@@ -22,13 +22,10 @@ import Delivery from './component/delivery'
 import ProfileManager from './component/profilManager'
 import OrderConfirmation from './component/order_confirm'
 
-// Obtient l'élément DOM avec l'ID "root" où l'application sera rendue
 const container = document.getElementById('root')
 
-// Crée une racine réactive dans l'élément DOM "container" pour le rendu de l'application
 const root = createRoot(container)
 
-// Composant racine de l'application
 function App () {
     const [selectedDetailProduct, setSelectedDetailProduct] = useState()
     const [categoryName, setCategoryName] = useState()
@@ -87,7 +84,6 @@ function App () {
     )
 }
 
-// Point d'entrée pour le rendu de l'application dans l'élément avec l'ID "root"
 root.render(
     <BrowserRouter>
         <App />

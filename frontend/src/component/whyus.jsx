@@ -4,8 +4,6 @@ const Whyuse = () => {
     return (
         <div>
 
-            {/* <!-- why us section --> */}
-
             <section className='why_us_section layout_padding'>
                 <div className='container'>
                     <div className='heading_container heading_center'>
@@ -62,8 +60,6 @@ const Whyuse = () => {
                     </div>
                 </div>
             </section>
-
-            {/* <!-- end why us section --> */}
 
         </div>
     )

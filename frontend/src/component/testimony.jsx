@@ -4,8 +4,6 @@ const Testimony = () => {
     return (
         <div>
 
-            {/* <!-- client section --> */}
-
             <section className='client_section layout_padding'>
                 <div className='container'>
                     <div className='heading_container heading_center'>
@@ -131,7 +129,6 @@ const Testimony = () => {
                     </div>
                 </div>
             </section>
-            {/* <!-- end client section --> */}
 
         </div>
     )

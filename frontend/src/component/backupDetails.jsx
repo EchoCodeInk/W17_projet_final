@@ -5,13 +5,12 @@ import { useParams } from 'react-router-dom'
 const Details = () => {
     const { id } = useParams()
     const [product, setProduct] = useState([])
-    console.log('product', product)
+
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [selectedTab, setSelectedTab] = useState(1)
 
     const handleClickTab = (tabIndex) => {
-        console.log('tabIndex', tabIndex)
         setSelectedTab(tabIndex)
     }
 
@@ -19,9 +18,8 @@ const Details = () => {
         axios.get('http://localhost:5000/produit')
             .then(response => {
                 if (Array.isArray(response.data) && response.data.length > 0) {
-                    console.log('response data day ne', response.data)
                     const product = response.data.filter(item => id === item.id)
-                    console.log('product trong axios', product)
+
                     if (product) {
                         setProduct(product)
                         setLoading(false)

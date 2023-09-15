@@ -23,7 +23,6 @@ function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
                 `
     })
 
-    // Joignez les éléments HTML ensemble dans une seule chaîne
     const contenuEmail = informationsAchat.join('')
 
     function envoyerEmailAchat (contenuEmail) {
@@ -37,12 +36,13 @@ function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
         })
             .then(response => {
                 if (response.status === 200) {
-                    console.log('E-mail envoyé avec succès')
+                    sweetalert.fire({
+                        title: 'E-mail envoyé avec succès'
+                    })
 
                     sessionUser.panier.articles = []
                     onSaveStateToLocalStorage(sessionUser)
                     navigate('/orderConfirmation')
-                    console.log('sessionUser email', sessionUser)
                 } else {
                     console.error('Erreur lors de l\'envoi de l\'e-mail')
                     sweetalert.fire({

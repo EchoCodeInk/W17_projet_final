@@ -3,7 +3,6 @@ import React from 'react'
 const About = () => {
     return (
         <div>
-            {/* <!-- about section --> */}
 
             <section className='about_section'>
                 <div className='container-fluid  '>
@@ -30,7 +29,7 @@ const About = () => {
                             </div>
                         </div>
                         <div className='col-md-6 px-0'>
-                            <div className='img-box'>
+                            <div className='img-box' style={{ width: '40%' }}>
                                 <img
                                     src='/public/images/about-img.jpg'
                                     alt=''
@@ -41,7 +40,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* <!-- end about section --> */}
         </div>
     )
 }

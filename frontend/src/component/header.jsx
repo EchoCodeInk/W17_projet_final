@@ -6,17 +6,12 @@ import Utilisateur from '../../../backend/entities/Utilisateur'
 
 const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const [searchQuery, setSearchQuery] = useState('')
-
+    const navigate = useNavigate()
     let sessionUser = onloadStateFromLocalStorage()
-
     if (!sessionUser) {
         sessionUser = new Utilisateur('', '', '', '', '', '', '', '', '', 'icon_account.png')
-        console.log('header sessionUser', sessionUser)
-
         onSaveStateToLocalStorage(sessionUser)
     }
-
-    const navigate = useNavigate()
 
     const handleSearch = (event) => {
         const newSearchQuery = event.target.value
@@ -24,14 +19,14 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
         onSearchQueryChange(newSearchQuery)
     }
     const handleSubmit = (event) => {
-        event.preventDefault() // Empêche le comportement par défaut du formulaire (rechargement de la page)
+        event.preventDefault()
         handleReloadProduct()
         navigate('/products')
     }
 
     return (
         <div>
-            {/* <!-- header section strats --> */}
+
             <header className='header_section'>
                 <div className='header_top'>
                     <div className='container-fluid'>
@@ -120,7 +115,6 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
                     </div>
                 </div>
             </header>
-            {/* <!-- end header section --> */}
 
         </div>
     )

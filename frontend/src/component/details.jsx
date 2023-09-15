@@ -25,10 +25,8 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
         if (sessionUser) {
             const existingItem = sessionUser.panier.articles.find(item => item.product.id === product.id)
             if (existingItem) {
-                // L'article existe déjà dans le panier, augmentez la quantité
                 existingItem.quantity += quantity
             } else {
-                // L'article n'existe pas dans le panier, ajoutez-le avec une quantité de 1
                 sessionUser.panier.articles.push({ product, quantity })
             }
             onSaveStateToLocalStorage(sessionUser)
@@ -36,7 +34,6 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
     }
 
     useEffect(() => {
-    //     // Votre code ici...
         if (selectedDetailProduct) {
             localStorage.setItem('selectedDetailProduct', JSON.stringify(selectedDetailProduct))
         }
@@ -47,21 +44,12 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
         } else {
             setProduct(selectedDetailProduct)
         }
-
-    //     // Ne pas oublier de nettoyer le stockage local lorsque le composant est démonté
-    //     return () => {
-    //         localStorage.removeItem('selectedDetailProduct')
-    //     }
-    }, [selectedDetailProduct]) // Tableau de dépendances
-
+    }, [selectedDetailProduct])
     return (
         <>
 
-            {/* <!-- about section --> */}
-            {/* <!-- Heading --> */}
             <div className='bg-primary'>
                 <div className='container py-4'>
-                    {/* <!-- Breadcrumb --> */}
                     <nav className='d-flex'>
                         <h6 className='mb-0'>
                             <a href='' className='text-white-50'>Home</a>
@@ -71,12 +59,10 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
                             <a href='' className='text-white'><u>Data</u></a>
                         </h6>
                     </nav>
-                    {/* <!-- Breadcrumb --> */}
+
                 </div>
             </div>
-            {/* <!-- Heading --> */}
 
-            {/* <!-- content --> */}
             <section className='py-5'>
                 <div className='container'>
                     <div className='row gx-5'>
@@ -103,8 +89,7 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
                                     <img width='60' height='60' className='rounded-2' src='https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp' />
                                 </a>
                             </div>
-                            {/* <!-- thumbs-wrap.// --> */}
-                            {/* <!-- gallery-wrap .end// --> */}
+
                         </aside>
                         <main className='col-lg-6'>
                             <div className='ps-lg-3'>
@@ -140,17 +125,12 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
 
                                 <div className='row mb-4'>
 
-                                    {/* <!-- col.// --> */}
                                     <div className='col-md-4 col-6 mb-3'>
                                         <label className='mb-2 d-block'>Quantity</label>
                                         <div className='input-group mb-3' style={{ width: '170px' }}>
-                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon1' data-mdb-ripple-color='dark' onClick={handleDecrease}>
-                                                {/* <i className='fas fa-minus' /> */} -
-                                            </button>
+                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon1' data-mdb-ripple-color='dark' onClick={handleIncrease}>+</button>
                                             <input type='text' className='form-control text-center border border-secondary' placeholder='1' aria-label='Example text with button addon' aria-describedby='button-addon1' value={quantity} />
-                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon2' data-mdb-ripple-color='dark' onClick={handleIncrease}>
-                                                {/* <i className='fas fa-plus' /> */} +
-                                            </button>
+                                            <button className='btn btn-white border border-secondary px-3' type='button' id='button-addon2' data-mdb-ripple-color='dark' onClick={handleDecrease}>-</button>
                                         </div>
                                     </div>
                                 </div>
@@ -162,9 +142,8 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
                     </div>
                 </div>
             </section>
-            {/* <!-- content --> */}
+
             <Comment />
-            {/* <!-- end about section --> */}
         </>
     )
 }

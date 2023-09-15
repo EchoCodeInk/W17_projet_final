@@ -4,33 +4,11 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
     return (
         <div>
-            {/* <!-- info section --> */}
+
             <section className='info_section '>
                 <div className='container'>
                     <div className='row'>
-                        {/* <div className='col-md-3'>
-                            <div className='info_contact'>
-                                <h5>
-                                    <a href='' className='navbar-brand'>
-                                        <span>
-                                            Minics
-                                        </span>
-                                    </a>
-                                </h5>
-                                <p>
-                                    <i className='fa fa-map-marker' aria-hidden='true' />
-                                    Address
-                                </p>
-                                <p>
-                                    <i className='fa fa-phone' aria-hidden='true' />
-                                    +01 1234567890
-                                </p>
-                                <p>
-                                    <i className='fa fa-envelope' aria-hidden='true' />
-                                    demo@gmail.com
-                                </p>
-                            </div>
-                        </div> */}
+
                         <div className='col-md-3'>
                             <div className='info_info'>
                                 <h5>
@@ -89,9 +67,6 @@ const Footer = () => {
                 </div>
             </section>
 
-            {/* <!-- end info_section --> */}
-
-            {/* <!-- footer section --> */}
             <footer className='footer_section'>
                 <div className='container'>
                     <div className='copyright'>
@@ -106,7 +81,7 @@ const Footer = () => {
                     </div>
                 </div>
             </footer>
-            {/* <!-- footer section --> */}
+
         </div>
     )
 }

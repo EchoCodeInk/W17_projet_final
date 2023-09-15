@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 
 function Checkout ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
     const sessionUser = onloadStateFromLocalStorage()
-    console.log('check_out :  sessionUser.panier.articles', sessionUser.panier.articles)
     const [paniers, setPaniers] = useState(sessionUser.panier.articles)
 
     const calculateSubTotal = () => {
@@ -51,9 +50,6 @@ function Checkout ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
             if (cartItem.product.id === item.product.id) {
                 return { ...cartItem, quantity: cartItem.quantity - 1 }
             }
-
-            console.log('cartItem', cartItem)
-            console.log('cartItem.quantity', cartItem.quantity)
 
             return cartItem
         })

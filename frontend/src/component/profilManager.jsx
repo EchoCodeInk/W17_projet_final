@@ -1,49 +1,52 @@
 import React, { useState } from 'react'
 import { MDBBtn } from 'mdb-react-ui-kit'
 import sweetalert from 'sweetalert2'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const sessionUserOnload = onloadStateFromLocalStorage()
+    const [isEditing, setIsEditing] = useState()
+    const navigate = useNavigate()
     const [sessionUser, setSessionUser] = useState({
+        id: sessionUserOnload.id,
         prenom: sessionUserOnload.prenom,
         nom: sessionUserOnload.nom,
         email: sessionUserOnload.email,
-        no_civique: sessionUserOnload.noCivique,
+        password: sessionUserOnload.password,
+        noCivique: sessionUserOnload.noCivique,
         street: sessionUserOnload.street,
         city: sessionUserOnload.city,
-        pays: sessionUserOnload.pays
+        pays: sessionUserOnload.pays,
+        session: sessionUserOnload.session,
+        panier: sessionUserOnload.panier,
+        imageProfil: sessionUserOnload.imageProfil
     })
 
-    const handleOnSaveRegister = (event) => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:5000/utilisateurs/${userId}`)
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la récupération des données')
+    const handleOnSaveRegister = () => {
+        axios.put('http://localhost:5000/profil', sessionUser)
+            .then(response => {
+                console.log('profil manager response', response)
+                if (response.status === 200) {
+                    sweetalert.fire({
+                        title: 'Information modifié avec succes.'
+                    })
+                    setIsEditing(false)
+                    navigate('/profil_manager')
                 }
-                const data = await response.json()
-                setProfileData(data)
-            } catch (error) {
+            })
+            .catch(error => {
                 console.error(error)
-            }
-        }
-
-        fetchData()
-        onSaveStateToLocalStorage(sessionUser)
+            })
     }
-
-    console.log('sessionUser', sessionUser)
-    const [isEditing, setIsEditing] = useState()
 
     const handleEditClick = (event) => {
         event.preventDefault()
         setIsEditing(true)
-        console.log('handleEditClick')
     }
 
     const handleCancelClick = (event) => {
         event.preventDefault()
-        console.log('handleCancelClick')
         setIsEditing(false)
         window.location.reload()
     }
@@ -64,7 +67,8 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
             })
         }
 
-        console.log('Données du formulaire :', formDataObject)
+        handleOnSaveRegister()
+        onSaveStateToLocalStorage(sessionUser)
     }
 
     return (
@@ -74,6 +78,7 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                 <h1>Create an Account</h1>
 
                 <form onSubmit={handleValidateform} className='register-form' method='post'>
+                    <input type='hidden' id='id' name='id' value={sessionUser.id} />
                     <label htmlFor='prenom'>Prénom</label>
                     <input type='text' id='prenom' name='prenom' value={sessionUser.prenom} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, prenom: e.target.value }) : null} />
 
@@ -84,13 +89,13 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                     <input type='email' id='email' name='email' value={sessionUser.email} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, email: e.target.value }) : null} />
 
                     <label htmlFor='password'>Change Password</label>
-                    <input type='password' id='password' name='password' onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
+                    <input type='password' id='password' name='password' value={isEditing ? null : ''} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
 
                     <label htmlFor='confirmPassword'>Confirm Password</label>
-                    <input type='password' id='confirmPassword' name='confirmPassword' onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
+                    <input type='password' id='confirmPassword' name='confirmPassword' value={isEditing ? null : ''} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null} />
 
                     <label htmlFor='nocivique'>No civique</label>
-                    <input type='text' id='nocivique' name='nocivique' value={sessionUser.no_civique} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, no_civique: e.target.value }) : null} />
+                    <input type='text' id='nocivique' name='nocivique' value={sessionUser.noCivique} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, noCivique: e.target.value }) : null} />
 
                     <label htmlFor='street'>Street</label>
                     <input type='text' id='street' name='street' value={sessionUser.street} onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, street: e.target.value }) : null} />
@@ -130,5 +135,3 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
 }
 
 export default ProfileManager
-
-// onSubmit={(event) => handleSubmit(event)}
