@@ -109,6 +109,9 @@ const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct
                                     <li className='nav-item'>
                                         <Link className='nav-link' to='/testimony'>Testimonial</Link>
                                     </li>
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/contact'>Contact US</Link>
+                                    </li>
                                 </ul>
                             </div>
                         </nav>

@@ -21,6 +21,8 @@ import Checkout from './component/check_out'
 import Delivery from './component/delivery'
 import ProfileManager from './component/profilManager'
 import OrderConfirmation from './component/order_confirm'
+import ContactForm from './component/contact'
+import ContactConfirmation from './component/contactSupportConfirm'
 
 const container = document.getElementById('root')
 
@@ -70,6 +72,7 @@ function App () {
                 <Route path='/about' element={<About />} />
                 <Route path='/whyus' element={<Whyus />} />
                 <Route path='/testimony' element={<Testimony />} />
+                <Route path='/contact' element={<ContactForm />} />
                 <Route path='/account' element={<Account onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/details' element={<Details selectedDetailProduct={selectedDetailProduct} onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
@@ -78,6 +81,7 @@ function App () {
                 <Route path='/delivery' element={<Delivery onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
                 <Route path='/profil_manager' element={<ProfileManager onloadStateFromLocalStorage={loadStateFromLocalStorage} onSaveStateToLocalStorage={saveStateToLocalStorage} />} />
                 <Route path='/orderConfirmation' element={<OrderConfirmation />} />
+                <Route path='/contactSupportConfirm' element={<ContactConfirmation />} />
             </Routes>
             <Footer />
         </div>

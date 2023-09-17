@@ -65,14 +65,14 @@ const Testimony = () => {
                                         </div>
                                         <div className='client-id'>
                                             <div className='img-box'>
-                                                <img src='/public/images/client.jpg' alt='' />
+                                                <img src='/public/images/taoufik.jpg' alt='' height='200' />
                                             </div>
                                             <div className='name'>
                                                 <h5>
-                                                    James Dew
+                                                    Taoufik Boussemousse
                                                 </h5>
                                                 <h6>
-                                                    Photographer
+                                                    Programmeur
                                                 </h6>
                                             </div>
                                         </div>

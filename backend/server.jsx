@@ -9,7 +9,8 @@ const port = 5000
 const transporter = nodemailer.createTransport({
     service: 'Outlook',
     auth: {
-        user: 'TheSacTeamBoutique@outlook.com',
+        // TheSacTeamBoutique@outlook.com
+        user: 'TheSacTeamBoutique@outlook.fr',
         pass: '@etu456...'
     }
 })
@@ -125,7 +126,7 @@ app.post('/envoyer-email', (req, res) => {
     const { destinataire, sujet, contenu } = req.body
 
     const mailOptions = {
-        from: 'TheSacTeamBoutique@outlook.com',
+        from: 'TheSacTeamBoutique@outlook.fr',
         to: destinataire,
         subject: sujet,
         text: contenu
