@@ -38,8 +38,9 @@ function Comment ({ product }) {
         }
     }
 
+    // Hàm xử lý khi người dùng bấm nút "Clear"
     const clearComment = () => {
-        setCommentText('')
+        setCommentText('') // Đặt giá trị của nội dung thành chuỗi rỗng
     }
 
     // Hàm để thêm bình luận mới

@@ -142,6 +142,41 @@ app.post('/envoyer-email', (req, res) => {
         }
     })
 })
+// API ajouter commentaire
+app.post('/add-comment', (req, res) => {
+    const { userId, rating, text, productId } = req.body
+    if (!userId || !rating || !text) {
+        return res.status(400).json({ error: 'Missing required fields' })
+    }
+
+    const createdAt = new Date().toISOString()
+
+    db.run(
+        'INSERT INTO Comment (userId, rating, text, createdAt, productId) VALUES (?, ?, ?, ?, ?)',
+        [userId, rating, text, createdAt, productId],
+        function (err) {
+            if (err) {
+                console.error(err)
+                return res.status(500).json({ error: 'Failed to add comment' })
+            }
+
+            res.status(201).json({ message: 'Comment added successfully' })
+        }
+    )
+})
+
+// API pour obtenir list des commentaires
+app.get('/comments/:productId', (req, res) => {
+    const productId = req.params.productId
+    db.all('SELECT * FROM Comment WHERE productId = ?', [productId], (err, comments) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Internal server error' })
+        } else {
+            res.json(comments)
+        }
+    })
+})
 
 app.put('/profil', (req, res) => {
     const updatedUserData = req.body

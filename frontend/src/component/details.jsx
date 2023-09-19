@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const [product, setProduct] = useState([])
+    console.log('product trong trang details: ', product)
     const [quantity, setQuantity] = useState(1)
     const maxQuantity = product.quantity
 
@@ -142,8 +143,9 @@ const Details = ({ selectedDetailProduct, onloadStateFromLocalStorage, onSaveSta
                     </div>
                 </div>
             </section>
-
-            <Comment />
+            {/* <!-- content --> */}
+            <Comment product={product} />
+            {/* <!-- end about section --> */}
         </>
     )
 }
