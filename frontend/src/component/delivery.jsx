@@ -1,20 +1,21 @@
-import React from 'react'
-import { MDBAccordion, MDBAccordionItem, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
-// import { useNavigate } from 'react-router'
+import React, { useState } from 'react'
+import { MDBAccordion, MDBAccordionItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit'
+import { useNavigate } from 'react-router'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import sweetalert from 'sweetalert2'
 function Delivery ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) {
     const sessionUser = onloadStateFromLocalStorage()
 
-    // const navigate = useNavigate()
-    const firstNAme = sessionUser.prenom
-    const lastName = sessionUser.nom
-    const userEmail = sessionUser.email
-    const noCivique = sessionUser.noCivique
-    const street = sessionUser.street
-    const city = sessionUser.city
-    const pays = sessionUser.pays
+    const navigate = useNavigate()
+
+    const [firstNAme, setFirstNAme] = useState(sessionUser.prenom)
+    const [lastName, setLastName] = useState(sessionUser.nom)
+    const [userEmail, setUserEmail] = useState(sessionUser.email)
+    const [noCivique, setNoCivique] = useState(sessionUser.noCivique)
+    const [street, setStreet] = useState(sessionUser.street)
+    const [city, setCity] = useState(sessionUser.city)
+    const [pays, setPays] = useState(sessionUser.pays)
     const paniers = sessionUser.panier.articles
 
     console.log('firstNAme', firstNAme)
