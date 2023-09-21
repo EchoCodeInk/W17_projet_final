@@ -31,6 +31,7 @@ Il existe plusieurs fonctionnalités parmi ces fonctionnalités :
 - Permet à l'utilisateur de saisir des informations de paiement (prénom, nom, numéro de carte, date d'expiration, CVV).
 - Affiche un message de remerciement à l'utilisateur après avoir passé une commande.
 - Envoie un e-mail de confirmation de commande à l'utilisateur.
+- Push notifications (OneSignal).
 
 ## Préparation et Installation
 
