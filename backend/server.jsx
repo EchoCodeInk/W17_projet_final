@@ -142,7 +142,7 @@ app.post('/envoyer-email', (req, res) => {
         }
     })
 })
-// API ajouter commentaire
+
 app.post('/add-comment', (req, res) => {
     const { userId, rating, text, productId } = req.body
     if (!userId || !rating || !text) {
@@ -165,7 +165,6 @@ app.post('/add-comment', (req, res) => {
     )
 })
 
-// API pour obtenir list des commentaires
 app.get('/comments/:productId', (req, res) => {
     const productId = req.params.productId
     db.all('SELECT * FROM Comment WHERE productId = ?', [productId], (err, comments) => {
