@@ -32,6 +32,9 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                 if (response.status === 200) {
                     setIsEditing(false)
                     navigate('/profil_manager')
+                    sweetalert.fire({
+                        title: 'your information has been successfully updated'
+                    })
                 }
             })
             .catch(error => {

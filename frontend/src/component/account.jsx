@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import sweetalert from 'sweetalert2'
-import Utilisateur from '../../../backend/entities/Utilisateur'
+import Utilisateur from '../../../backend/entities/utilisateur'
 const Account = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const navigate = useNavigate()
     let sessionUser = onloadStateFromLocalStorage()
