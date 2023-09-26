@@ -28,12 +28,11 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
     const handleOnSaveProfil = () => {
         axios.put('http://localhost:5000/profil', sessionUser)
             .then(response => {
-                console.log('profil manager response', response)
                 if (response.status === 200) {
                     setIsEditing(false)
                     navigate('/profil_manager')
                     sweetalert.fire({
-                        title: 'your information has been successfully updated'
+                        title: 'Your information has been successfully updated'
                     })
                 }
             })
@@ -63,14 +62,16 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
             formDataObject[key] = value
         })
 
-        if (formDataObject.password === '' || formDataObject.confirmPassword === '' || formDataObject.confirmPassword !== formDataObject.password) {
+        if (formDataObject.password === '' || confirPassword === '' || confirPassword !== formDataObject.password) {
             sweetalert.fire({
                 title: 'Password non conforme'
             })
+            setIsEditing(false)
+        } else {
+            handleOnSaveProfil()
+            onSaveStateToLocalStorage(sessionUser)
         }
-
-        handleOnSaveProfil()
-        onSaveStateToLocalStorage(sessionUser)
+        setConfirPassword('')
     }
 
     return (
@@ -113,7 +114,6 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                         type='password'
                         id='password'
                         name='password'
-                        // value={isEditing ? null : ''}
                         value={isEditing ? sessionUser.password : ''}
                         onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null}
                     />
@@ -123,7 +123,6 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                         type='password'
                         id='confirmPassword'
                         name='confirmPassword'
-                        // value={isEditing ? null : ''}
                         value={isEditing ? confirPassword : ''}
                         onChange={isEditing ? (e) => setConfirPassword(e.target.value) : null}
                     />
