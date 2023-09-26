@@ -23,12 +23,10 @@ function Comment ({ product }) {
     const userLogin = localStorage.getItem('session')
     const objetUserLogin = JSON.parse(userLogin)
     const [comments, setComments] = useState([])
-    const [addCommentRating, setAddCommentRating] = useState(0) // Đánh giá cho phần "Add a comment"
+    const [addCommentRating, setAddCommentRating] = useState(0)
     const [commentText, setCommentText] = useState('')
     const [hoveredStar, setHoveredStar] = useState(0)
-    // const [clickedStar, setClickedStar] = useState(0) // Đánh giá đã click
 
-    // Hàm để lấy danh sách bình luận từ máy chủ
     const fetchComments = async () => {
         try {
             const response = await axios.get(`http://localhost:5000/comments/${productID}`)
@@ -61,8 +59,8 @@ function Comment ({ product }) {
             const response = await axios.post('http://localhost:5000/add-comment', newComment)
 
             if (response.status === 200) {
-                fetchComments() // Sau khi thêm bình luận thành công, cập nhật danh sách bình luận
-                setAddCommentRating(0) // Đặt lại đánh giá sao và nội dung bình luận
+                fetchComments()
+                setAddCommentRating(0)
                 setCommentText('')
             } else {
                 console.error('Failed to add comment')
@@ -72,8 +70,6 @@ function Comment ({ product }) {
         }
     }
 
-    // Lấy danh sách bình luận khi trang được tải lần đầu
-
     useEffect(
         () => {
             if (productID) {
@@ -82,23 +78,18 @@ function Comment ({ product }) {
         }
         , [productID])
 
-    // Xử lý khi người dùng di chuột qua một ngôi sao
     const handleStarHover = (star) => {
         setHoveredStar(star)
     }
 
-    // Xử lý khi người dùng rời chuột khỏi ngôi sao
     const handleStarLeave = () => {
         setHoveredStar(0)
     }
 
-    // Xử lý khi người dùng click vào ngôi sao
     const handleStarClick = (star) => {
         setAddCommentRating(star)
-        // setClickedStar(star)
     }
 
-    // Hàm để hiển thị các ngôi sao và thay đổi màu sắc khi người dùng hover qua
     const renderRatingStars = () => {
         return [1, 2, 3, 4, 5].map((star) => (
             <span

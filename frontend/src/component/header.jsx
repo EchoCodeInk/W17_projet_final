@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Categories from '../component/categories'
 import ConnectButton from './connect_button'
-import Utilisateur from '../../../backend/entities/Utilisateur'
+import Utilisateur from '../../../backend/entities/utilisateur'
 
 const Header = ({ onSearchCategoryName, onSearchQueryChange, handleReloadProduct, onloadStateFromLocalStorage, onSaveStateToLocalStorage }) => {
     const [searchQuery, setSearchQuery] = useState('')

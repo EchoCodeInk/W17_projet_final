@@ -8,6 +8,8 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
     const sessionUserOnload = onloadStateFromLocalStorage()
     const [isEditing, setIsEditing] = useState()
     const navigate = useNavigate()
+    const [confirPassword, setConfirPassword] = useState('')
+
     const [sessionUser, setSessionUser] = useState({
         id: sessionUserOnload.id,
         prenom: sessionUserOnload.prenom,
@@ -30,6 +32,9 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                 if (response.status === 200) {
                     setIsEditing(false)
                     navigate('/profil_manager')
+                    sweetalert.fire({
+                        title: 'your information has been successfully updated'
+                    })
                 }
             })
             .catch(error => {
@@ -108,7 +113,8 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                         type='password'
                         id='password'
                         name='password'
-                        value={isEditing ? null : ''}
+                        // value={isEditing ? null : ''}
+                        value={isEditing ? sessionUser.password : ''}
                         onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null}
                     />
 
@@ -117,8 +123,9 @@ const ProfileManager = ({ onloadStateFromLocalStorage, onSaveStateToLocalStorage
                         type='password'
                         id='confirmPassword'
                         name='confirmPassword'
-                        value={isEditing ? null : ''}
-                        onChange={isEditing ? (e) => setSessionUser({ ...sessionUser, password: e.target.value }) : null}
+                        // value={isEditing ? null : ''}
+                        value={isEditing ? confirPassword : ''}
+                        onChange={isEditing ? (e) => setConfirPassword(e.target.value) : null}
                     />
 
                     <label htmlFor='nocivique'>No civique</label>
