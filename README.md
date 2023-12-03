@@ -33,11 +33,16 @@ To start the project, make sure you have Node.js installed.
 ## Credits
 
 
-------------------
+## Contributors
 
-[@Evan Cholette]
-[@Taoufik Boussemousse]
-[@Sara Salek]
-[@Antoine Ouellet]
-[@Charles-Maximilien Gros]
-[@Công Tai Hô]
+- [Evan Cholette](https://github.com/EchoCodeInk) - Lead Developer
+- [Taoufik Boussemousse](https://github.com/BoussemousseT) - Developer
+- [Antoine Ouellet](https://github.com/TonyDude007) - Developer
+- [Charles-Maximilien Gros](https://github.com/Charles-MaxGros) - Developer
+- [Sara Salek](https://github.com/arasSalek) - Developer
+- [Công Tai Hô](https://github.com/congtaiho) - Developer
+
+
+
+
+
